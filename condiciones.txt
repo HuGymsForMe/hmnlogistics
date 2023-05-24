@@ -1,0 +1,34 @@
+ADD SUCURSALES --> No hace falte ninguna condición                                      #HECHO
+DEL SUCURSALES --> Se tienen que borrar todos los clientes, departamentos y pedidos
+LIS SUCURSALES -->                                                                      #HECHO
+    MOD SUCURSALES -->                                                                  
+
+ADD ARTICULOS --> Tiene que existir el cliente al cual le añadimos el articulo          #HECHO  
+DEL ARTICULOS --> No hace falta ninguna condición                                       #HECHO
+LIS ARTICULOS -->                                                                       #HECHO
+    MOD ARTICULOS -->                                                                   #HECHO
+
+ADD CLIENTES --> Tiene que existir la sucursal a la que le enviamos                     #HECHO
+DEL CLIENTES --> Hay que borrar todos los articulos que tenga ese cliente               #FALTA BORRAR LOS ARTICULOS
+LIS CLIENTES -->                                                                        #HECHO
+    MOD CLIENTES -->                                                                    #HECHO
+
+ADD DISTRIBUIDORES --> No hace falta ninguna condicion                                  #HECHO
+DEL DISTRIBUIDORES --> Hay que borrar los pedidos de ese distribuidor
+LIS DISTRIBUIDORES -->                                                                  #HECHO
+    MOD DISTRIBUIDORES -->
+
+ADD PEDIDOS --> Tiene que existir el distribuidor y la sucursal                         #HECHO
+DEL PEDIDOS --> No hace falta ninguna condicion
+LIS PEDIDOS --> 
+    MOD PEDIDOS -->
+
+ADD DEPARTAMENTOS -->
+DEL DEPARTAMENTOS -->
+LIS DEPARTAMENTOS -->
+    MOD DEPARTAMENTOS -->
+
+ADD EMPLEADOS -->
+DEL EMPLEADOS -->
+LIS EMPLEADOS -->
+    MOD EMPLEADOS -->
