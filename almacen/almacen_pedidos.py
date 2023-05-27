@@ -25,20 +25,23 @@ class AlmacenPedidos(Almacen):
                         AlmacenPedidos.CamposFicheroCsv.PRECIO+1)
 
     def cargar_datos(self):
-        with open(os.path.join(self.RUTA_FICHEROS, 'pedidos.csv'), 'r', 
-        encoding='UTF-8') as fichero_pedidos:
-            lineas = fichero_pedidos.readlines()
-            for linea in lineas:
-                datos = linea.split(';')
-                cod_pedido = datos[self.CamposFicheroCsv.COD_PEDIDO].strip()
-                cod_distribuidor = datos[self.CamposFicheroCsv.COD_DISTRIBUIDOR].strip()
-                cod_sucursal = datos[self.CamposFicheroCsv.COD_SUCURSAL].strip()
-                fecha_pedido = str(datos[self.CamposFicheroCsv.FECHA_PEDIDO].strip())
-                cantidad_articulos = datos[self.CamposFicheroCsv.CANTIDAD_ARTICULOS].strip()
-                peso = datos[self.CamposFicheroCsv.PESO].strip()
-                precio = datos[self.CamposFicheroCsv.PRECIO].strip()
-                nuevo_pedido = Pedido(cod_pedido, cod_distribuidor, cod_sucursal, fecha_pedido, cantidad_articulos, peso, precio)
-                self._pedidos.append(nuevo_pedido)
+        try:
+            with open(os.path.join(self.RUTA_FICHEROS, 'pedidos.csv'), 'r', 
+            encoding='UTF-8') as fichero_pedidos:
+                lineas = fichero_pedidos.readlines()
+                for linea in lineas:
+                    datos = linea.split(';')
+                    cod_pedido = datos[self.CamposFicheroCsv.COD_PEDIDO].strip()
+                    cod_distribuidor = datos[self.CamposFicheroCsv.COD_DISTRIBUIDOR].strip()
+                    cod_sucursal = datos[self.CamposFicheroCsv.COD_SUCURSAL].strip()
+                    fecha_pedido = str(datos[self.CamposFicheroCsv.FECHA_PEDIDO].strip())
+                    cantidad_articulos = datos[self.CamposFicheroCsv.CANTIDAD_ARTICULOS].strip()
+                    peso = datos[self.CamposFicheroCsv.PESO].strip()
+                    precio = datos[self.CamposFicheroCsv.PRECIO].strip()
+                    nuevo_pedido = Pedido(cod_pedido, cod_distribuidor, cod_sucursal, fecha_pedido, cantidad_articulos, peso, precio)
+                    self._pedidos.append(nuevo_pedido)
+        except IndexError:
+            pass
     
     def add_datos(self, dato_cod_pedido, dato_cod_distribuidor, dato_cod_sucursal, 
     dato_fecha_pedido, dato_num_articulos, dato_peso, dato_precio):

@@ -29,16 +29,19 @@ class AlmacenSucursales(Almacen):
         return self._sucursales
 
     def cargar_datos(self):
-        with open(os.path.join(self.RUTA_FICHEROS, 'sucursales.csv'), 'r', 
-        encoding='UTF-8') as fichero_sucursales:
-            lineas = fichero_sucursales.readlines()
-            for linea in lineas:
-                datos = linea.split(';')
-                cod_sucursal = datos[self.CamposFicheroCsv.COD_SUCURSAL].strip()
-                provincia = str(datos[self.CamposFicheroCsv.PROVINCIA].strip())
-                direccion = str(datos[self.CamposFicheroCsv.DIRECCION].strip())
-                nueva_sucursal = Sucursal(cod_sucursal, provincia, direccion)
-                self._sucursales.append(nueva_sucursal)
+        try:
+            with open(os.path.join(self.RUTA_FICHEROS, 'sucursales.csv'), 'r', 
+            encoding='UTF-8') as fichero_sucursales:
+                lineas = fichero_sucursales.readlines()
+                for linea in lineas:
+                    datos = linea.split(';')
+                    cod_sucursal = datos[self.CamposFicheroCsv.COD_SUCURSAL].strip()
+                    provincia = str(datos[self.CamposFicheroCsv.PROVINCIA].strip())
+                    direccion = str(datos[self.CamposFicheroCsv.DIRECCION].strip())
+                    nueva_sucursal = Sucursal(cod_sucursal, provincia, direccion)
+                    self._sucursales.append(nueva_sucursal)
+        except IndexError:
+            pass
 
     def add_datos(self, dato_cod_sucursal, dato_provincia, dato_direccion):
         for sucursal in self._sucursales:

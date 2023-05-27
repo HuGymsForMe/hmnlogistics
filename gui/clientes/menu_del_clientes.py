@@ -45,8 +45,8 @@ class DelClientes(tk.Toplevel):
         dato_borrar_cliente = self.cod_cliente_seleccionado.get()
         reaviso = messagebox.askyesno(message="¿DESEA ELIMINAR EL CLIENTE?")
         if (self.almacen_clientes.del_datos(dato_borrar_cliente) and reaviso):
-            cliente_cancel = messagebox.showinfo(message="CLIENTE ELMINADO CORRECTAMENTE") #AVISAR AL USUARIO QUE SI BORRA EL CLIENTE, BORRA SUS ARTÍCULOS
             self.almacen_articulos.del_articulos_por_del_cliente(dato_borrar_cliente)
+            cliente_cancel = messagebox.showinfo(message="CLIENTE ELMINADO CORRECTAMENTE") #AVISAR AL USUARIO QUE SI BORRA EL CLIENTE, BORRA SUS ARTÍCULOS
         else:
             cliente_not_found = messagebox.showerror(message="CLIENTE NO ENCONTRADO EN EL SISTEMA")
 

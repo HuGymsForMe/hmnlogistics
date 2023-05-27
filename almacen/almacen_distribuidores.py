@@ -25,15 +25,18 @@ class AlmacenDistribuidores(Almacen):
         return self._distribuidores
     
     def cargar_datos(self):
-        with open(os.path.join(self.RUTA_FICHEROS, 'distribuidores.csv'), 'r', 
-        encoding='UTF-8') as fichero_distribuidores:
-            lineas = fichero_distribuidores.readlines()
-            for linea in lineas:
-                datos = linea.split(';')
-                cod_distribuidor = datos[self.CamposFicheroCsv.COD_DISTRIBUIDOR].strip()
-                nombre = str(datos[self.CamposFicheroCsv.NOMBRE].strip())
-                nuevo_distribuidor = Distribuidor(cod_distribuidor, nombre)
-                self._distribuidores.append(nuevo_distribuidor)
+        try:
+            with open(os.path.join(self.RUTA_FICHEROS, 'distribuidores.csv'), 'r', 
+            encoding='UTF-8') as fichero_distribuidores:
+                lineas = fichero_distribuidores.readlines()
+                for linea in lineas:
+                    datos = linea.split(';')
+                    cod_distribuidor = datos[self.CamposFicheroCsv.COD_DISTRIBUIDOR].strip()
+                    nombre = str(datos[self.CamposFicheroCsv.NOMBRE].strip())
+                    nuevo_distribuidor = Distribuidor(cod_distribuidor, nombre)
+                    self._distribuidores.append(nuevo_distribuidor)
+        except IndexError:
+            pass
 
     def add_datos(self, dato_cod_distribuidor, dato_nombre):
         for distribuidor in self._distribuidores:

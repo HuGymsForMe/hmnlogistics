@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk, messagebox
 
+from gui.articulos.menu_mod_articulos import ModArticulos
+
 class LisArticulos(tk.Toplevel):
     class ConstantesListado:
         COD_ARTICULO = 0
@@ -21,9 +23,9 @@ class LisArticulos(tk.Toplevel):
         self.almacen_clientes = almacen_clientes
         self.menu_articulos = menu_articulos
 
-        self.minsize(900, 530)
-        self.geometry("900x530+400+150")
-        self.maxsize(1300, 530)
+        self.minsize(900, 400)
+        self.geometry("900x400+400+150")
+        self.maxsize(1300, 400)
 
         self.withdraw()
         self.title("MIS SUCURSALES")
@@ -35,24 +37,17 @@ class LisArticulos(tk.Toplevel):
         self.descripcion_var = tk.StringVar()
         self.categoria_var = tk.StringVar()
 
+        self.ventana_mod_articulos = ModArticulos(self.master, self.almacen_articulos, self.almacen_clientes,
+        self.cod_articulo_var, self.cod_cliente_var, self.nombre_var, self.descripcion_var, self.categoria_var, self)
+
         self.title_lis_sucursales = ttk.Label(self, text="MIS ARTÍCULOS", font=("Helvetica", 12)) 
-        self.tree_articulos = ttk.Treeview(self)    
+        self.tree_articulos = ttk.Treeview(self)
+        self.print_filtro = ttk.Label(self, text="REALIZAR BUSQUEDA:", font=("Helvetica", 9))    
         self.input_filtro = ttk.Entry(self)
+
         self.input_filtro.bind('<KeyRelease>', self.realizar_busqueda)
 
-        #MODIFICACION
-        self.print_cod_articulo = ttk.Label(self, text="CÓDIGO DE ARTÍCULO:", font=("Helvetica", 9))
-        self.input_cod_articulo = ttk.Entry(self, textvariable=self.cod_articulo_var, state='readonly')
-        self.print_cod_cliente = ttk.Label(self, text="CÓDIGO DE CLIENTE:", font=("Helvetica", 9))
-        self.eleccion_cod_cliente = ttk.Combobox(self, values=[], textvariable=self.cod_cliente_var)
-        self.print_nombre = ttk.Label(self, text="NOMBRE:", font=("Helvetica", 9))
-        self.input_nombre = ttk.Entry(self, textvariable=self.nombre_var)
-        self.print_descripcion = ttk.Label(self, text="DESCRIPCIÓN:", font=("Helvetica", 9))
-        self.input_descripcion = ttk.Entry(self, textvariable=self.descripcion_var)
-        self.print_categoria = ttk.Label(self, text="CATEGORÍA:", font=("Helvetica", 9))
-        self.posibles_categorias = ["ROPA", "OCIO", "DEPORTES", "ALIMENTACIÓN", "HOGAR", "COSMÉTICA", "EDUCACIÓN", "TECNOLOGÍA"]
-        self.eleccion_categorias = ttk.Combobox(self, values=self.posibles_categorias, textvariable=self.categoria_var)
-        self.boton_mod_articulos = ttk.Button(self, text="MODIFICAR", command=self.realizar_modificaciones)
+        self.boton_mod_articulos = ttk.Button(self, text="MODIFICAR ARTÍCULO", command=self.abrir_ventana_mod_articulos)
 
         #TABLA
         self.tree_articulos["columns"] = ("COD_ARTICULO", "COD_CLIENTE", "NOMBRE", "DESCRIPCION", "CATEGORIA")   
@@ -74,29 +69,13 @@ class LisArticulos(tk.Toplevel):
         self.tree_articulos.bind('<<TreeviewSelect>>', self.on_select)
 
     def mostrar_menu(self):
-        self.actualizar_posibles_cod_cliente()
         self.title_lis_sucursales.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
+        self.print_filtro.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.input_filtro.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.tree_articulos.pack(fill="both", expand=True)
+        self.boton_mod_articulos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.crear_listado()
-
-        #CAMPOS MODIFICACIONES
-        self.print_cod_articulo.pack()
-        self.input_cod_articulo.pack()
-        self.print_cod_cliente.pack()
-        self.eleccion_cod_cliente.pack()
-        self.print_nombre.pack()
-        self.input_nombre.pack()
-        self.print_descripcion.pack()
-        self.input_descripcion.pack()
-        self.print_categoria.pack()
-        self.eleccion_categorias.pack()
-        self.boton_mod_articulos.pack()
         self.deiconify()
-
-    def actualizar_posibles_cod_cliente(self):
-        self.posibles_cod_cliente = self.almacen_clientes.generar_combobox()
-        self.eleccion_cod_cliente['values'] = self.posibles_cod_cliente
 
     def crear_listado(self):
         self.tree_articulos.delete(*self.tree_articulos.get_children())
@@ -128,17 +107,6 @@ class LisArticulos(tk.Toplevel):
         dato_categoria = self.categoria_var.get().upper()
         return dato_cod_articulo, dato_cod_cliente, dato_nombre, dato_descripcion, dato_categoria    
 
-    def realizar_modificaciones(self):
-        dato_cod_articulo, dato_cod_cliente, dato_nombre, dato_descripcion, dato_categoria = self.recoger_datos()
-        reaviso = messagebox.askyesno(message="¿DESEA MODIFICAR EL ARTÍCULO?")
-        if reaviso:
-            if dato_cod_cliente in self.posibles_cod_cliente and dato_categoria in self.posibles_categorias:
-                self.almacen_articulos.del_datos(dato_cod_articulo)
-                self.almacen_articulos.add_datos(dato_cod_articulo, dato_cod_cliente, dato_nombre, dato_descripcion, dato_categoria)
-                self.on_close()
-            else:
-                datos_erroneos = messagebox.showerror(message="DATOS INCORRRECTOS")
-
     def on_select(self, event):
         try:
             selected_item = self.tree_articulos.selection()[0]
@@ -150,3 +118,16 @@ class LisArticulos(tk.Toplevel):
             self.categoria_var.set(values[self.ConstantesListado.CATEGORIA])
         except IndexError:
             pass
+
+    def ocultar_menu(self):
+        self.withdraw()
+        
+    def abrir_ventana_mod_articulos(self):
+        dato_cod_articulo, dato_cod_cliente, dato_nombre, dato_descripcion, dato_categoria = self.recoger_datos()
+        if (dato_cod_articulo == '' and dato_cod_cliente == '' 
+        and dato_nombre == '' and dato_descripcion == '' and dato_categoria == ''):
+            adevertencia = messagebox.showwarning(message="DEBES SELECCIONAR UN ARTÍCULO")
+        else:
+            self.ocultar_menu()
+            self.ventana_mod_articulos.mostrar_menu()
+            self.ventana_mod_articulos.mainloop()

@@ -11,7 +11,7 @@ LIS ARTICULOS -->                                                               
 ADD CLIENTES --> Tiene que existir la sucursal a la que le enviamos                     #HECHO
 DEL CLIENTES --> Hay que borrar todos los articulos que tenga ese cliente               #FALTA BORRAR LOS ARTICULOS
 LIS CLIENTES -->                                                                        #HECHO
-    MOD CLIENTES -->                                                                    #HECHO
+    MOD CLIENTES -->                                                                    #PASARLO A UNA VENTANA
 
 ADD DISTRIBUIDORES --> No hace falta ninguna condicion                                  #HECHO
 DEL DISTRIBUIDORES --> Hay que borrar los pedidos de ese distribuidor

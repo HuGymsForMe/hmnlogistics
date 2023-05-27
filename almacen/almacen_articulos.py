@@ -30,18 +30,21 @@ class AlmacenArticulos(Almacen):
         return self._articulos
 
     def cargar_datos(self):
-        with open(os.path.join(self.RUTA_FICHEROS, 'articulos.csv'), 'r', 
-        encoding='UTF-8') as fichero_articulos:
-            lineas = fichero_articulos.readlines()
-            for linea in lineas:
-                datos = linea.split(';')
-                cod_articulo = datos[self.CamposFicheroCsv.COD_ARTICULO].strip()
-                cod_cliente = datos[self.CamposFicheroCsv.COD_CLIENTE].strip()
-                nombre = str(datos[self.CamposFicheroCsv.NOMBRE].strip())
-                descripcion = str(datos[self.CamposFicheroCsv.DESCRIPCION].strip())
-                categoria = str(datos[self.CamposFicheroCsv.CATEGORIA].strip())
-                nuevo_articulo = Articulo(cod_articulo, cod_cliente, nombre, descripcion, categoria)
-                self._articulos.append(nuevo_articulo)
+        try:
+            with open(os.path.join(self.RUTA_FICHEROS, 'articulos.csv'), 'r', 
+            encoding='UTF-8') as fichero_articulos:
+                lineas = fichero_articulos.readlines()
+                for linea in lineas:
+                    datos = linea.split(';')
+                    cod_articulo = datos[self.CamposFicheroCsv.COD_ARTICULO].strip()
+                    cod_cliente = datos[self.CamposFicheroCsv.COD_CLIENTE].strip()
+                    nombre = str(datos[self.CamposFicheroCsv.NOMBRE].strip())
+                    descripcion = str(datos[self.CamposFicheroCsv.DESCRIPCION].strip())
+                    categoria = str(datos[self.CamposFicheroCsv.CATEGORIA].strip())
+                    nuevo_articulo = Articulo(cod_articulo, cod_cliente, nombre, descripcion, categoria)
+                    self._articulos.append(nuevo_articulo)
+        except IndexError:
+            pass
 
 
     def add_datos(self, dato_cod_articulo, dato_cod_cliente, dato_nombre, dato_descripcion, dato_categoria):
@@ -78,7 +81,7 @@ class AlmacenArticulos(Almacen):
         except IndexError:
             pass
     
-    def del_articulos_por_del_cliente(self, dato_borrar_cliente):
+    '''def del_articulos_por_del_cliente(self, dato_borrar_cliente):
         try:
             with open(os.path.join(self.RUTA_FICHEROS, 'articulos.csv'), 'r', encoding="UTF-8") as fichero_articulos:
                 lineas = fichero_articulos.readlines()
@@ -92,9 +95,9 @@ class AlmacenArticulos(Almacen):
                     contador += 1
                 return False
         except IndexError:
-            pass
+            pass'''
 
-    '''def del_articulos_por_del_cliente(self, dato_borrar_cliente):
+    def del_articulos_por_del_cliente(self, dato_borrar_cliente):
         try:
             for articulo in self._articulos:
                 if dato_borrar_cliente == articulo.cod_cliente:
@@ -103,7 +106,7 @@ class AlmacenArticulos(Almacen):
                     contador += 1
                 return False
         except IndexError:
-            pass'''
+            pass
 
     def sobreescribir_datos(self):
         with open(os.path.join(self.RUTA_FICHEROS, 'articulos.csv'), 'w', encoding="UTF-8") as nuevo_csv_articulos:

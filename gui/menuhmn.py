@@ -49,8 +49,8 @@ class MenuHmn:
         self.boton_sucursales = ttk.Button(self.master, text="SUCURSALES", command=self.acceder_menu_sucursales)
         self.boton_pedidos = ttk.Button(self.master, text="PEDIDOS", command=self.acceder_menu_pedidos)
         self.boton_distribuidores = ttk.Button(self.master, text="DISTRIBUIDORES", command=self.acceder_menu_distribuidores)
-        self.boton_departamentos = ttk.Button(self.master, text="DEPARTAMENTOS")
-        self.boton_empleados = ttk.Button(self.master, text="EMPLEADOS")
+        self.boton_departamentos = ttk.Button(self.master, text="DEPARTAMENTOS", command=self.acceder_menu_departamentos)
+        self.boton_empleados = ttk.Button(self.master, text="EMPLEADOS", command=self.acceder_menu_empleados)
         self.guardar_datos = ttk.Button(self.master, text="GUARDAR", command=self.clickar_boton_guardar)
         self.guardar_salir = ttk.Button(self.master, text="GUARDAR Y SALIR", command=self.clickar_boton_guardar_salir)
 
@@ -89,6 +89,14 @@ class MenuHmn:
     def acceder_menu_pedidos(self):
         self.ocultar_menu()
         self.ventana_pedidos.mostrar_menu()
+
+    def acceder_menu_departamentos(self):
+        self.ocultar_menu()
+        self.ventana_departamentos.mostrar_menu()
+
+    def acceder_menu_empleados(self):
+        self.ocultar_menu()
+        self.ventana_empleados.mostrar_menu()
 
     def on_close(self):
         self.master.destroy()

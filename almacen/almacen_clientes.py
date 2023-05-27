@@ -26,16 +26,19 @@ class AlmacenClientes(Almacen):
         return self._clientes
 
     def cargar_datos(self):
-        with open(os.path.join(self.RUTA_FICHEROS, 'clientes.csv'), 'r', 
-        encoding='UTF-8') as fichero_clientes:
-            lineas = fichero_clientes.readlines()
-            for linea in lineas:
-                datos = linea.split(';')
-                cod_cliente = datos[self.CamposFicheroCsv.COD_CLIENTE].strip()
-                cod_sucursal = datos[self.CamposFicheroCsv.COD_SUCURSAL].strip()
-                nombre = str(datos[self.CamposFicheroCsv.NOMBRE].strip())
-                nuevo_cliente = Cliente(cod_cliente, cod_sucursal, nombre)
-                self._clientes.append(nuevo_cliente)
+        try:
+            with open(os.path.join(self.RUTA_FICHEROS, 'clientes.csv'), 'r', 
+            encoding='UTF-8') as fichero_clientes:
+                lineas = fichero_clientes.readlines()
+                for linea in lineas:
+                    datos = linea.split(';')
+                    cod_cliente = datos[self.CamposFicheroCsv.COD_CLIENTE].strip()
+                    cod_sucursal = datos[self.CamposFicheroCsv.COD_SUCURSAL].strip()
+                    nombre = str(datos[self.CamposFicheroCsv.NOMBRE].strip())
+                    nuevo_cliente = Cliente(cod_cliente, cod_sucursal, nombre)
+                    self._clientes.append(nuevo_cliente)
+        except IndexError:
+            pass
 
     def add_datos(self, dato_cod_cliente, dato_cod_sucursal, dato_nombre):
         for cliente in self._clientes:
