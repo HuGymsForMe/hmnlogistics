@@ -5,16 +5,6 @@ from tkinter import ttk, messagebox
 from gui.clientes.menu_mod_clientes import ModClientes
 
 class LisClientes(tk.Toplevel):
-    class ConstantesListado:
-        COD_CLIENTE = 0
-        COD_SUCURSAL = 1
-        NOMBRE = 2
-
-        @staticmethod
-        def opciones():
-            return range(LisClientes.ConstantesListado.COD_CLIENTE,
-                        LisClientes.ConstantesListado.NOMBRE+1)
-
     def __init__(self, master, almacen_clientes, almacen_sucursal, menu_clientes):
         super().__init__(master)
         self.almacen_clientes = almacen_clientes
@@ -95,9 +85,9 @@ class LisClientes(tk.Toplevel):
         try:
             selected_item = self.tree_clientes.selection()[0]
             values = self.tree_clientes.item(selected_item)['values']
-            self.cod_cliente_var.set(values[self.ConstantesListado.COD_CLIENTE])
-            self.cod_sucursal_var.set(values[self.ConstantesListado.COD_SUCURSAL])
-            self.nombre_var.set(values[self.ConstantesListado.NOMBRE])
+            self.cod_cliente_var.set(values[self.almacen_clientes.CamposFicheroCsv.COD_CLIENTE])
+            self.cod_sucursal_var.set(values[self.almacen_clientes.CamposFicheroCsv.COD_SUCURSAL])
+            self.nombre_var.set(values[self.almacen_clientes.CamposFicheroCsv.NOMBRE])
         except IndexError:
             pass
 

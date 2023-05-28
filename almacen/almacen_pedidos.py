@@ -5,10 +5,10 @@ from almacen.almacen import Almacen
 
 class AlmacenPedidos(Almacen):
     def __init__(self, app):
+        self._cod_pedido_combobox = []
         self._pedidos = []
         self._app = app
         self.RUTA_FICHEROS = os.path.abspath('../hmnlogistics/files')
-
     class CamposFicheroCsv:
         COD_PEDIDO = 0
         COD_DISTRIBUIDOR = 1
@@ -18,7 +18,6 @@ class AlmacenPedidos(Almacen):
         PESO = 5
         PRECIO = 6
         
-
         @staticmethod
         def opciones():
             return range(AlmacenPedidos.CamposFicheroCsv.COD_PEDIDO,
@@ -53,6 +52,31 @@ class AlmacenPedidos(Almacen):
             fecha_pedido=dato_fecha_pedido, cantidad_articulos=dato_num_articulos, peso=dato_peso, precio=dato_precio)
             self._pedidos.append(nuevo_pedido)
             return False
+
+    def generar_combobox(self):
+        with open(os.path.join(self.RUTA_FICHEROS, 'pedidos.csv'), 'r', encoding="UTF-8") as fichero_pedidos:
+                lineas = fichero_pedidos.readlines()
+                for linea in lineas:
+                    campos = linea.split(";")
+                    primer_campo = str(campos[self.CamposFicheroCsv.COD_PEDIDO])
+                    self._cod_pedido_combobox.append(primer_campo)
+                return self._cod_pedido_combobox
+    
+    def del_datos(self, dato_borrar_pedido):
+        try:
+            with open(os.path.join(self.RUTA_FICHEROS, 'pedidos.csv'), 'r', encoding="UTF-8") as fichero_pedidos:
+                lineas = fichero_pedidos.readlines()
+                contador = 0
+                for linea in lineas:
+                    campos = str(linea).split(';')
+                    campo_dato_borrar_pedido = str(campos[self.CamposFicheroCsv.COD_PEDIDO].strip())
+                    if dato_borrar_pedido == campo_dato_borrar_pedido:
+                        self._pedidos.pop(contador)
+                        return True
+                    contador += 1
+                return False
+        except IndexError:
+            pass
 
     def sobreescribir_datos(self):
         with open(os.path.join(self.RUTA_FICHEROS, 'pedidos.csv'), 'w', encoding="UTF-8") as nuevo_csv_pedidos:

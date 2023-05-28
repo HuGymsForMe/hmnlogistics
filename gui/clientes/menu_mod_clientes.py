@@ -49,6 +49,7 @@ class ModClientes(tk.Toplevel):
             if dato_cod_sucursal in self.posibles_cod_sucursal:
                 self.almacen_clientes.del_datos(dato_cod_cliente) #NO SE PUEDE HACER YA QUE AUN NO TENEMOS CONFIGURADO EL BORRAR CLIENTE
                 self.almacen_clientes.add_datos(dato_cod_cliente, dato_cod_sucursal, dato_nombre)
+                messagebox.showinfo(message="EL CLIENTE SE MODIFICÓ CORRECTAMENTE")
                 self.on_close()
             else:
                 datos_erroneos = messagebox.showerror(message="DATOS INCORRRECTOS")

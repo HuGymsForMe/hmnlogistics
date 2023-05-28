@@ -3,12 +3,17 @@ from tkinter import *
 from tkinter import ttk
 
 from almacen.almacen_departamentos import AlmacenDepartamentos
+from almacen.almacen_sucursales import AlmacenSucursales
+
+from gui.departamentos.menu_add_departamentos import AddDepartamentos
 
 class MenuDepartamentos(tk.Toplevel):
     def __init__(self, master, app):
         super().__init__(master, app)
         self._app = app
         self.almacen_departamentos = AlmacenDepartamentos(self)
+        self.almacen_sucursales = AlmacenSucursales(self)
+        self.ventana_add_departamentos = AddDepartamentos(self.master, self.almacen_departamentos, self.almacen_sucursales, self)
 
         self.withdraw()
         self.protocol("WM_DELETE_WINDOW", self.on_close)
@@ -17,7 +22,7 @@ class MenuDepartamentos(tk.Toplevel):
         self.maxsize(300, 200)
         self.title("MENÚ ARTICULOS")
         self.title_departamentos = ttk.Label(self, text="MENÚ DEPARTAMENTOS", font=("Helvetica", 14))
-        self.boton_add_departamentos = ttk.Button(self, text="AÑADIR DEPARTAMENTO")
+        self.boton_add_departamentos = ttk.Button(self, text="AÑADIR DEPARTAMENTO", command=self.abrir_ventana_add_departamentos)
         self.boton_del_departamentos = ttk.Button(self, text="BORRAR DEPARTAMENTO")
         self.boton_lis_departamentos = ttk.Button(self, text="MIS DEPARTAMENTOS")
 
@@ -31,6 +36,11 @@ class MenuDepartamentos(tk.Toplevel):
 
     def ocultar_menu(self):
         self.withdraw()
+
+    def abrir_ventana_add_departamentos(self):
+        self.ocultar_menu()
+        self.ventana_add_departamentos.mostrar_menu()
+        self.ventana_add_departamentos.mainloop()
 
     def on_close(self):
         self.ocultar_menu()

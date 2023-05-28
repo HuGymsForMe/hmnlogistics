@@ -5,18 +5,6 @@ from tkinter import ttk, messagebox
 from gui.articulos.menu_mod_articulos import ModArticulos
 
 class LisArticulos(tk.Toplevel):
-    class ConstantesListado:
-        COD_ARTICULO = 0
-        COD_CLIENTE = 1
-        NOMBRE = 2
-        DESCRIPCION = 3
-        CATEGORIA = 4
-
-        @staticmethod
-        def opciones():
-            return range(LisArticulos.ConstantesListado.COD_ARTICULO,
-                        LisArticulos.ConstantesListado.CATEGORIA+1)
-
     def __init__(self, master, almacen_articulos, almacen_clientes, menu_articulos):
         super().__init__(master)
         self.almacen_articulos = almacen_articulos
@@ -111,11 +99,11 @@ class LisArticulos(tk.Toplevel):
         try:
             selected_item = self.tree_articulos.selection()[0]
             values = self.tree_articulos.item(selected_item)['values']
-            self.cod_articulo_var.set(values[self.ConstantesListado.COD_ARTICULO])
-            self.cod_cliente_var.set(values[self.ConstantesListado.COD_CLIENTE])
-            self.nombre_var.set(values[self.ConstantesListado.NOMBRE])
-            self.descripcion_var.set(values[self.ConstantesListado.DESCRIPCION])
-            self.categoria_var.set(values[self.ConstantesListado.CATEGORIA])
+            self.cod_articulo_var.set(values[self.almacen_articulos.CamposFicheroCsv.COD_ARTICULO])
+            self.cod_cliente_var.set(values[self.almacen_articulos.CamposFicheroCsv.COD_CLIENTE])
+            self.nombre_var.set(values[self.almacen_articulos.CamposFicheroCsv.NOMBRE])
+            self.descripcion_var.set(values[self.almacen_articulos.CamposFicheroCsv.DESCRIPCION])
+            self.categoria_var.set(values[self.almacen_articulos.CamposFicheroCsv.CATEGORIA])
         except IndexError:
             pass
 

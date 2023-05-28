@@ -9,7 +9,6 @@ class AlmacenDistribuidores(Almacen):
         self._distribuidores = []
         self._app = app
         self.RUTA_FICHEROS = os.path.abspath('../hmnlogistics/files')
-        self.CAMPO_COD_DISTRIBUIDOR = 0
 
     class CamposFicheroCsv:
         COD_DISTRIBUIDOR = 0
@@ -52,7 +51,7 @@ class AlmacenDistribuidores(Almacen):
                 lineas = fichero_distribuidores.readlines()
                 for linea in lineas:
                     campos = linea.split(";")
-                    primer_campo = str(campos[self.CAMPO_COD_DISTRIBUIDOR])
+                    primer_campo = str(campos[self.CamposFicheroCsv.COD_DISTRIBUIDOR])
                     self._cod_distribuidor_combobox.append(primer_campo)
                 return self._cod_distribuidor_combobox
 

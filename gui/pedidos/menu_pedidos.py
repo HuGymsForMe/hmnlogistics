@@ -8,6 +8,7 @@ from almacen.almacen_sucursales import AlmacenSucursales
 
 from gui.pedidos.menu_add_pedidos import AddPedidos
 from gui.pedidos.menu_del_pedidos import DelPedidos
+from gui.pedidos.menu_lis_pedidos import LisPedidos
 
 class MenuPedido(tk.Toplevel):
     def __init__(self, master, app):
@@ -18,8 +19,7 @@ class MenuPedido(tk.Toplevel):
         self.almacen_sucursales = AlmacenSucursales(self)
         self.ventana_add_pedidos = AddPedidos(self.master, self.almacen_pedidos, self.almacen_sucursales, self.almacen_distribuidores, self)
         self.ventana_del_pedidos = DelPedidos(self.master, self.almacen_pedidos, self)
-        #self.ventana_add_distribuidores = AddDistribuidores(self.master, self.almacen_distribuidores, self)
-        #self.ventana_lis_distribuidores = LisDistribuidores(self.master, self.almacen_distribuidores, self)
+        self.ventana_lis_pedidos = LisPedidos(self.master, self.almacen_pedidos, self.almacen_sucursales, self.almacen_distribuidores, self)
         self.withdraw()
         self.protocol("WM_DELETE_WINDOW", self.on_close)
         self.minsize(300, 200)

@@ -53,12 +53,12 @@ class AddPedidos(tk.Toplevel):
         self.input_num_articulos.insert(0, self.PLACEHOLDER_NUM_ARTICULOS)
         self.input_num_articulos.bind('<FocusIn>', self.clear_placeholder_input_num_articulos)
         self.input_num_articulos.bind('<FocusOut>', self.set_placeholder_input_num_articulos)
-        self.print_peso = ttk.Label(self, text="PESO:", font=("Helvetica", 9))
+        self.print_peso = ttk.Label(self, text="PESO(kg):", font=("Helvetica", 9))
         self.input_peso = ttk.Entry(self, foreground="gray", textvariable=self.input_peso_seleccionado)
         self.input_peso.insert(0, self.PLACEHOLDER_PESO)
         self.input_peso.bind('<FocusIn>', self.clear_placeholder_input_peso)
         self.input_peso.bind('<FocusOut>', self.set_placeholder_input_peso)
-        self.print_precio = ttk.Label(self, text="PRECIO:", font=("Helvetica", 9))
+        self.print_precio = ttk.Label(self, text="PRECIO(€):", font=("Helvetica", 9))
         self.input_precio = ttk.Entry(self, foreground="gray", textvariable=self.input_precio_seleccionado)
         self.input_precio.insert(0, self.PLACEHOLDER_PRECIO)
         self.input_precio.bind('<FocusIn>', self.clear_placeholder_input_precio)
@@ -117,7 +117,7 @@ PRECIO: {dato_precio}")
             else:
                 datos_erroneos = messagebox.showerror(message="DATOS INCORRRECTOS")
         except ValueError:
-            datos_erroneos = messagebox.showerror(message="DATOS INCORRRECTOS")
+            datos_erroneos
 
 
     #PLACEHOLDERS

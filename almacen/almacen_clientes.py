@@ -9,7 +9,6 @@ class AlmacenClientes(Almacen):
         self._clientes = []
         self._app = app
         self.RUTA_FICHEROS = os.path.abspath('../hmnlogistics/files')
-        self.CAMPO_COD_CLIENTE = 0
 
     class CamposFicheroCsv:
         COD_CLIENTE = 0
@@ -54,7 +53,7 @@ class AlmacenClientes(Almacen):
                 lineas = fichero_clientes.readlines()
                 for linea in lineas:
                     campos = linea.split(";")
-                    primer_campo = str(campos[self.CAMPO_COD_CLIENTE])
+                    primer_campo = str(campos[self.CamposFicheroCsv.COD_CLIENTE])
                     self._cod_cliente_combobox.append(primer_campo)
                 return self._cod_cliente_combobox
 
@@ -65,7 +64,7 @@ class AlmacenClientes(Almacen):
                 contador = 0
                 for linea in lineas:
                     campos = str(linea).split(';')
-                    campo_dato_borrar_cliente = str(campos[self.CAMPO_COD_CLIENTE].strip())
+                    campo_dato_borrar_cliente = str(campos[self.CamposFicheroCsv.COD_CLIENTE].strip())
                     if dato_borrar_cliente == campo_dato_borrar_cliente:
                         self._clientes.pop(contador)
                         return True

@@ -61,6 +61,7 @@ class ModArticulos(tk.Toplevel):
             if dato_cod_cliente in self.posibles_cod_cliente and dato_categoria in self.posibles_categorias:
                 self.almacen_articulos.del_datos(dato_cod_articulo)
                 self.almacen_articulos.add_datos(dato_cod_articulo, dato_cod_cliente, dato_nombre, dato_descripcion, dato_categoria)
+                messagebox.showinfo(message="EL ARTÍCULO SE MODIFICÓ CORRECTAMENTE")
                 self.on_close()
             else:
                 datos_erroneos = messagebox.showerror(message="DATOS INCORRRECTOS")

@@ -4,14 +4,12 @@ class Empleado:
         self._cod_empleado = cod_empleado
         self._cod_departamento = cod_departamento
         self._dni = dni
-        self._nombre = nombre
-        self._apellidos = apellidos
-        self._fecha_nac = fecha_nac
         self._fecha_alta = fecha_alta
         self._salario = salario
-        self._domicilio = domicilio
         self._telefono = telefono
+        self._tipo = tipo
 
     def __str__(self):
-        return f"{self._cod_empleado};{self._cod_departamento};{self._dni};{self._nombre};\n\
-{self._apellidos};{self._fecha_nac};{self._fecha_alta};{self._salario};{self._domicilio};{self._telefono}"
+        return f"{self._cod_empleado};{self._cod_departamento};{self._dni};{self._fecha_alta};{self._salario};{self._telefono};{self._tipo}"
+
+#PODEMOS PLANTEAR DOS LISTADOS, UNO CON TODOS LOS ATRIBUTOS Y OTRO CON ALGUNOS QUE NECESITEMOS PARA ALGO CONCRETO

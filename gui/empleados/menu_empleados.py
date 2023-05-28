@@ -3,12 +3,17 @@ from tkinter import *
 from tkinter import ttk
 
 from almacen.almacen_empleados import AlmacenEmpleados
+from almacen.almacen_departamentos import AlmacenDepartamentos
+
+from gui.empleados.menu_add_empleados import AddEmpleados
 
 class MenuEmpleados(tk.Toplevel):
     def __init__(self, master, app):
         super().__init__(master, app)
         self._app = app
         self.almacen_empleados = AlmacenEmpleados(self)
+        self.almacen_departamentos = AlmacenDepartamentos(self)
+        self.ventana_add_empleados = AddEmpleados(self.master, self.almacen_empleados, self.almacen_departamentos, self)
 
         self.withdraw()
         self.protocol("WM_DELETE_WINDOW", self.on_close)
