@@ -2,17 +2,14 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 
-from almacen.almacen_departamentos import AlmacenDepartamentos
-from almacen.almacen_sucursales import AlmacenSucursales
-
 from gui.departamentos.menu_add_departamentos import AddDepartamentos
 
 class MenuDepartamentos(tk.Toplevel):
-    def __init__(self, master, app):
+    def __init__(self, master, app, almacen_departamentos, almacen_sucursales):
         super().__init__(master, app)
         self._app = app
-        self.almacen_departamentos = AlmacenDepartamentos(self)
-        self.almacen_sucursales = AlmacenSucursales(self)
+        self.almacen_departamentos = almacen_departamentos
+        self.almacen_sucursales = almacen_sucursales
         self.ventana_add_departamentos = AddDepartamentos(self.master, self.almacen_departamentos, self.almacen_sucursales, self)
 
         self.withdraw()

@@ -11,9 +11,9 @@ class AddDepartamentos(tk.Toplevel):
         self.menu_departamentos = menu_departamentos
 
         self.withdraw()
-        self.minsize(200, 200)
-        self.geometry("200x200+650+100")
-        self.maxsize(200, 200)
+        self.minsize(275, 200)
+        self.geometry("275x200+650+100")
+        self.maxsize(275, 200)
         self.title("AÑADIR DEPARTAMENTO")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
@@ -24,7 +24,7 @@ class AddDepartamentos(tk.Toplevel):
         self.cod_sucursal_seleccionado = tk.StringVar()
         self.nombre_seleccionado = tk.StringVar()
 
-        self.title_add_empleados = ttk.Label(self, text="AÑADIR EMPLEADO", font=("Helvetica", 12))
+        self.title_add_empleados = ttk.Label(self, text="AÑADIR DEPARTAMENTO", font=("Helvetica", 12))
         self.print_cod_sucursal = ttk.Label(self, text="CÓDIGO DE SUCURSAL:", font=("Helvetica", 9))
         self.eleccion_sucursal = ttk.Combobox(self, values=[], textvariable=self.cod_sucursal_seleccionado, foreground="gray")
         self.eleccion_sucursal.insert(0, self.PLACEHOLDER_COD_SUCURSAL)
@@ -59,6 +59,8 @@ class AddDepartamentos(tk.Toplevel):
         if datos:
             if self.almacen_departamentos.add_datos(dato_cod_departamento, dato_cod_sucursal, dato_nombre):
                 cod_repetido = messagebox.showinfo(message="EL DEPARTAMENTO YA SE ENCUENTRA EN EL SISTEMA")
+            else:
+                self.on_close()
 
     def actualizar_posibles_sucursales(self):
         self.posibles_sucursales = self.almacen_sucursales.generar_combobox()

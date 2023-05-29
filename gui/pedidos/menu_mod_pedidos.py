@@ -1,14 +1,17 @@
+from tkcalendar import DateEntry
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox, ttk
 
+from clases.validator import Validator
+
 class ModPedidos(tk.Toplevel):
-    def __init__(self, master, almacen_pedidos, almacen_distribuidores, almacen_sucursales, cod_pedido_var, cod_distribuidor_var,
+    def __init__(self, master, almacen_pedidos, almacen_sucursales, almacen_distribuidores, cod_pedido_var, cod_distribuidor_var,
                 cod_sucursal_var, fecha_pedido_var, cantidad_articulos_var, peso_var, precio_var, menu_lis_pedidos):
         super().__init__(master)
         self.almacen_pedidos = almacen_pedidos
-        self.almacen_distribuidores = almacen_distribuidores
         self.almacen_sucursales = almacen_sucursales
+        self.almacen_distribuidores = almacen_distribuidores
         self.cod_pedido_var = cod_pedido_var
         self.cod_distribuidor_var = cod_distribuidor_var
         self.cod_sucursal_var = cod_sucursal_var
@@ -17,6 +20,8 @@ class ModPedidos(tk.Toplevel):
         self.peso_var = peso_var
         self.precio_var = precio_var
         self.menu_lis_pedidos = menu_lis_pedidos
+        self.no_mostrar_calendario = True
+        self.validador = Validator()
 
         self.withdraw()
         self.minsize(400, 450)
@@ -38,7 +43,7 @@ class ModPedidos(tk.Toplevel):
         self.print_peso = ttk.Label(self, text="PESO(kg):", font=("Helvetica", 9))
         self.input_peso = ttk.Entry(self, textvariable=self.peso_var)
         self.print_precio = ttk.Label(self, text="PRECIO(€):", font=("Helvetica", 9))
-        self.input_precio = ttk.Label(self, textvariable=self.precio_var)
+        self.input_precio = ttk.Entry(self, textvariable=self.precio_var)
         self.boton_mod_pedidos = ttk.Button(self, text="REALIZAR CAMBIOS", command=self.realizar_modificaciones)
 
     def mostrar_menu(self):
@@ -50,7 +55,10 @@ class ModPedidos(tk.Toplevel):
         self.print_cod_sucursal.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.eleccion_cod_sucursal.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.print_fecha_pedido.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.input_fecha_pedido.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
+        if self.no_mostrar_calendario: #LO PONEMOS ASÍ PARA QUE SOLO SE MUESTRE UNA VEZ
+            self.input_fecha_pedido = DateEntry(self, date_pattern='yyyy-mm-dd') #NO LO PONEMOS EN EL INIT PORQUE SALTA UN PANTALLAZO RARO
+            self.input_fecha_pedido.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
+            self.no_mostrar_calendario = False
         self.print_cantidad_articulos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.input_cantidad_articulos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.print_peso.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
@@ -68,7 +76,7 @@ class ModPedidos(tk.Toplevel):
 
     def realizar_modificaciones(self):
         try:
-            dato_cod_pedido, dato_cod_distribuidor, dato_cod_sucursal, dato_fecha_pedido, dato_num_articulos, dato_peso, dato_precio = self.almacen_pedidos.recoger_datos()
+            dato_cod_pedido, dato_cod_distribuidor, dato_cod_sucursal, dato_fecha_pedido, dato_num_articulos, dato_peso, dato_precio = self.menu_lis_pedidos.recoger_datos()
             if (dato_cod_distribuidor in self.posibles_cod_distribuidor
                 and dato_cod_sucursal in self.posibles_cod_sucursal
                 and self.validador.validador_fecha(dato_fecha_pedido)):

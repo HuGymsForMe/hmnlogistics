@@ -79,30 +79,17 @@ class AlmacenArticulos(Almacen):
         except IndexError:
             pass
     
-    '''def del_articulos_por_del_cliente(self, dato_borrar_cliente):
-        try:
-            with open(os.path.join(self.RUTA_FICHEROS, 'articulos.csv'), 'r', encoding="UTF-8") as fichero_articulos:
-                lineas = fichero_articulos.readlines()
-                contador = 0
-                for linea in lineas:
-                    campos = str(linea).split(';')
-                    campo_dato_borrar_cliente = str(campos[self.CAMPO_COD_CLIENTE].strip())
-                    if dato_borrar_cliente == campo_dato_borrar_cliente:
-                        self._articulos.pop(contador)
-                        return True
-                    contador += 1
-                return False
-        except IndexError:
-            pass'''
-
     def del_articulos_por_del_cliente(self, dato_borrar_cliente):
         try:
+            contador = 0
             for articulo in self._articulos:
-                if dato_borrar_cliente == articulo.cod_cliente:
+                if dato_borrar_cliente == articulo._cod_cliente:
                     self._articulos.pop(contador)
-                    return True
-                    contador += 1
+                contador += 1
+            if contador == (len(self._articulos)-1):
                 return False
+            else:
+                return True
         except IndexError:
             pass
 

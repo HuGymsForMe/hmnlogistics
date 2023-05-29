@@ -78,6 +78,20 @@ class AlmacenPedidos(Almacen):
         except IndexError:
             pass
 
+    def del_pedidos_por_del_distribuidor(self, dato_borrar_pedido):
+        try:
+            contador = 0
+            for pedido in self._pedidos:
+                if dato_borrar_pedido == pedido._cod_distribuidor:
+                    pedido._cod_distribuidor = '----'
+                contador += 1
+            if contador == (len(self._pedidos)-1):
+                return False
+            else:
+                return True
+        except IndexError:
+            pass
+
     def sobreescribir_datos(self):
         with open(os.path.join(self.RUTA_FICHEROS, 'pedidos.csv'), 'w', encoding="UTF-8") as nuevo_csv_pedidos:
             for linea in self._pedidos:

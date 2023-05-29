@@ -12,9 +12,9 @@ class DelArticulos(tk.Toplevel):
         self.PLACEHOLDER_COD_ARTICULO = "Código de Artículo:"
 
         self.withdraw()
-        self.minsize(250, 125)
-        self.geometry("250x125+650+150")
-        self.maxsize(250, 125)
+        self.minsize(250, 150)
+        self.geometry("250x150+650+150")
+        self.maxsize(250, 150)
         self.title("BORRAR ARTÍCULO")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
@@ -45,6 +45,7 @@ class DelArticulos(tk.Toplevel):
         reaviso = messagebox.askyesno(message="¿DESEA ELIMINAR EL ARTÍCULO?")
         if (self.almacen_articulos.del_datos(dato_borrar_articulo) and reaviso):
             articulo_cancel = messagebox.showinfo(message="ARTÍCULO ELMINADO CORRECTAMENTE")
+            self.on_close()
         else:
             articulo_not_found = messagebox.showerror(message="ARTÍCULO NO ENCONTRADO EN EL SISTEMA")
 

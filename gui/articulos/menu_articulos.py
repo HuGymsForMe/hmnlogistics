@@ -6,15 +6,12 @@ from gui.articulos.menu_add_articulos import AddArticulos
 from gui.articulos.menu_del_articulos import DelArticulos
 from gui.articulos.menu_lis_articulos import LisArticulos
 
-from almacen.almacen_articulos import AlmacenArticulos
-from almacen.almacen_clientes import AlmacenClientes
-
 class MenuArticulos(tk.Toplevel):
-    def __init__(self, master, app):
+    def __init__(self, master, app, almacen_articulos, almacen_clientes):
         super().__init__(master, app)
         self._app = app
-        self.almacen_clientes = AlmacenClientes(self)
-        self.almacen_articulos = AlmacenArticulos(self)
+        self.almacen_articulos = almacen_articulos
+        self.almacen_clientes = almacen_clientes
         self.ventana_add_articulos = AddArticulos(self.master, self.almacen_articulos, self.almacen_clientes, self)
         self.ventana_del_articulos = DelArticulos(self.master, self.almacen_articulos, self)
         self.ventana_lis_articulos = LisArticulos(self.master, self.almacen_articulos, self.almacen_clientes, self)

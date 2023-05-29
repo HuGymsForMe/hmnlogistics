@@ -53,7 +53,7 @@ class AlmacenDepartamentos(Almacen):
                 lineas = fichero_departamentos.readlines()
                 for linea in lineas:
                     campos = linea.split(";")
-                    primer_campo = str(campos[self.CamposFicheroCsv.COD_SUCURSAL])
+                    primer_campo = str(campos[self.CamposFicheroCsv.COD_DEPARTAMENTO])
                     self._cod_departamento_combobox.append(primer_campo)
                 return self._cod_departamento_combobox
 

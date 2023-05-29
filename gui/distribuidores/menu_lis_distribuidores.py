@@ -8,9 +8,12 @@ class LisDistribuidores(tk.Toplevel):
         self.almacen_distribuidores = almacen_distribuidores
         self.menu_distribuidores = menu_distribuidores
 
-        self.minsize(700, 300)
-        self.geometry("700x300+400+150")
-        self.maxsize(700, 300)
+        self.cod_distribuidor_var = tk.StringVar()
+        self.nombre_var = tk.StringVar()
+
+        self.minsize(500, 300)
+        self.geometry("500x300+650+150")
+        self.maxsize(500, 300)
 
         self.withdraw()
         self.title("MIS DISTRIBUIDORES")
@@ -20,6 +23,8 @@ class LisDistribuidores(tk.Toplevel):
         self.tree_distribuidores = ttk.Treeview(self)    
         self.input_filtro = ttk.Entry(self)
         self.input_filtro.bind('<KeyRelease>', self.realizar_busqueda)
+
+        #TABLA
         self.tree_distribuidores["columns"] = ("COD_DISTRIBUIDOR", "NOMBRE")  
         
         self.tree_distribuidores.column("#0", width=100, stretch=tk.NO)
@@ -53,4 +58,4 @@ class LisDistribuidores(tk.Toplevel):
 
     def on_close(self):
         self.withdraw()
-        self.menu_distribuidores.deiconify()    
+        self.menu_distribuidores.deiconify()

@@ -5,22 +5,22 @@ from tkinter import ttk, messagebox
 from gui.clientes.menu_mod_clientes import ModClientes
 
 class LisClientes(tk.Toplevel):
-    def __init__(self, master, almacen_clientes, almacen_sucursal, menu_clientes):
+    def __init__(self, master, almacen_clientes, almacen_sucursales, menu_clientes):
         super().__init__(master)
         self.almacen_clientes = almacen_clientes
-        self.almacen_sucursal = almacen_sucursal
+        self.almacen_sucursales = almacen_sucursales
         self.menu_clientes = menu_clientes
 
-        self.minsize(900, 350)
-        self.geometry("900x350+400+150")
-        self.maxsize(1300, 350)
+        self.minsize(800, 350)
+        self.geometry("800x350+400+150")
+        self.maxsize(900, 350)
 
         self.cod_cliente_var = tk.StringVar()
         self.cod_sucursal_var = tk.StringVar()
         self.nombre_var = tk.StringVar()
 
         self.ventana_mod_clientes = ModClientes(self.master, self.almacen_clientes, 
-        self.almacen_sucursal, self.cod_cliente_var, self.cod_sucursal_var, self.nombre_var, self)
+        self.almacen_sucursales, self.cod_cliente_var, self.cod_sucursal_var, self.nombre_var, self)
 
         self.withdraw()
         self.title("MIS SUCURSALES")
@@ -30,7 +30,6 @@ class LisClientes(tk.Toplevel):
         self.tree_clientes = ttk.Treeview(self)    
         self.input_filtro = ttk.Entry(self)
         self.input_filtro.bind('<KeyRelease>', self.realizar_busqueda)
-
         self.boton_mod_articulos = ttk.Button(self, text="MODIFICAR CLIENTE", command=self.abrir_ventana_mod_clientes)
 
         #TABLA

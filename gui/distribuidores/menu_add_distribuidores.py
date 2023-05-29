@@ -13,9 +13,9 @@ class AddDistribuidores(tk.Toplevel):
         self.PLACEHOLDER_NOMBRE = "Nombre:"
 
         self.withdraw()
-        self.minsize(200, 200)
-        self.geometry("200x200+650+100")
-        self.maxsize(200, 200)
+        self.minsize(200, 150)
+        self.geometry("200x150+650+100")
+        self.maxsize(200, 150)
         self.title("AÑADIR DISTRIBUIDOR")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
@@ -47,6 +47,8 @@ class AddDistribuidores(tk.Toplevel):
         if datos:
             if self.almacen_distribuidores.add_datos(dato_cod_distribuidor, dato_nombre):
                 cod_repetido = messagebox.showinfo(message="EL DISTRIBUIDOR YA SE ENCUENTRA EN EL SISTEMA")
+            else:
+                self.on_close()
 
     #PLACEHOLDERS
     def clear_placeholder_input_nombre(self, event):

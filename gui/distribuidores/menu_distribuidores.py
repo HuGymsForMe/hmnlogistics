@@ -4,17 +4,17 @@ from tkinter import ttk
 
 from gui.distribuidores.menu_add_distribuidores import AddDistribuidores
 from gui.distribuidores.menu_lis_distribuidores import LisDistribuidores
-
-from almacen.almacen_distribuidores import AlmacenDistribuidores
+from gui.distribuidores.menu_del_distribuidores import DelDistribuidores
 
 class MenuDistribuidor(tk.Toplevel):
-    def __init__(self, master, app):
+    def __init__(self, master, app, almacen_distribuidores, almacen_pedidos):
         super().__init__(master, app)
         self._app = app
-        self.almacen_distribuidores = AlmacenDistribuidores(self)
+        self.almacen_distribuidores = almacen_distribuidores
+        self.almacen_pedidos = almacen_pedidos
         self.ventana_add_distribuidores = AddDistribuidores(self.master, self.almacen_distribuidores, self)
         self.ventana_lis_distribuidores = LisDistribuidores(self.master, self.almacen_distribuidores, self)
-        #self.ventana_del_clientes = DelClientes(self.master, self.almacen_clientes, self.almacen_articulos, self)
+        self.ventana_del_distribuidores = DelDistribuidores(self.master, self.almacen_distribuidores, self.almacen_pedidos, self)
         self.withdraw()
         self.protocol("WM_DELETE_WINDOW", self.on_close)
         self.minsize(300, 200)
@@ -23,6 +23,7 @@ class MenuDistribuidor(tk.Toplevel):
         self.title("MENÚ DISTRIBUIDOR")
         self.title_clientes = ttk.Label(self, text="MENÚ DISTRIBUIDORES", font=("Helvetica", 14))
         self.boton_add_distribuidores = ttk.Button(self, text="AÑADIR DISTRIBUIDOR", command=self.abrir_ventana_add_distribuidores)
+        self.boton_del_distribuidores = ttk.Button(self, text="BORRAR DISTRIBUIDOR", command=self.abrir_ventana_del_distribuidores)
         self.boton_lis_distribuidores = ttk.Button(self, text="MIS DISTRIBUIDORES", command=self.abrir_ventana_lis_distribuidores)
         #self.boton_del_clientes = ttk.Button(self, text="BORRAR DISTRIBUIDOR", command=self.abrir_ventana_del_clientes)
 
@@ -30,8 +31,8 @@ class MenuDistribuidor(tk.Toplevel):
         self.deiconify()
         self.title_clientes.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.boton_add_distribuidores.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
+        self.boton_del_distribuidores.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.boton_lis_distribuidores.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        #self.boton_del_clientes.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.mainloop()
 
     def ocultar_menu(self):

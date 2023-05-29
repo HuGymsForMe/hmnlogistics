@@ -55,6 +55,22 @@ class AlmacenDistribuidores(Almacen):
                     self._cod_distribuidor_combobox.append(primer_campo)
                 return self._cod_distribuidor_combobox
 
+    def del_datos(self, dato_borrar_distribuidor):
+        try:
+            with open(os.path.join(self.RUTA_FICHEROS, 'distribuidores.csv'), 'r', encoding="UTF-8") as fichero_distribuidores:
+                lineas = fichero_distribuidores.readlines()
+                contador = 0
+                for linea in lineas:
+                    campos = str(linea).split(';')
+                    campo_dato_borrar_distribuidor = str(campos[self.CamposFicheroCsv.COD_DISTRIBUIDOR].strip())
+                    if dato_borrar_distribuidor == campo_dato_borrar_distribuidor:
+                        self._distribuidores.pop(contador)
+                        return True
+                    contador += 1
+                return False
+        except IndexError:
+            pass
+    
     def sobreescribir_datos(self):
         with open(os.path.join(self.RUTA_FICHEROS, 'distribuidores.csv'), 'w', encoding="UTF-8") as nuevo_csv_distribuidores:
             for linea in self._distribuidores:

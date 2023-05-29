@@ -6,13 +6,11 @@ from gui.sucursales.menu_add_sucursales import AddSucursales
 from gui.sucursales.menu_del_sucursales import DelSucursales
 from gui.sucursales.menu_lis_sucursales import LisSucursales
 
-from almacen.almacen_sucursales import AlmacenSucursales
-
 class MenuSucursales(tk.Toplevel):
-    def __init__(self, master, app):
+    def __init__(self, master, app, almacen_sucursales):
         super().__init__(master, app)
         self._app = app
-        self.almacen_sucursales = AlmacenSucursales(self)
+        self.almacen_sucursales = almacen_sucursales
         self.ventana_add_sucursales = AddSucursales(self.master, self.almacen_sucursales, self)
         self.ventana_lis_sucursales = LisSucursales(self.master, self.almacen_sucursales, self)
         self.withdraw()

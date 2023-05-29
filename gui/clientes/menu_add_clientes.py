@@ -15,9 +15,9 @@ class AddClientes(tk.Toplevel):
         self.PLACEHOLDER_COD_SUCURSAL = "Código de Sucursal:"
 
         self.withdraw()
-        self.minsize(200, 200)
-        self.geometry("200x200+650+100")
-        self.maxsize(200, 200)
+        self.minsize(225, 200)
+        self.geometry("225x200+650+100")
+        self.maxsize(225, 200)
         self.title("AÑADIR CLIENTE")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
@@ -64,6 +64,8 @@ class AddClientes(tk.Toplevel):
             if datos:
                 if(self.almacen_clientes.add_datos(dato_cod_cliente, dato_cod_sucursal, dato_nombre)):
                     cod_repetido = messagebox.showinfo(message="EL CLIENTE YA SE ENCUENTRA EN EL SISTEMA")
+                else:
+                    self.on_close()
         else:
             datos_erroneos = messagebox.showerror(message="DATOS INCORRRECTOS")
 

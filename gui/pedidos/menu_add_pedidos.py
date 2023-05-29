@@ -14,7 +14,7 @@ class AddPedidos(tk.Toplevel):
         self.almacen_distribuidores = almacen_distribuidores
         self.menu_pedidos = menu_pedidos
         self.no_mostrar_calendario = True
-        self.validador = Validator(self)
+        self.validador = Validator()
 
         #FORMATO PLACEHOLDERS
         self.PLACEHOLDER_COD_DISTRIBUIDOR = "Código de Distribuidor:"
@@ -74,7 +74,7 @@ class AddPedidos(tk.Toplevel):
         self.eleccion_cod_sucursal.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.print_fecha_pedido.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         if self.no_mostrar_calendario: #LO PONEMOS ASÍ PARA QUE SOLO SE MUESTRE UNA VEZ
-            self.input_fecha_pedido = DateEntry(self) #NO LO PONEMOS EN EL INIT PORQUE SALTA UN PANTALLAZO RARO
+            self.input_fecha_pedido = DateEntry(self, date_pattern='yyyy-mm-dd') #NO LO PONEMOS EN EL INIT PORQUE SALTA UN PANTALLAZO RARO
             self.input_fecha_pedido.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
             self.no_mostrar_calendario = False
         self.print_num_articulos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
@@ -96,7 +96,7 @@ class AddPedidos(tk.Toplevel):
         dato_cod_pedido = f"P{str(random.randrange(1,1001))}"
         dato_cod_distribuidor = self.cod_distribuidor_seleccionado.get()
         dato_cod_sucursal = self.cod_sucursal_seleccionado.get()
-        dato_fecha_pedido = self.input_fecha_pedido.get_date()
+        dato_fecha_pedido = self.input_fecha_pedido.get()
         dato_num_articulos = int(self.input_num_articulos.get())
         dato_peso = round(float(self.input_peso.get()),2)
         dato_precio = round(float(self.input_precio.get()),2)

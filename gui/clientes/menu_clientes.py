@@ -6,17 +6,13 @@ from gui.clientes.menu_add_clientes import AddClientes
 from gui.clientes.menu_del_clientes import DelClientes
 from gui.clientes.menu_lis_clientes import LisClientes
 
-from almacen.almacen_clientes import AlmacenClientes
-from almacen.almacen_sucursales import AlmacenSucursales
-from almacen.almacen_articulos import AlmacenArticulos
-
 class MenuClientes(tk.Toplevel):
-    def __init__(self, master, app):
+    def __init__(self, master, app, almacen_clientes, almacen_sucursales, almacen_articulos):
         super().__init__(master, app)
         self._app = app
-        self.almacen_clientes = AlmacenClientes(self)
-        self.almacen_sucursales = AlmacenSucursales(self)
-        self.almacen_articulos = AlmacenArticulos(self)
+        self.almacen_clientes = almacen_clientes
+        self.almacen_sucursales = almacen_sucursales
+        self.almacen_articulos = almacen_articulos
         self.ventana_add_clientes = AddClientes(self.master, self.almacen_clientes, self.almacen_sucursales, self)
         self.ventana_del_clientes = DelClientes(self.master, self.almacen_clientes, self.almacen_articulos, self)
         self.ventana_lis_clientes = LisClientes(self.master, self.almacen_clientes, self.almacen_sucursales, self)

@@ -5,11 +5,16 @@ from tkinter import messagebox, ttk
 from gui.pedidos.menu_mod_pedidos import ModPedidos
 
 class LisPedidos(tk.Toplevel):
-    def __init__(self, master, almacen_pedidos, almacen_distribuidores, almacen_sucursales, menu_pedidos):
+    '''
+    CONSIDERAMOS QUE NO ES NECESARIA UNA VENTANA DE MODIFICAR YA QUE SOLO CONTIENE
+    UN NOMBRE Y UN CÓDIGO CON LO CUÁL, LA ÚNICA MODIFICACIÓN A REALIZAR ES UN BORRADO
+    DEL DISTRIBUIDOR O UNA INSERCIÓN.
+    '''
+    def __init__(self, master, almacen_pedidos, almacen_sucursales, almacen_distribuidores, menu_pedidos):
         super().__init__(master)
         self.almacen_pedidos = almacen_pedidos
-        self.almacen_distribuidores = almacen_distribuidores
         self.almacen_sucursales = almacen_sucursales
+        self.almacen_distribuidores = almacen_distribuidores
         self.menu_pedidos = menu_pedidos
     
         self.minsize(900, 400)
@@ -28,7 +33,7 @@ class LisPedidos(tk.Toplevel):
         self.peso_var = tk.StringVar()
         self.precio_var = tk.StringVar()
 
-        self.ventana_mod_pedidos = ModPedidos(self.master, self.almacen_pedidos, self.almacen_distribuidores, self.almacen_sucursales,
+        self.ventana_mod_pedidos = ModPedidos(self.master, self.almacen_pedidos, self.almacen_sucursales, self.almacen_distribuidores, 
         self.cod_pedido_var, self.cod_distribuidor_var, self.cod_sucursal_var, self.fecha_pedido_var, self.cantidad_articulos_var,
         self.peso_var, self.precio_var, self)
 

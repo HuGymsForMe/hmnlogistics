@@ -1,5 +1,5 @@
 ADD SUCURSALES --> No hace falte ninguna condición                                      #HECHO
-DEL SUCURSALES --> Se tienen que borrar todos los clientes, departamentos y pedidos
+DEL SUCURSALES --> Se tienen que borrar todos los clientes, departamentos y pedidos     #HACER LO ÚLTIMO
 LIS SUCURSALES -->                                                                      #HECHO
     MOD SUCURSALES -->                                                                  
 
@@ -9,26 +9,26 @@ LIS ARTICULOS -->                                                               
     MOD ARTICULOS -->                                                                   #HECHO
 
 ADD CLIENTES --> Tiene que existir la sucursal a la que le enviamos                     #HECHO
-DEL CLIENTES --> Hay que borrar todos los articulos que tenga ese cliente               #FALTA BORRAR LOS ARTICULOS
+DEL CLIENTES --> Hay que borrar todos los articulos que tenga ese cliente               #HECHO
 LIS CLIENTES -->                                                                        #HECHO
-    MOD CLIENTES -->                                                                    #HECHO(FALTA BORRAR LOS ARTICULOS)
+    MOD CLIENTES -->                                                                    #HECHO
 
 ADD DISTRIBUIDORES --> No hace falta ninguna condicion                                  #HECHO
-DEL DISTRIBUIDORES --> Hay que borrar los pedidos de ese distribuidor
+DEL DISTRIBUIDORES --> Hay que borrar los pedidos de ese distribuidor                   #HECHO
 LIS DISTRIBUIDORES -->                                                                  #HECHO
-    MOD DISTRIBUIDORES -->
+    MOD DISTRIBUIDORES --> No es necesario                                              #HECHO
 
 ADD PEDIDOS --> Tiene que existir el distribuidor y la sucursal                         #HECHO
 DEL PEDIDOS --> No hace falta ninguna condicion                                         #HECHO
 LIS PEDIDOS -->                                                                         #HECHO
     MOD PEDIDOS -->                                                                     #HECHO
 
-ADD DEPARTAMENTOS -->
+ADD DEPARTAMENTOS --> Tiene que existir la sucursal                                     #HECHO                 
 DEL DEPARTAMENTOS -->
 LIS DEPARTAMENTOS -->
-    MOD DEPARTAMENTOS -->
+    MOD DEPARTAMENTOS --> 
 
-ADD EMPLEADOS --> Tiene que existir el departamentos al que le asignamos                
+ADD EMPLEADOS --> Tiene que existir el departamentos al que le asignamos                #EN ELLO     
 DEL EMPLEADOS --> No hace falta ninguna condición
 LIS EMPLEADOS -->
     MOD EMPLEADOS -->

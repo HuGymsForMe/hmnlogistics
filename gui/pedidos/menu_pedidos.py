@@ -2,21 +2,17 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 
-from almacen.almacen_pedidos import AlmacenPedidos
-from almacen.almacen_distribuidores import AlmacenDistribuidores
-from almacen.almacen_sucursales import AlmacenSucursales
-
 from gui.pedidos.menu_add_pedidos import AddPedidos
 from gui.pedidos.menu_del_pedidos import DelPedidos
 from gui.pedidos.menu_lis_pedidos import LisPedidos
 
 class MenuPedido(tk.Toplevel):
-    def __init__(self, master, app):
+    def __init__(self, master, app, almacen_pedidos, almacen_distribuidores, almacen_sucursales):
         super().__init__(master)
         self._app = app
-        self.almacen_pedidos = AlmacenPedidos(self)
-        self.almacen_distribuidores = AlmacenDistribuidores(self)
-        self.almacen_sucursales = AlmacenSucursales(self)
+        self.almacen_pedidos = almacen_pedidos
+        self.almacen_distribuidores = almacen_distribuidores
+        self.almacen_sucursales = almacen_sucursales
         self.ventana_add_pedidos = AddPedidos(self.master, self.almacen_pedidos, self.almacen_sucursales, self.almacen_distribuidores, self)
         self.ventana_del_pedidos = DelPedidos(self.master, self.almacen_pedidos, self)
         self.ventana_lis_pedidos = LisPedidos(self.master, self.almacen_pedidos, self.almacen_sucursales, self.almacen_distribuidores, self)
