@@ -2,7 +2,8 @@ from tkcalendar import DateEntry
 import random
 import tkinter as tk
 from tkinter import *
-from tkinter import ttk
+from tkinter import ttk, messagebox
+import datetime
 
 from clases.validator import Validator
 
@@ -16,7 +17,7 @@ class AddEmpleados(tk.Toplevel):
         self.validador = Validator()
 
         #FORMATO PLACEHOLDERS
-        self.PLACEHOLDER_CODIGO_DEPARTAMENTO = "Código de Departamento:"
+        self.PLACEHOLDER_COD_DEPARTAMENTO = "Código de Departamento:"
         self.PLACEHOLDER_DNI = "Ej: 00000000B"
         self.PLACEHOLDER_NOMBRE = "Nombre:"
         self.PLACEHOLDER_APELLIDOS = "Apellidos:"
@@ -26,9 +27,9 @@ class AddEmpleados(tk.Toplevel):
         self.PLACEHOLDER_OFICIO = "Oficio:"
 
         self.withdraw()
-        self.minsize(400, 650)
-        self.geometry("400x650+650+50")
-        self.maxsize(400, 650)
+        self.minsize(400, 700)
+        self.geometry("400x7000+650+50")
+        self.maxsize(400, 700)
         self.title("AÑADIR CLIENTE")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
@@ -60,10 +61,10 @@ class AddEmpleados(tk.Toplevel):
         self.input_domicilio = ttk.Entry(self, foreground="gray", textvariable=self.domicilio_seleccionado)
         self.print_telefono = ttk.Label(self, text="TELÉFONO:", font=("Helvetica", 9))
         self.input_telefono = ttk.Entry(self, foreground="gray", textvariable=self.telefono_seleccionado)
-        self.print_oficio = ttk.Label(self, text="oficio:", font=("Helvetica", 9))
+        self.print_oficio = ttk.Label(self, text="OFICIO:", font=("Helvetica", 9))
         self.posibles_oficios = ['GESTOR', 'TÉCNICO', 'RR.HH', 'ANALISTA', 'CARRETILLERO', 'MOZO DE ALMACÉN']
         self.eleccion_oficio = ttk.Combobox(self, values=self.posibles_oficios, textvariable=self.oficio_seleccionado, foreground="gray")
-        self.boton_add_empleados = ttk.Button(self, text="AÑADIR")
+        self.boton_add_empleado = ttk.Button(self, text="AÑADIR", command=self.comprobar_empleados)
 
     def mostrar_menu(self):
         self.actualizar_posibles_departamentos()
@@ -89,14 +90,39 @@ class AddEmpleados(tk.Toplevel):
         self.input_telefono.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.print_oficio.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.eleccion_oficio.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.boton_add_empleados.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        
+        self.boton_add_empleado.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.deiconify()
         self.mainloop()
 
     def actualizar_posibles_departamentos(self):
         self.posibles_departamentos = self.almacen_departamentos.generar_combobox()
         self.eleccion_cod_departamento['values'] = self.posibles_departamentos
+
+    def recoger_datos_empleados(self):
+        dato_cod_empleado = f"EMP{str(random.randrange(1,1001))}"
+        dato_cod_departamento = self.cod_departamento_seleccionado.get().upper()
+        dato_dni = self.dni_seleccionado.get().upper()
+        dato_nombre = self.nombre_seleccionado.get().upper()
+        dato_apellidos = self.apellidos_seleccionados.get().upper()
+        dato_fecha_nac = self.fecha_nac_seleccionada.get().upper()
+        dato_fecha_alta = datetime.date.today().strftime('%Y-%m-%d')
+        dato_salario = self.salario_seleccionado.get()
+        dato_domicilio = self.domicilio_seleccionado.get().upper()
+        dato_telefono = self.telefono_seleccionado.get()
+        dato_oficio = self.oficio_seleccionado.get().upper()
+        return (dato_cod_empleado, dato_cod_departamento, dato_dni, dato_nombre, dato_apellidos, dato_fecha_nac,
+        dato_fecha_alta, dato_salario, dato_domicilio, dato_telefono, dato_oficio)
+
+    def comprobar_empleados(self):
+        (dato_cod_empleado, dato_cod_departamento, dato_dni, dato_nombre, dato_apellidos, dato_fecha_nac,
+        dato_fecha_alta, dato_salario, dato_domicilio, dato_telefono, dato_oficio) = self.recoger_datos_empleados()
+        if (dato_cod_departamento in self.posibles_departamentos
+         and dato_oficio in self.posibles_oficio 
+         and self.validador.validador_dni(dato_dni) 
+         and self.validador.validador_telefono(dato_telefono)):
+            datos = messagebox.askyesno(message=f"DATOS:\nCÓDIGO DE EMPLEADO: {dato_cod_empleado}\nCÓDIGO DE DEPARTAMENTO: {dato_cod_departamento}\n\
+DNI: {dato_dni}\nNOMBRE: {dato_nombre}\nAPELLIDOS: {dato_apellidos}\nFECHA DE NACIMIENTO: {dato_fecha_nac}\nFECHA DE ALTA: {dato_fecha_alta}\n\
+SALARIO: {dato_salario}\nDOMICILIO: {dato_domicilio}\nTELÉFONO: {dato_telefono}\nOFICIO: {dato_oficio}")
 
     def on_close(self):
        self.withdraw()

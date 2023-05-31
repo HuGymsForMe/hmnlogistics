@@ -48,6 +48,7 @@ class AddPedidos(tk.Toplevel):
         self.eleccion_cod_sucursal.bind('<FocusIn>', self.clear_placeholder_eleccion_cod_sucursal)
         self.eleccion_cod_sucursal.bind('<FocusOut>', self.set_placeholder_eleccion_cod_sucursal)
         self.print_fecha_pedido = ttk.Label(self, text="FECHA PEDIDO:", font=("Helvetica", 9))
+        self.input_fecha_pedido = None
         self.print_num_articulos = ttk.Label(self, text="Nº ARTÍCULOS:", font=("Helvetica", 9))
         self.input_num_articulos = ttk.Spinbox(self, from_=0, to=100, increment=1, foreground="gray",textvariable=self.input_num_articulos_seleccionado)
         self.input_num_articulos.insert(0, self.PLACEHOLDER_NUM_ARTICULOS)
@@ -97,27 +98,27 @@ class AddPedidos(tk.Toplevel):
         dato_cod_distribuidor = self.cod_distribuidor_seleccionado.get()
         dato_cod_sucursal = self.cod_sucursal_seleccionado.get()
         dato_fecha_pedido = self.input_fecha_pedido.get()
-        dato_num_articulos = int(self.input_num_articulos.get())
-        dato_peso = round(float(self.input_peso.get()),2)
-        dato_precio = round(float(self.input_precio.get()),2)
+        dato_num_articulos = self.input_num_articulos.get()
+        dato_peso = self.input_peso.get()
+        dato_precio = self.input_precio.get()
         return dato_cod_pedido, dato_cod_distribuidor, dato_cod_sucursal, dato_fecha_pedido, dato_num_articulos, dato_peso, dato_precio
-
+        
     def comprobar_pedidos(self):
-        try:
-            dato_cod_pedido, dato_cod_distribuidor, dato_cod_sucursal, dato_fecha_pedido, dato_num_articulos, dato_peso, dato_precio = self.recoger_datos_pedidos()
-            if (dato_cod_distribuidor in self.posibles_distribuidores 
-                and dato_cod_sucursal in self.posibles_sucursales
-                and self.validador.validador_fecha(dato_fecha_pedido)):
-                datos = messagebox.askyesno(message=f"DATOS:\nCÓDIGO DE PEDIDO: {dato_cod_pedido}\nCÓDIGO DE DISTRIBUIDOR: {dato_cod_distribuidor}\n\
+        dato_cod_pedido, dato_cod_distribuidor, dato_cod_sucursal, dato_fecha_pedido, dato_num_articulos, dato_peso, dato_precio = self.recoger_datos_pedidos()
+        if (dato_cod_distribuidor in self.posibles_distribuidores 
+            and dato_cod_sucursal in self.posibles_sucursales
+            and self.validador.validador_fecha(dato_fecha_pedido)
+            and self.validador.validador_es_numero(dato_num_articulos)
+            and self.validador.validador_es_numero(dato_peso)
+            and self.validador.validador_es_numero(dato_precio)):
+            datos = messagebox.askyesno(message=f"DATOS:\nCÓDIGO DE PEDIDO: {dato_cod_pedido}\nCÓDIGO DE DISTRIBUIDOR: {dato_cod_distribuidor}\n\
 CÓDIGO DE SUCURSAL: {dato_cod_sucursal}\nFECHA DE PEDIDO: {dato_fecha_pedido}\nNº ARTICULOS: {dato_num_articulos}\nPESO: {dato_peso}\n\
 PRECIO: {dato_precio}")
-                if datos:
-                    if self.almacen_pedidos.add_datos(dato_cod_pedido, dato_cod_distribuidor, dato_cod_sucursal, dato_fecha_pedido, dato_num_articulos, dato_peso, dato_precio):
-                        cod_repetido = messagebox.showinfo(message="EL DISTRIBUIDOR YA SE ENCUENTRA EN EL SISTEMA")
-            else:
-                datos_erroneos = messagebox.showerror(message="DATOS INCORRRECTOS")
-        except ValueError:
-            datos_erroneos
+            if datos:
+                if self.almacen_pedidos.add_datos(dato_cod_pedido, dato_cod_distribuidor, dato_cod_sucursal, dato_fecha_pedido, dato_num_articulos, dato_peso, dato_precio):
+                    cod_repetido = messagebox.showinfo(message="EL DISTRIBUIDOR YA SE ENCUENTRA EN EL SISTEMA")
+        else:
+            datos_erroneos = messagebox.showerror(message="DATOS INCORRRECTOS")
 
 
     #PLACEHOLDERS

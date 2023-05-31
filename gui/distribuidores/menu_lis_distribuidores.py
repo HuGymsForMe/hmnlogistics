@@ -3,6 +3,11 @@ from tkinter import *
 from tkinter import messagebox, ttk
 
 class LisDistribuidores(tk.Toplevel):
+    '''
+    CONSIDERAMOS QUE NO ES NECESARIA UNA VENTANA DE MODIFICAR YA QUE SOLO CONTIENE
+    UN NOMBRE Y UN CÓDIGO CON LO CUÁL, LA ÚNICA MODIFICACIÓN A REALIZAR ES UN BORRADO
+    DEL DISTRIBUIDOR O UNA INSERCIÓN.
+    '''
     def __init__(self, master, almacen_distribuidores, menu_distribuidores):
         super().__init__(master)
         self.almacen_distribuidores = almacen_distribuidores

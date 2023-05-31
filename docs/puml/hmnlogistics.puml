@@ -1,0 +1,105 @@
+@startuml hmnlogistics
+
+package hmnlogistics <<Folder>> #F9E79F {
+    MenuHmn <|-- MenuPedidos
+    MenuHmn <|-- MenuEmpleados
+    MenuHmn <|-- MenuDistribuidores
+    MenuHmn <|-- MenuSucursales
+    MenuHmn <|-- MenuDepartamentos
+    class MenuHmn #F6DDCC{
+    + master : Tk
+    + app
+    + almacen_articulos: AlmacenArticulos
+    + almacen_clientes: AlmacenClientes
+    + almacen_sucursales: ALmacenSucursales
+    + almacen_distribuidores: AlmacenDistribuidores
+    + almacen_pedidos: AlmacenPedidos
+    + almacen_departamentos: AlmacenDepartamentos
+    + almacen_empleados: AlmacenEmpleados
+    + ventana_articulo: MenuArticulos
+    + ventana_cliente: MenuCliente
+    + ventana_sucursal: MenuSucursales
+    + ventana_distribuidor: MenuDistribuidores
+    + ventana_pedidos: MenuPedidos
+    + ventana_departamentos: MenuDepartamentos
+    + ventana_empleados: MenuEmpleados
+    + IMAGEN_FAVICON
+    + resized_favicon
+    + favicon_tk
+    + IMAGEN_LOGO
+    + resized_logo_hmn
+    + logo_hmn
+    + logo_hmn_menu
+    + title_hmn
+    + subtitulo_hmn
+    + boton_articulos
+    + boton_clientes
+    + boton_sucursales
+    + boton_pedidos
+    + boton_distribuidores
+    + boton_departamentos
+    + boton_empleados
+    + guardar_datos
+    + guardar_salir
+    + ocultar_menu(self)
+    + acceder_menu_articulos(self)
+    + acceder_menu_clientes(self)
+    + acceder_menu_sucursales(self)
+    + acceder_menu_distribuidores(self)
+    + acceder_menu_pedidos(self)
+    + acceder_menu_departamentos(self)
+    + acceder_menu_empleados(self)
+    + on_close(self)
+    + clickar_boton_guardar(self)
+    + clickar_boton_guardar_salir(self)
+    + recoger_datos(self)
+    
+}
+package articulos <<Folder>> #F9E79F {
+    MenuHmn <|-- MenuArticulos
+    class MenuArticulos #F6DDCC{
+    + master
+    - _app
+    + almacen_articulos
+    + almacen_clientes
+    + ventana_add_articulos: AddArticulos
+    + ventana_del_articulos: DelArticulos
+    + ventana_lis_articulos: LisArticulos
+    + title_articulos
+    + boton_add_articulos
+    + boton_del_articulos
+    + boton_lis_articulos
+    + mostrar_menu(self)
+    + ocultar_menu(self)
+    + on_close(self)
+    + abrir_ventana_add_articulos(self)
+    + abrir_ventana_del_articulos(self)
+    + abrir_ventana_lis_articulos(self)
+    }
+}
+package clientes <<Folder>> #F9E79F {
+    MenuHmn <|-- MenuClientes
+    class MenuClientes #F6DDCC{
+    + master
+    - _app
+    + almacen_clientes
+    + almacen_sucursales
+    + almacen_articulos
+    + ventana_add_clientes : AddClientes
+    + ventana_del_clientes : DelClientes
+    + ventana_lis_clientes : LisClientes
+    + title_clientes
+    + boton_add_clientes
+    + boton_del_clientes
+    + boton_lis_clientes
+    + mostrar_menu(self)
+    + ocultar_menu(self)
+    + on_close(self)
+    + abrir_ventana_add_clientes(self)
+    + abrir_ventana_del_clientes(self)
+    + abrir_ventana_lis_clientes(self)
+}
+}
+}
+
+@enduml

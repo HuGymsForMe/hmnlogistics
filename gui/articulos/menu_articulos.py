@@ -24,9 +24,8 @@ class MenuArticulos(tk.Toplevel):
         self.title_articulos = ttk.Label(self, text="MENÚ ARTICULOS", font=("Helvetica", 14))
         self.boton_add_articulos = ttk.Button(self, text="AÑADIR ARTÍCULO", command=self.abrir_ventana_add_articulos)
         self.boton_del_articulos = ttk.Button(self, text="BORRAR ARTÍCULO", command=self.abrir_ventana_del_articulos)
-        self.boton_lis_articulos = ttk.Button(self, text="MIS ARTÍCULOS", command=self.abrir_ventana_lis_articulos)
-        self.boton_mod_articulos = ttk.Button(self, text="MODIFICAR ARTÍCULOS", command=self.abrir_ventana_mod_articulos)
-                                
+        self.boton_lis_articulos = ttk.Button(self, text="MIS ARTÍCULOS", command=self.abrir_ventana_lis_articulos)                                
+    
     def mostrar_menu(self):
         self.deiconify()
         self.title_articulos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
@@ -56,6 +55,3 @@ class MenuArticulos(tk.Toplevel):
         self.ocultar_menu()
         self.ventana_lis_articulos.mostrar_menu()
         self.ventana_lis_articulos.mainloop()
-
-    def abrir_ventana_mod_articulos(self):
-        self.ocultar_menu()
