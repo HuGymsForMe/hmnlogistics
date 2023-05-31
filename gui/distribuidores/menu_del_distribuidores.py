@@ -46,10 +46,10 @@ class DelDistribuidores(tk.Toplevel):
         reaviso = messagebox.askyesno(message=" ¿DESEA ELIMINAR EL DISTRIBUIDOR?, \nSE DESVINCULARÁN TODOS SUS PEDIDOS")
         if (self.almacen_distribuidores.del_datos(dato_borrar_distribuidor) and reaviso):
             self.almacen_pedidos.del_pedidos_por_del_distribuidor(dato_borrar_distribuidor)
-            articulo_cancel = messagebox.showinfo(message="DISTRIBUIDOR ELMINADO CORRECTAMENTE")
+            distribuidor_cancel = messagebox.showinfo(message="DISTRIBUIDOR ELMINADO CORRECTAMENTE")
             self.on_close()
         elif dato_borrar_distribuidor not in self.posibles_cod_distribuidor:
-            articulo_not_found = messagebox.showerror(message="PEDIDO NO ENCONTRADO EN EL SISTEMA")
+            distribuidor_not_found = messagebox.showerror(message="DISTRIBUIDOR NO ENCONTRADO EN EL SISTEMA")
 
     #PLACEHOLDERS
     def clear_placeholder_eleccion_cod_distribuidor(self, event):

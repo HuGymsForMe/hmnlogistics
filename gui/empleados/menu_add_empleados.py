@@ -48,22 +48,47 @@ class AddEmpleados(tk.Toplevel):
         self.title_add_empleados = ttk.Label(self, text="AÑADIR EMPLEADO", font=("Helvetica", 12))
         self.print_cod_departamento = ttk.Label(self, text="CÓDIGO DE DEPARTAMENTO:", font=("Helvetica", 9))
         self.eleccion_cod_departamento = ttk.Combobox(self, values=[], textvariable=self.cod_departamento_seleccionado, foreground="gray")
+        self.eleccion_cod_departamento.insert(0, self.PLACEHOLDER_COD_DEPARTAMENTO)
+        self.eleccion_cod_departamento.bind('<FocusIn>', self.clear_placeholder_eleccion_cod_departamento)
+        self.eleccion_cod_departamento.bind('<FocusOut>', self.set_placeholder_eleccion_cod_departamento)
         self.print_dni = ttk.Label(self, text="DNI:", font=("Helvetica", 9))
         self.input_dni = ttk.Entry(self, foreground="gray", textvariable=self.dni_seleccionado)
+        self.input_dni.insert(0, self.PLACEHOLDER_DNI)
+        self.input_dni.bind('<FocusIn>', self.clear_placeholder_input_dni)
+        self.input_dni.bind('<FocusOut>', self.set_placeholder_input_dni)
         self.print_nombre = ttk.Label(self, text="NOMBRE:", font=("Helvetica", 9))
         self.input_nombre = ttk.Entry(self, foreground="gray", textvariable=self.nombre_seleccionado)
+        self.input_nombre.insert(0, self.PLACEHOLDER_NOMBRE)
+        self.input_nombre.bind('<FocusIn>', self.clear_placeholder_input_nombre)
+        self.input_nombre.bind('<FocusOut>', self.set_placeholder_input_nombre)
         self.print_apellidos = ttk.Label(self, text="APELLIDOS:", font=("Helvetica", 9))
         self.input_apellidos = ttk.Entry(self, foreground="gray", textvariable=self.apellidos_seleccionados)
+        self.input_apellidos.insert(0, self.PLACEHOLDER_APELLIDOS)
+        self.input_apellidos.bind('<FocusIn>', self.clear_placeholder_input_apellidos)
+        self.input_apellidos.bind('<FocusOut>', self.set_placeholder_input_apellidos)
         self.print_fecha_nac = ttk.Label(self, text="FECHA DE NACIMIENTO:", font=("Helvetica", 9))
+        self.input_fecha_pedido = None
         self.print_salario = ttk.Label(self, text="SALARIO:", font=("Helvetica", 9))
         self.input_salario = ttk.Entry(self, foreground="gray", textvariable=self.salario_seleccionado)
+        self.input_salario.insert(0, self.PLACEHOLDER_SALARIO)
+        self.input_salario.bind('<FocusIn>', self.clear_placeholder_input_salario)
+        self.input_salario.bind('<FocusOut>', self.set_placeholder_input_salario)
         self.print_domicilio = ttk.Label(self, text="DOMICILIO:", font=("Helvetica", 9))
         self.input_domicilio = ttk.Entry(self, foreground="gray", textvariable=self.domicilio_seleccionado)
+        self.input_domicilio.insert(0, self.PLACEHOLDER_DOMICILIO)
+        self.input_domicilio.bind('<FocusIn>', self.clear_placeholder_input_domicilio)
+        self.input_domicilio.bind('<FocusOut>', self.set_placeholder_input_domicilio)
         self.print_telefono = ttk.Label(self, text="TELÉFONO:", font=("Helvetica", 9))
         self.input_telefono = ttk.Entry(self, foreground="gray", textvariable=self.telefono_seleccionado)
+        self.input_telefono.insert(0, self.PLACEHOLDER_TELEFONO)
+        self.input_telefono.bind('<FocusIn>', self.clear_placeholder_input_telefono)
+        self.input_telefono.bind('<FocusOut>', self.set_placeholder_input_telefono)
         self.print_oficio = ttk.Label(self, text="OFICIO:", font=("Helvetica", 9))
         self.posibles_oficios = ['GESTOR', 'TÉCNICO', 'RR.HH', 'ANALISTA', 'CARRETILLERO', 'MOZO DE ALMACÉN']
         self.eleccion_oficio = ttk.Combobox(self, values=self.posibles_oficios, textvariable=self.oficio_seleccionado, foreground="gray")
+        self.eleccion_oficio.insert(0, self.PLACEHOLDER_OFICIO)
+        self.eleccion_oficio.bind('<FocusIn>', self.clear_placeholder_eleccion_oficio)
+        self.eleccion_oficio.bind('<FocusOut>', self.set_placeholder_eleccion_oficio)
         self.boton_add_empleado = ttk.Button(self, text="AÑADIR", command=self.comprobar_empleados)
 
     def mostrar_menu(self):
@@ -117,12 +142,100 @@ class AddEmpleados(tk.Toplevel):
         (dato_cod_empleado, dato_cod_departamento, dato_dni, dato_nombre, dato_apellidos, dato_fecha_nac,
         dato_fecha_alta, dato_salario, dato_domicilio, dato_telefono, dato_oficio) = self.recoger_datos_empleados()
         if (dato_cod_departamento in self.posibles_departamentos
-         and dato_oficio in self.posibles_oficio 
+         and dato_oficio in self.posibles_oficios
          and self.validador.validador_dni(dato_dni) 
          and self.validador.validador_telefono(dato_telefono)):
             datos = messagebox.askyesno(message=f"DATOS:\nCÓDIGO DE EMPLEADO: {dato_cod_empleado}\nCÓDIGO DE DEPARTAMENTO: {dato_cod_departamento}\n\
 DNI: {dato_dni}\nNOMBRE: {dato_nombre}\nAPELLIDOS: {dato_apellidos}\nFECHA DE NACIMIENTO: {dato_fecha_nac}\nFECHA DE ALTA: {dato_fecha_alta}\n\
 SALARIO: {dato_salario}\nDOMICILIO: {dato_domicilio}\nTELÉFONO: {dato_telefono}\nOFICIO: {dato_oficio}")
+            if datos:
+                if (self.almacen_empleados.add_datos(dato_dni, dato_nombre, dato_apellidos, dato_fecha_nac,
+                                                     dato_domicilio, dato_cod_empleado, dato_cod_departamento,
+                                                     dato_fecha_alta, dato_salario,dato_telefono, dato_oficio)):
+                    cod_repetido = messagebox.showinfo(message="EL EMPLEADO YA ESTÁ REGISTRADO EN EL SISTEMA")
+        else:
+            datos_erroneos = messagebox.showerror(message="DATOS INCORRRECTOS")
+
+    #PLACEHOLDERS
+    def clear_placeholder_eleccion_cod_departamento(self, event):
+        if self.eleccion_cod_departamento.get() == self.PLACEHOLDER_COD_DEPARTAMENTO:
+            self.eleccion_cod_departamento.delete(0, tk.END)
+            self.eleccion_cod_departamento.config(foreground='black')
+
+    def set_placeholder_eleccion_cod_departamento(self, event):
+        if self.eleccion_cod_departamento.get() == "":
+            self.eleccion_cod_departamento.insert(0, self.PLACEHOLDER_COD_DEPARTAMENTO)
+            self.eleccion_cod_departamento.config(foreground='gray')
+
+    def clear_placeholder_input_dni(self, event):
+        if self.input_dni.get() == self.PLACEHOLDER_DNI:
+            self.input_dni.delete(0, tk.END)
+            self.input_dni.config(foreground='black')
+
+    def set_placeholder_input_dni(self, event):
+        if self.input_dni.get() == "":
+            self.input_dni.insert(0, self.PLACEHOLDER_DNI)
+            self.input_dni.config(foreground='gray')
+
+    def clear_placeholder_input_nombre(self, event):
+        if self.input_nombre.get() == self.PLACEHOLDER_NOMBRE:
+            self.input_nombre.delete(0, tk.END)
+            self.input_nombre.config(foreground='black')
+
+    def set_placeholder_input_nombre(self, event):
+        if self.input_nombre.get() == "":
+            self.input_nombre.insert(0, self.PLACEHOLDER_NOMBRE)
+            self.input_nombre.config(foreground='gray')
+
+    def clear_placeholder_input_apellidos(self, event):
+        if self.input_apellidos.get() == self.PLACEHOLDER_APELLIDOS:
+            self.input_apellidos.delete(0, tk.END)
+            self.input_apellidos.config(foreground='black')
+
+    def set_placeholder_input_apellidos(self, event):
+        if self.input_apellidos.get() == "":
+            self.input_apellidos.insert(0, self.PLACEHOLDER_APELLIDOS)
+            self.input_apellidos.config(foreground='gray')
+
+    def clear_placeholder_input_salario(self, event):
+        if self.input_salario.get() == self.PLACEHOLDER_SALARIO:
+            self.input_salario.delete(0, tk.END)
+            self.input_salario.config(foreground='black')
+
+    def set_placeholder_input_salario(self, event):
+        if self.input_salario.get() == "":
+            self.input_salario.insert(0, self.PLACEHOLDER_SALARIO)
+            self.input_salario.config(foreground='gray')
+
+    def clear_placeholder_input_domicilio(self, event):
+        if self.input_domicilio.get() == self.PLACEHOLDER_DOMICILIO:
+            self.input_domicilio.delete(0, tk.END)
+            self.input_domicilio.config(foreground='black')
+
+    def set_placeholder_input_domicilio(self, event):
+        if self.input_domicilio.get() == "":
+            self.input_domicilio.insert(0, self.PLACEHOLDER_DOMICILIO)
+            self.input_domicilio.config(foreground='gray')
+
+    def clear_placeholder_input_telefono(self, event):
+        if self.input_telefono.get() == self.PLACEHOLDER_TELEFONO:
+            self.input_telefono.delete(0, tk.END)
+            self.input_telefono.config(foreground='black')
+
+    def set_placeholder_input_telefono(self, event):
+        if self.input_telefono.get() == "":
+            self.input_telefono.insert(0, self.PLACEHOLDER_TELEFONO)
+            self.input_telefono.config(foreground='gray')
+
+    def clear_placeholder_eleccion_oficio(self, event):
+        if self.eleccion_oficio.get() == self.PLACEHOLDER_OFICIO:
+            self.eleccion_oficio.delete(0, tk.END)
+            self.eleccion_oficio.config(foreground='black')
+
+    def set_placeholder_eleccion_oficio(self, event):
+        if self.eleccion_oficio.get() == "":
+            self.eleccion_oficio.insert(0, self.PLACEHOLDER_OFICIO)
+            self.eleccion_oficio.config(foreground='gray')
 
     def on_close(self):
        self.withdraw()

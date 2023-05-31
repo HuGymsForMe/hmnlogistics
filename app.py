@@ -16,7 +16,7 @@ class Programa:
         self.menu.ventana_distribuidor.almacen_distribuidores.cargar_datos()
         self.menu.ventana_pedidos.almacen_pedidos.cargar_datos()
         self.menu.ventana_departamentos.almacen_departamentos.cargar_datos()
-        #self.menu.ventana_empleados.almacen_empleados.cargar_datos()
+        self.menu.ventana_empleados.almacen_empleados.cargar_datos()
         self.menu.main()
         self.root.mainloop()
 

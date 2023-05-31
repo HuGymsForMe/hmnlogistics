@@ -130,15 +130,12 @@ class LisArticulos(tk.Toplevel):
         except IndexError:
             pass
 
-    def ocultar_menu(self):
-        self.withdraw()
-        
     def abrir_ventana_mod_articulos(self):
         dato_cod_articulo, dato_cod_cliente, dato_nombre, dato_descripcion, dato_categoria = self.recoger_datos()
         if (dato_cod_articulo == '' and dato_cod_cliente == '' 
         and dato_nombre == '' and dato_descripcion == '' and dato_categoria == ''):
             adevertencia = messagebox.showwarning(message="DEBES SELECCIONAR UN ARTÍCULO")
         else:
-            self.ocultar_menu()
+            self.withdraw()
             self.ventana_mod_articulos.mostrar_menu()
             self.ventana_mod_articulos.mainloop()

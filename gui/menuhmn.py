@@ -134,9 +134,7 @@ class MenuHmn:
         self.ventana_sucursal.almacen_sucursales.sobreescribir_datos()
         self.ventana_cliente.almacen_clientes.sobreescribir_datos()
         self.ventana_articulo.almacen_articulos.sobreescribir_datos()
-        self.ventana_cliente.almacen_articulos.sobreescribir_datos()
-        self.ventana_articulo.almacen_articulos.sobreescribir_datos()
         self.ventana_distribuidor.almacen_distribuidores.sobreescribir_datos()
         self.ventana_pedidos.almacen_pedidos.sobreescribir_datos()
         self.ventana_departamentos.almacen_departamentos.sobreescribir_datos()
-        
+        self.ventana_empleados.almacen_empleados.sobreescribir_datos()

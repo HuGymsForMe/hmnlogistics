@@ -64,7 +64,7 @@ class AddSucursales(tk.Toplevel):
         if dato_provincia in self.posibles_provincias:
             datos = messagebox.askyesno(message=f"DATOS:\nCÓDIGO DE SUCURSAL:{dato_cod_sucursal}\nPROVINCIA:{dato_provincia}\nDIRECCIÓN:{dato_direccion}")
             if datos:
-                if(self.almacen_sucursales.add_datos(dato_cod_sucursal, dato_provincia, dato_direccion)):
+                if (self.almacen_sucursales.add_datos(dato_cod_sucursal, dato_provincia, dato_direccion)):
                     cod_repetido = messagebox.showinfo(message="EL CÓDIGO GENERADO POR EL SISTEMA YA ESTÁ ASIGNADO")
         else:
             datos_erroneos = messagebox.showerror(message="DATOS INCORRRECTOS")

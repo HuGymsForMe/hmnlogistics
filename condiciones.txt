@@ -24,11 +24,11 @@ LIS PEDIDOS -->                                                                 
     MOD PEDIDOS -->                                                                     #HECHO
 
 ADD DEPARTAMENTOS --> Tiene que existir la sucursal                                     #HECHO                 
-DEL DEPARTAMENTOS -->
+DEL DEPARTAMENTOS --> Hay que borrar todos los empleados que tenga ese departamento
 LIS DEPARTAMENTOS -->
     MOD DEPARTAMENTOS --> 
 
-ADD EMPLEADOS --> Tiene que existir el departamentos al que le asignamos                #EN ELLO     
-DEL EMPLEADOS --> No hace falta ninguna condición
+ADD EMPLEADOS --> Tiene que existir el departamentos al que le asignamos                #HECHO     
+DEL EMPLEADOS --> No hace falta ninguna condición                                       #HECHO
 LIS EMPLEADOS -->
     MOD EMPLEADOS -->
