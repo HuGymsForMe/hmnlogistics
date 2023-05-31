@@ -1,3 +1,5 @@
+import speech_recognition as sr
+import os
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox, ttk
@@ -11,6 +13,7 @@ class LisPedidos(tk.Toplevel):
         self.almacen_sucursales = almacen_sucursales
         self.almacen_distribuidores = almacen_distribuidores
         self.menu_pedidos = menu_pedidos
+        self.IMAGEN_MICRO = os.path.abspath('../hmnlogistics/img/microfono.png') 
     
         self.minsize(900, 400)
         self.geometry("900x400+400+150")
@@ -19,6 +22,8 @@ class LisPedidos(tk.Toplevel):
         self.withdraw()
         self.title("MIS PEDIDOS")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
+
+        self.foto_micro = tk.PhotoImage(file=self.IMAGEN_MICRO)
 
         self.cod_pedido_var = tk.StringVar()
         self.cod_distribuidor_var = tk.StringVar()
@@ -36,7 +41,7 @@ class LisPedidos(tk.Toplevel):
         self.tree_pedidos = ttk.Treeview(self)
         self.print_filtro = ttk.Label(self, text="REALIZAR BUSQUEDA:", font=("Helvetica", 9))    
         self.input_filtro = ttk.Entry(self)
-
+        self.boton_microfono = ttk.Button(self, image=self.foto_micro, command=self.recoger_audio)
         self.input_filtro.bind('<KeyRelease>', self.realizar_busqueda)
 
         self.boton_mod_pedidos = ttk.Button(self, text="MODIFICAR PEDIDO", command=self.abrir_ventana_mod_pedidos)
@@ -69,10 +74,28 @@ class LisPedidos(tk.Toplevel):
         self.title_lis_pedidos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.print_filtro.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.input_filtro.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
+        self.boton_microfono.pack()
         self.tree_pedidos.pack(fill="both", expand=True)
         self.boton_mod_pedidos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.crear_listado()
         self.deiconify()
+    
+    def recoger_audio(self):
+        tus_palabras = sr.Recognizer()
+        with sr.Microphone() as source:
+            audio = tus_palabras.listen(source)
+        try:
+            self.boton_microfono.configure(state="disabled")
+            text = tus_palabras.recognize_google(audio, language="es-ES").upper()
+            self.input_filtro.delete(0, tk.END)
+            self.input_filtro.insert(tk.END, text)
+            self.crear_listado()
+        except sr.UnknownValueError:
+            messagebox.showerror(message="NO SE PUDO RECONOCER TU VOZ")
+        except sr.RequestError:
+            messagebox.showerror(message="NO SE PUDO RECONOCER TU VOZ")
+        finally:
+            self.boton_microfono.configure(state="normal")
 
     def crear_listado(self):
         self.tree_pedidos.delete(*self.tree_pedidos.get_children())

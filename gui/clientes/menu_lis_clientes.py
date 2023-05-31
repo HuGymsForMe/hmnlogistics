@@ -1,3 +1,5 @@
+import speech_recognition as sr
+import os
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk, messagebox
@@ -10,6 +12,7 @@ class LisClientes(tk.Toplevel):
         self.almacen_clientes = almacen_clientes
         self.almacen_sucursales = almacen_sucursales
         self.menu_clientes = menu_clientes
+        self.IMAGEN_MICRO = os.path.abspath('../hmnlogistics/img/microfono.png') 
 
         self.minsize(800, 350)
         self.geometry("800x350+400+150")
@@ -26,9 +29,12 @@ class LisClientes(tk.Toplevel):
         self.title("MIS SUCURSALES")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
+        self.foto_micro = tk.PhotoImage(file=self.IMAGEN_MICRO)
+
         self.title_lis_clientes = ttk.Label(self, text="MIS CLIENTES", font=("Helvetica", 12)) 
         self.tree_clientes = ttk.Treeview(self)    
         self.input_filtro = ttk.Entry(self)
+        self.boton_microfono = ttk.Button(self, image=self.foto_micro, command=self.recoger_audio)
         self.input_filtro.bind('<KeyRelease>', self.realizar_busqueda)
         self.boton_mod_articulos = ttk.Button(self, text="MODIFICAR CLIENTE", command=self.abrir_ventana_mod_clientes)
 
@@ -50,6 +56,7 @@ class LisClientes(tk.Toplevel):
     def mostrar_menu(self):
         self.title_lis_clientes.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.input_filtro.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
+        self.boton_microfono.pack()
         self.tree_clientes.pack(fill="both", expand=True)
         self.boton_mod_articulos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.crear_listado()
@@ -79,6 +86,23 @@ class LisClientes(tk.Toplevel):
         dato_cod_sucursal = self.cod_sucursal_var.get()
         dato_nombre = self.nombre_var.get().upper()
         return dato_cod_cliente, dato_cod_sucursal, dato_nombre
+
+    def recoger_audio(self):
+        tus_palabras = sr.Recognizer()
+        with sr.Microphone() as source:
+            audio = tus_palabras.listen(source)
+        try:
+            self.boton_microfono.configure(state="disabled")
+            text = tus_palabras.recognize_google(audio, language="es-ES").upper()
+            self.input_filtro.delete(0, tk.END)
+            self.input_filtro.insert(tk.END, text)
+            self.crear_listado()
+        except sr.UnknownValueError:
+            messagebox.showerror(message="NO SE PUDO RECONOCER TU VOZ")
+        except sr.RequestError:
+            messagebox.showerror(message="NO SE PUDO RECONOCER TU VOZ")
+        finally:
+            self.boton_microfono.configure(state="normal")
 
     def on_select(self, event):
         try:

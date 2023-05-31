@@ -1,3 +1,5 @@
+import speech_recognition as sr
+import os
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
@@ -7,6 +9,7 @@ class LisSucursales(tk.Toplevel):
         super().__init__(master)
         self.almacen_sucursales = almacen_sucursales
         self.menu_sucursales = menu_sucursales
+        self.IMAGEN_MICRO = os.path.abspath('../hmnlogistics/img/microfono.png')
 
         self.minsize(700, 300)
         self.geometry("700x300+400+150")
@@ -16,9 +19,12 @@ class LisSucursales(tk.Toplevel):
         self.title("MIS SUCURSALES")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
+        self.foto_micro = tk.PhotoImage(file=self.IMAGEN_MICRO)
+
         self.title_lis_sucursales = ttk.Label(self, text="MIS SUCURSALES", font=("Helvetica", 12)) 
         self.tree_sucursales = ttk.Treeview(self)
         self.input_filtro = ttk.Entry(self)
+        self.boton_microfono = ttk.Button(self, image=self.foto_micro, command=self.recoger_audio)
         self.input_filtro.bind('<KeyRelease>', self.realizar_busqueda)
         self.tree_sucursales["columns"] = ("COD_SUCURSAL", "PROVINCIA", "DIRECCION")   
         
@@ -35,9 +41,27 @@ class LisSucursales(tk.Toplevel):
     def mostrar_menu(self):
         self.title_lis_sucursales.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.input_filtro.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
+        self.boton_microfono.pack()
         self.tree_sucursales.pack(fill="both", expand=True)
         self.crear_listado()
         self.deiconify()
+
+    def recoger_audio(self):
+        tus_palabras = sr.Recognizer()
+        with sr.Microphone() as source:
+            audio = tus_palabras.listen(source)
+        try:
+            self.boton_microfono.configure(state="disabled")
+            text = tus_palabras.recognize_google(audio, language="es-ES").upper()
+            self.input_filtro.delete(0, tk.END)
+            self.input_filtro.insert(tk.END, text)
+            self.crear_listado()
+        except sr.UnknownValueError:
+            messagebox.showerror(message="NO SE PUDO RECONOCER TU VOZ")
+        except sr.RequestError:
+            messagebox.showerror(message="NO SE PUDO RECONOCER TU VOZ")
+        finally:
+            self.boton_microfono.configure(state="normal")
 
     def crear_listado(self):
         self.tree_sucursales.delete(*self.tree_sucursales.get_children())
