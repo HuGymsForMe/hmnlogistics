@@ -3,7 +3,7 @@ HMNLOGISTICS APP
 
 
 
-LA APLICACIÓN DE HMNLOGISTICS NOS PERMITE GESTIONAR TODO TIPO DE DATOS E INFORMACIÓN ACERCA DE NUESTRA EMPRESA.
+LA aplicacion de HMNLogistics nos permite gestionar todo tipo de datos e información acerca de nuestra empresa.
 
-PODREMOS GESTIONAR NUESTRAS SUCURSALES, DEPARTAMENTOS, PEDIDOS... ENTRE OTRAS COSAS.
+Podremos gestionar nuestras sucursales, departamentos, pedidos... entre otras cosas.
 
