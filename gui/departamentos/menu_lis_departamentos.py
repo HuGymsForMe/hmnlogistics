@@ -26,7 +26,7 @@ class LisDepartamentos(tk.Toplevel):
         self.almacen_sucursales, self.cod_departamento_var, self.cod_sucursal_var, self.nombre_var, self)
 
         self.withdraw()
-        self.title("MIS SUCURSALES")
+        self.title("MIS DEPARTAMENTOS")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
         self.foto_micro = tk.PhotoImage(file=self.IMAGEN_MICRO)

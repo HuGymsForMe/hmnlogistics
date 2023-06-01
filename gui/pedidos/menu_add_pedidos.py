@@ -19,6 +19,7 @@ class AddPedidos(tk.Toplevel):
         #FORMATO PLACEHOLDERS
         self.PLACEHOLDER_COD_DISTRIBUIDOR = "Código de Distribuidor:"
         self.PLACEHOLDER_COD_SUCURSAL = "Código de Sucursal:"
+        self.PLACEHOLDER_FECHA_PEDIDO = "Formato: 'YYYY-MM-DD'"
         self.PLACEHOLDER_NUM_ARTICULOS = "Nº Artículos:"
         self.PLACEHOLDER_PESO = "Peso:"
         self.PLACEHOLDER_PRECIO = "Precio:"
@@ -27,11 +28,12 @@ class AddPedidos(tk.Toplevel):
         self.minsize(400, 450)
         self.geometry("400x450+650+100")
         self.maxsize(400, 450)
-        self.title("AÑADIR DISTRIBUIDOR")
+        self.title("AÑADIR PEDIDO")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
         self.cod_distribuidor_seleccionado = tk.StringVar()
         self.cod_sucursal_seleccionado = tk.StringVar()
+        self.input_fecha_pedido_seleccionado = tk.StringVar()
         self.input_num_articulos_seleccionado = tk.StringVar()
         self.input_peso_seleccionado = tk.StringVar()
         self.input_precio_seleccionado = tk.StringVar()
@@ -48,7 +50,10 @@ class AddPedidos(tk.Toplevel):
         self.eleccion_cod_sucursal.bind('<FocusIn>', self.clear_placeholder_eleccion_cod_sucursal)
         self.eleccion_cod_sucursal.bind('<FocusOut>', self.set_placeholder_eleccion_cod_sucursal)
         self.print_fecha_pedido = ttk.Label(self, text="FECHA PEDIDO:", font=("Helvetica", 9))
-        self.input_fecha_pedido = None
+        self.input_fecha_pedido = ttk.Entry(self, foreground="gray", textvariable=self.input_fecha_pedido_seleccionado)
+        self.input_fecha_pedido.insert(0, self.PLACEHOLDER_FECHA_PEDIDO)
+        self.input_fecha_pedido.bind('<FocusIn>', self.clear_placeholder_input_fecha_pedido)
+        self.input_fecha_pedido.bind('<FocusOut>', self.set_placeholder_input_fecha_pedido)
         self.print_num_articulos = ttk.Label(self, text="Nº ARTÍCULOS:", font=("Helvetica", 9))
         self.input_num_articulos = ttk.Spinbox(self, from_=0, to=100, increment=1, foreground="gray",textvariable=self.input_num_articulos_seleccionado)
         self.input_num_articulos.insert(0, self.PLACEHOLDER_NUM_ARTICULOS)
@@ -74,10 +79,7 @@ class AddPedidos(tk.Toplevel):
         self.print_cod_sucursal.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.eleccion_cod_sucursal.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.print_fecha_pedido.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        if self.no_mostrar_calendario: #LO PONEMOS ASÍ PARA QUE SOLO SE MUESTRE UNA VEZ
-            self.input_fecha_pedido = DateEntry(self, date_pattern='yyyy-mm-dd') #NO LO PONEMOS EN EL INIT PORQUE SALTA UN PANTALLAZO RARO
-            self.input_fecha_pedido.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-            self.no_mostrar_calendario = False
+        self.input_fecha_pedido.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.print_num_articulos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.input_num_articulos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.print_peso.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
@@ -116,7 +118,7 @@ CÓDIGO DE SUCURSAL: {dato_cod_sucursal}\nFECHA DE PEDIDO: {dato_fecha_pedido}\n
 PRECIO: {dato_precio}")
             if datos:
                 if self.almacen_pedidos.add_datos(dato_cod_pedido, dato_cod_distribuidor, dato_cod_sucursal, dato_fecha_pedido, dato_num_articulos, dato_peso, dato_precio):
-                    cod_repetido = messagebox.showinfo(message="EL DISTRIBUIDOR YA SE ENCUENTRA EN EL SISTEMA")
+                    cod_repetido = messagebox.showinfo(message="EL PEDIDO YA SE ENCUENTRA EN EL SISTEMA")
         else:
             datos_erroneos = messagebox.showerror(message="DATOS INCORRRECTOS")
 
@@ -141,6 +143,16 @@ PRECIO: {dato_precio}")
         if self.eleccion_cod_sucursal.get() == "":
             self.eleccion_cod_sucursal.insert(0, self.PLACEHOLDER_COD_SUCURSAL)
             self.eleccion_cod_sucursal.config(foreground='gray')
+
+    def clear_placeholder_input_fecha_pedido(self, event):
+        if self.input_fecha_pedido.get() == self.PLACEHOLDER_FECHA_PEDIDO:
+            self.input_fecha_pedido.delete(0, tk.END)
+            self.input_fecha_pedido.config(foreground='black')
+
+    def set_placeholder_input_fecha_pedido(self, event):
+        if self.input_fecha_pedido.get() == "":
+            self.input_fecha_pedido.insert(0, self.PLACEHOLDER_FECHA_PEDIDO)
+            self.input_fecha_pedido.config(foreground='gray')
     
     def clear_placeholder_input_num_articulos(self, event):
         if self.input_num_articulos.get() == self.PLACEHOLDER_NUM_ARTICULOS:

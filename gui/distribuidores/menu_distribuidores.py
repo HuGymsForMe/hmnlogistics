@@ -20,7 +20,7 @@ class MenuDistribuidor(tk.Toplevel):
         self.minsize(300, 200)
         self.geometry("300x200+700+100")
         self.maxsize(300, 200)
-        self.title("MENÚ DISTRIBUIDOR")
+        self.title("MENÚ DISTRIBUIDORES")
         self.title_clientes = ttk.Label(self, text="MENÚ DISTRIBUIDORES", font=("Helvetica", 14))
         self.boton_add_distribuidores = ttk.Button(self, text="AÑADIR DISTRIBUIDOR", command=self.abrir_ventana_add_distribuidores)
         self.boton_del_distribuidores = ttk.Button(self, text="BORRAR DISTRIBUIDOR", command=self.abrir_ventana_del_distribuidores)

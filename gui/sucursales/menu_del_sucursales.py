@@ -16,12 +16,12 @@ class DelSucursales(tk.Toplevel):
         self.minsize(250, 150)
         self.geometry("250x150+650+150")
         self.maxsize(250, 150)
-        self.title("BORRAR CLIENTE")
+        self.title("BORRAR SUCURSAL")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
         self.cod_sucursal_seleccionado = tk.StringVar()
         
-        self.title_del_sucursales = ttk.Label(self, text="BORRAR CLIENTE", font=("Helvetica", 12))
+        self.title_del_sucursales = ttk.Label(self, text="BORRAR SUCURSAL", font=("Helvetica", 12))
         self.print_cod_sucursal = ttk.Label(self, text="CÓDIGO DE SUCURSAL:", font=("Helvetica", 9))
         self.eleccion_cod_sucursal = ttk.Combobox(self, values=[], textvariable=self.cod_sucursal_seleccionado, foreground="gray")
         self.eleccion_cod_sucursal.insert(0, self.PLACEHOLDER_COD_SUCURSAL)
@@ -43,7 +43,7 @@ class DelSucursales(tk.Toplevel):
 
     def tratar_del_sucursal(self):
         dato_borrar_cod_sucursal = self.cod_sucursal_seleccionado.get()
-        reaviso = messagebox.askyesno(message=" ¿DESEA ELIMINAR LA SUCURSAL?, \nSE DESVINCULARÁN TODOS SUS DEPARTAMENTOS")
+        reaviso = messagebox.askyesno(message="  ¿DESEA ELIMINAR LA SUCURSAL?,  \nSE DESVINCULARÁN TODOS SUS DEPARTAMENTOS")
         if (self.almacen_sucursales.del_datos(dato_borrar_cod_sucursal) and reaviso):
             self.almacen_departamentos.del_departamentos_por_del_sucursal(dato_borrar_cod_sucursal)
             sucursal_cancel = messagebox.showinfo(message="SUCURSAL ELMINADO CORRECTAMENTE")

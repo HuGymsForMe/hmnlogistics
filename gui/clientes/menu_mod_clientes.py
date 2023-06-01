@@ -17,7 +17,7 @@ class ModClientes(tk.Toplevel):
         self.minsize(250, 250)
         self.geometry("250x250+650+100")
         self.maxsize(250, 250)
-        self.title("MODIFICAR SUCURSAL")
+        self.title("MODIFICAR CLIENTE")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
         
         self.print_cod_cliente = ttk.Label(self, text="CÓDIGO DE CLIENTE:", font=("Helvetica", 9))

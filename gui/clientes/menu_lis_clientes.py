@@ -14,9 +14,9 @@ class LisClientes(tk.Toplevel):
         self.menu_clientes = menu_clientes
         self.IMAGEN_MICRO = os.path.abspath('../hmnlogistics/img/microfono.png') 
 
-        self.minsize(800, 350)
-        self.geometry("800x350+400+150")
-        self.maxsize(900, 350)
+        self.minsize(800, 375)
+        self.geometry("800x375+400+150")
+        self.maxsize(900, 375)
 
         self.cod_cliente_var = tk.StringVar()
         self.cod_sucursal_var = tk.StringVar()
@@ -26,7 +26,7 @@ class LisClientes(tk.Toplevel):
         self.almacen_sucursales, self.cod_cliente_var, self.cod_sucursal_var, self.nombre_var, self)
 
         self.withdraw()
-        self.title("MIS SUCURSALES")
+        self.title("MIS CLIENTES")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
         self.foto_micro = tk.PhotoImage(file=self.IMAGEN_MICRO)

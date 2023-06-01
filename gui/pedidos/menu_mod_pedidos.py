@@ -20,13 +20,12 @@ class ModPedidos(tk.Toplevel):
         self.peso_var = peso_var
         self.precio_var = precio_var
         self.menu_lis_pedidos = menu_lis_pedidos
-        self.no_mostrar_calendario = True
         self.validador = Validator()
 
         self.withdraw()
-        self.minsize(400, 450)
-        self.geometry("400x450+650+100")
-        self.maxsize(400, 450)
+        self.minsize(400, 465)
+        self.geometry("400x465+650+100")
+        self.maxsize(400, 465)
         self.title("MODIFICAR PEDIDO")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
@@ -55,10 +54,7 @@ class ModPedidos(tk.Toplevel):
         self.print_cod_sucursal.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.eleccion_cod_sucursal.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.print_fecha_pedido.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        if self.no_mostrar_calendario: #LO PONEMOS ASÍ PARA QUE SOLO SE MUESTRE UNA VEZ
-            self.input_fecha_pedido = DateEntry(self, date_pattern='yyyy-mm-dd') #NO LO PONEMOS EN EL INIT PORQUE SALTA UN PANTALLAZO RARO
-            self.input_fecha_pedido.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-            self.no_mostrar_calendario = False
+        self.input_fecha_pedido.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.print_cantidad_articulos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.input_cantidad_articulos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.print_peso.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)

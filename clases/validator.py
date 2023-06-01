@@ -23,6 +23,7 @@ class Validator:
     def validador_dni(self, dato_dni):
         self.formato_dni = r'^\d{8}[A-Za-z]$'
         if re.match(self.formato_dni, dato_dni):
+            #PODRÍA VALIDAR LA LETRA DEL DNI
             return True
         return False 
 

@@ -21,7 +21,7 @@ class DelDepartamentos(tk.Toplevel):
 
         self.cod_departamento_seleccionado = tk.StringVar()
 
-        self.title_del_departamentos = ttk.Label(self, text="BORRAR DISTRIBUIDO", font=("Helvetica", 12))
+        self.title_del_departamentos = ttk.Label(self, text="BORRAR DEPARTAMENTO", font=("Helvetica", 12))
         self.print_cod_departamento = ttk.Label(self, text="CÓDIGO DE DEPARTAMENTO:", font=("Helvetica", 9))
         self.eleccion_cod_departamento = ttk.Combobox(self, values=[], textvariable=self.cod_departamento_seleccionado, foreground="gray")
         self.eleccion_cod_departamento.insert(0, self.PLACEHOLDER_COD_DEPARTAMENTO)
@@ -43,7 +43,7 @@ class DelDepartamentos(tk.Toplevel):
 
     def tratar_del_departamento(self):
         dato_borrar_departamento = self.cod_departamento_seleccionado.get()
-        reaviso = messagebox.askyesno(message=" ¿DESEA ELIMINAR EL DEPARTAMENTO?, \nSE DESVINCULARÁN TODOS SUS EMPLEADOS")
+        reaviso = messagebox.askyesno(message="  ¿DESEA ELIMINAR EL DEPARTAMENTO?,  \nSE DESVINCULARÁN TODOS SUS EMPLEADOS")
         if (self.almacen_departamentos.del_datos(dato_borrar_departamento) and reaviso):
             self.almacen_empleados.del_empleados_por_del_departamento(dato_borrar_departamento)
             departamento_cancel = messagebox.showinfo(message="DEPARTAMENTO ELMINADO CORRECTAMENTE")

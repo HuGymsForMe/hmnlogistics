@@ -19,7 +19,7 @@ class ModArticulos(tk.Toplevel):
         self.minsize(350, 350)
         self.geometry("350x350+650+100")
         self.maxsize(350, 350)
-        self.title("MODIFICAR SUCURSAL")
+        self.title("MODIFICAR ARTÍCULO")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
         self.print_cod_articulo = ttk.Label(self, text="CÓDIGO DE ARTÍCULO:", font=("Helvetica", 9))

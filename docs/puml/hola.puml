@@ -1,4 +1,0 @@
-@startuml
-class Foo
-note left: On last defined class
-@enduml

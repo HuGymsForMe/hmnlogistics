@@ -19,7 +19,7 @@ class LisArticulos(tk.Toplevel):
         self.maxsize(1300, 400)
 
         self.withdraw()
-        self.title("MIS SUCURSALES")
+        self.title("MIS ARTÍCULOS")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
         self.foto_micro = tk.PhotoImage(file=self.IMAGEN_MICRO)

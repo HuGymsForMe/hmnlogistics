@@ -2,7 +2,7 @@ import speech_recognition as sr
 import os
 import tkinter as tk
 from tkinter import *
-from tkinter import ttk
+from tkinter import ttk, messagebox
 
 from gui.sucursales.menu_mod_sucursales import ModSucursales
 
@@ -36,7 +36,7 @@ class LisSucursales(tk.Toplevel):
         self.boton_microfono = ttk.Button(self, image=self.foto_micro, command=self.recoger_audio)
         self.input_filtro.bind('<KeyRelease>', self.realizar_busqueda)
         self.tree_sucursales["columns"] = ("COD_SUCURSAL", "PROVINCIA", "DIRECCION")
-        self.boton_mod_sucursales = ttk.Button(self, text="MODIFICAR SUCURSAL", command=self.abrir_ventana_mod_pedidos)   
+        self.boton_mod_sucursales = ttk.Button(self, text="MODIFICAR SUCURSAL", command=self.abrir_ventana_mod_sucursales)   
         
         self.tree_sucursales.column("#0", width=100, stretch=tk.NO)  # Columna de índice
         self.tree_sucursales.column("COD_SUCURSAL", anchor=tk.W, width=50)
@@ -111,10 +111,10 @@ class LisSucursales(tk.Toplevel):
         except IndexError:
             pass
         
-    def abrir_ventana_mod_pedidos(self):
+    def abrir_ventana_mod_sucursales(self):
         dato_cod_sucursal_var, dato_provincia_var, dato_direccion_var = self.recoger_datos()
         if (dato_cod_sucursal_var == '' and dato_provincia_var == '' and dato_direccion_var == ''):
-            adevertencia = messagebox.showwarning(message="DEBES SELECCIONAR UN SUCURSAL")
+            advertencia = messagebox.showwarning(message="DEBES SELECCIONAR UN SUCURSAL")
         else:
             self.withdraw()
             self.ventana_mod_sucursales.mostrar_menu()

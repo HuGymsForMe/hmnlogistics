@@ -13,7 +13,6 @@ class AddEmpleados(tk.Toplevel):
         self.almacen_empleados = almacen_empleados
         self.almacen_departamentos = almacen_departamentos
         self.menu_empleados = menu_empleados
-        self.no_mostrar_calendario = True
         self.validador = Validator()
 
         #FORMATO PLACEHOLDERS
@@ -21,6 +20,7 @@ class AddEmpleados(tk.Toplevel):
         self.PLACEHOLDER_DNI = "Ej: 00000000B"
         self.PLACEHOLDER_NOMBRE = "Nombre:"
         self.PLACEHOLDER_APELLIDOS = "Apellidos:"
+        self.PLACEHOLDER_FECHA_NAC = "Formato: 'YYYY-MM-DD'"
         self.PLACEHOLDER_SALARIO = "Salario:"
         self.PLACEHOLDER_DOMICILIO = "Domicilio:"
         self.PLACEHOLDER_TELEFONO = "Teléfono:"
@@ -30,7 +30,7 @@ class AddEmpleados(tk.Toplevel):
         self.minsize(400, 700)
         self.geometry("400x7000+650+50")
         self.maxsize(400, 700)
-        self.title("AÑADIR CLIENTE")
+        self.title("AÑADIR EMPLEADO")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
         self.cod_empleado_seleccionado = tk.StringVar()
@@ -67,7 +67,10 @@ class AddEmpleados(tk.Toplevel):
         self.input_apellidos.bind('<FocusIn>', self.clear_placeholder_input_apellidos)
         self.input_apellidos.bind('<FocusOut>', self.set_placeholder_input_apellidos)
         self.print_fecha_nac = ttk.Label(self, text="FECHA DE NACIMIENTO:", font=("Helvetica", 9))
-        self.input_fecha_pedido = None
+        self.input_fecha_nac = ttk.Entry(self, foreground="gray", textvariable=self.fecha_nac_seleccionada)
+        self.input_fecha_nac.insert(0, self.PLACEHOLDER_FECHA_NAC)
+        self.input_fecha_nac.bind('<FocusIn>', self.clear_placeholder_input_fecha_nac)
+        self.input_fecha_nac.bind('<FocusOut>', self.set_placeholder_input_fecha_nac)
         self.print_salario = ttk.Label(self, text="SALARIO:", font=("Helvetica", 9))
         self.input_salario = ttk.Entry(self, foreground="gray", textvariable=self.salario_seleccionado)
         self.input_salario.insert(0, self.PLACEHOLDER_SALARIO)
@@ -103,10 +106,7 @@ class AddEmpleados(tk.Toplevel):
         self.print_apellidos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.input_apellidos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.print_fecha_nac.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        if self.no_mostrar_calendario: #LO PONEMOS ASÍ PARA QUE SOLO SE MUESTRE UNA VEZ
-            self.input_fecha_pedido = DateEntry(self, date_pattern='yyyy-mm-dd') #NO LO PONEMOS EN EL INIT PORQUE SALTA UN PANTALLAZO RARO
-            self.input_fecha_pedido.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-            self.no_mostrar_calendario = False
+        self.input_fecha_nac.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.print_salario.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.input_salario.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.print_domicilio.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
@@ -153,6 +153,7 @@ SALARIO: {dato_salario}\nDOMICILIO: {dato_domicilio}\nTELÉFONO: {dato_telefono}
                     cod_repetido = messagebox.showinfo(message="EL EMPLEADO YA ESTÁ REGISTRADO EN EL SISTEMA")
                 if self.almacen_empleados.add_datos_2(dato_dni, dato_nombre, dato_apellidos, dato_fecha_nac, dato_domicilio):
                     cod_repetido
+            self.on_close()
         else:
             datos_erroneos = messagebox.showerror(message="DATOS INCORRRECTOS")
 
@@ -196,6 +197,16 @@ SALARIO: {dato_salario}\nDOMICILIO: {dato_domicilio}\nTELÉFONO: {dato_telefono}
         if self.input_apellidos.get() == "":
             self.input_apellidos.insert(0, self.PLACEHOLDER_APELLIDOS)
             self.input_apellidos.config(foreground='gray')
+
+    def clear_placeholder_input_fecha_nac(self, event):
+        if self.input_fecha_nac.get() == self.PLACEHOLDER_FECHA_NAC:
+            self.input_fecha_nac.delete(0, tk.END)
+            self.input_fecha_nac.config(foreground='black')
+
+    def set_placeholder_input_fecha_nac(self, event):
+        if self.input_fecha_nac.get() == "":
+            self.input_fecha_nac.insert(0, self.PLACEHOLDER_FECHA_NAC)
+            self.input_fecha_nac.config(foreground='gray')
 
     def clear_placeholder_input_salario(self, event):
         if self.input_salario.get() == self.PLACEHOLDER_SALARIO:

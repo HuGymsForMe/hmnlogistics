@@ -16,12 +16,12 @@ class DelDistribuidores(tk.Toplevel):
         self.minsize(300, 150)
         self.geometry("300x150+650+150")
         self.maxsize(300, 150)
-        self.title("BORRAR PEDIDO")
+        self.title("BORRAR DISTRIBUIDOR")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
         self.cod_distribuidor_seleccionado = tk.StringVar()
 
-        self.title_del_distribuidores = ttk.Label(self, text="BORRAR DISTRIBUIDO", font=("Helvetica", 12))
+        self.title_del_distribuidores = ttk.Label(self, text="BORRAR DISTRIBUIDOR", font=("Helvetica", 12))
         self.print_cod_distribuidor = ttk.Label(self, text="CÓDIGO DE DISTRIBUIDOR:", font=("Helvetica", 9))
         self.eleccion_cod_distribuidor = ttk.Combobox(self, values=[], textvariable=self.cod_distribuidor_seleccionado, foreground="gray")
         self.eleccion_cod_distribuidor.insert(0, self.PLACEHOLDER_COD_DISTRIBUIDOR)

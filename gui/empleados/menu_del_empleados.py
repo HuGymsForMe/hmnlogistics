@@ -20,7 +20,7 @@ class DelEmpleados(tk.Toplevel):
 
         self.dni_seleccionado = tk.StringVar()
 
-        self.title_del_departamentos = ttk.Label(self, text="BORRAR CLIENTE", font=("Helvetica", 12))
+        self.title_del_departamentos = ttk.Label(self, text="BORRAR EMPLEADO", font=("Helvetica", 12))
         self.print_dni = ttk.Label(self, text="DNI DEL EMPLEADO:", font=("Helvetica", 9))
         self.eleccion_dni = ttk.Combobox(self, values=[], textvariable=self.dni_seleccionado, foreground="gray")
         self.eleccion_dni.insert(0, self.PLACEHOLDER_DNI)

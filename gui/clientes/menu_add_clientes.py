@@ -64,8 +64,7 @@ class AddClientes(tk.Toplevel):
             if datos:
                 if(self.almacen_clientes.add_datos(dato_cod_cliente, dato_cod_sucursal, dato_nombre)):
                     cod_repetido = messagebox.showinfo(message="EL CLIENTE YA SE ENCUENTRA EN EL SISTEMA")
-                else:
-                    self.on_close()
+                self.on_close()
         else:
             datos_erroneos = messagebox.showerror(message="DATOS INCORRRECTOS")
 

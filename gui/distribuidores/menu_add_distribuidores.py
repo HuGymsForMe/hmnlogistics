@@ -47,8 +47,7 @@ class AddDistribuidores(tk.Toplevel):
         if datos:
             if self.almacen_distribuidores.add_datos(dato_cod_distribuidor, dato_nombre):
                 cod_repetido = messagebox.showinfo(message="EL DISTRIBUIDOR YA SE ENCUENTRA EN EL SISTEMA")
-            else:
-                self.on_close()
+            self.on_close()
 
     #PLACEHOLDERS
     def clear_placeholder_input_nombre(self, event):

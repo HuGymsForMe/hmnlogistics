@@ -55,12 +55,14 @@ class AddDepartamentos(tk.Toplevel):
 
     def comprobar_departamentos(self):
         dato_cod_departamento, dato_cod_sucursal, dato_nombre = self.recoger_datos_departamentos()
-        datos = messagebox.askyesno(message=f"DATOS:\nCÓDIGO DE DEPARTAMENTO: {dato_cod_departamento}\nCÓDIGO DE SUCURSAL: {dato_cod_sucursal}\nNOMBRE: {dato_nombre}")
-        if datos:
-            if self.almacen_departamentos.add_datos(dato_cod_departamento, dato_cod_sucursal, dato_nombre):
-                cod_repetido = messagebox.showinfo(message="EL DEPARTAMENTO YA SE ENCUENTRA EN EL SISTEMA")
-            else:
+        if dato_cod_sucursal in self.posibles_sucursales:
+            datos = messagebox.askyesno(message=f"DATOS:\nCÓDIGO DE DEPARTAMENTO: {dato_cod_departamento}\nCÓDIGO DE SUCURSAL: {dato_cod_sucursal}\nNOMBRE: {dato_nombre}")
+            if datos:
+                if self.almacen_departamentos.add_datos(dato_cod_departamento, dato_cod_sucursal, dato_nombre):
+                    cod_repetido = messagebox.showinfo(message="EL DEPARTAMENTO YA SE ENCUENTRA EN EL SISTEMA")
                 self.on_close()
+        else:
+            datos_erroneos = messagebox.showerror(message="DATOS INCORRRECTOS")
 
     def actualizar_posibles_sucursales(self):
         self.posibles_sucursales = self.almacen_sucursales.generar_combobox()

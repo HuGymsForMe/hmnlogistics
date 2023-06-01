@@ -86,8 +86,7 @@ class AddArticulos(tk.Toplevel):
             if datos:
                 if (self.almacen_articulos.add_datos(dato_cod_articulo, dato_cod_cliente, dato_nombre, dato_descripcion, dato_categoria)):
                     cod_repetido = messagebox.showinfo(message="EL CÓDIGO GENERADO POR EL SISTEMA YA ESTÁ ASIGNADO")
-                else:
-                    self.on_close()
+                self.on_close()
         else:
             datos_erroneos = messagebox.showerror(message="DATOS INCORRRECTOS")
 
