@@ -1,7 +1,7 @@
 ADD SUCURSALES --> No hace falte ninguna condición                                      #HECHO
-DEL SUCURSALES --> Se tienen que borrar todos los clientes, departamentos y pedidos     #HACER LO ÚLTIMO
+DEL SUCURSALES --> Se tienen que borrar todos los clientes, departamentos y pedidos     #HECHO
 LIS SUCURSALES -->                                                                      #HECHO
-    MOD SUCURSALES -->                                                                  
+    MOD SUCURSALES -->                                                                  #HECHO         
 
 ADD ARTICULOS --> Tiene que existir el cliente al cual le añadimos el articulo          #HECHO  
 DEL ARTICULOS --> No hace falta ninguna condición                                       #HECHO
@@ -24,11 +24,13 @@ LIS PEDIDOS -->                                                                 
     MOD PEDIDOS -->                                                                     #HECHO
 
 ADD DEPARTAMENTOS --> Tiene que existir la sucursal                                     #HECHO                 
-DEL DEPARTAMENTOS --> Hay que borrar todos los empleados que tenga ese departamento
-LIS DEPARTAMENTOS -->
-    MOD DEPARTAMENTOS --> 
+DEL DEPARTAMENTOS --> Hay que borrar todos los empleados que tenga ese departamento     #HECHO
+LIS DEPARTAMENTOS -->                                                                   #HECHO
+    MOD DEPARTAMENTOS -->                                                               #HECHO
 
 ADD EMPLEADOS --> Tiene que existir el departamentos al que le asignamos                #HECHO     
 DEL EMPLEADOS --> No hace falta ninguna condición                                       #HECHO
-LIS EMPLEADOS -->
-    MOD EMPLEADOS -->
+LIS EMPLEADOS -->                                                                       #HECHO
+LIS DATOS EMPLEADOS -->                                                                 #HECHO
+    MOD EMPLEADOS -->                                                                   #HECHO
+    MOD DATOS EMPLEADOS -->                                                             #HECHO

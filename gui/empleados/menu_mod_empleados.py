@@ -38,7 +38,7 @@ class ModEmpleados(tk.Toplevel):
         self.print_oficio = ttk.Label(self, text="OFICIO:", font=("Helvetica", 9))
         self.posibles_oficios = ['GESTOR', 'TÉCNICO', 'RR.HH', 'ANALISTA', 'CARRETILLERO', 'MOZO DE ALMACÉN']
         self.eleccion_oficio = ttk.Combobox(self, values=self.posibles_oficios, textvariable=self.oficio_var)
-        self.boton_mod_empleado = ttk.Button(self, text="REALIZAR CAMBIOS")
+        self.boton_mod_empleado = ttk.Button(self, text="REALIZAR CAMBIOS", command=self.realizar_modificaciones)
 
     def mostrar_menu(self):
         self.actualizar_posibles_cod_departamento()
@@ -62,12 +62,13 @@ class ModEmpleados(tk.Toplevel):
         self.eleccion_cod_departamento['values'] = self.posibles_cod_departamento
 
     def realizar_modificaciones(self): #MODIFICAR
-        dato_cod_articulo, dato_cod_cliente, dato_nombre, dato_descripcion, dato_categoria = self.menu_lis_articulos.recoger_datos()
+        dato_cod_empleado , dato_cod_departamento, dato_dni, dato_fecha_alta, dato_telefono, dato_salario, dato_oficio = self.menu_lis_empleados.recoger_datos()
         reaviso = messagebox.askyesno(message="¿DESEA MODIFICAR EL EMPLEADO?")
         if reaviso:
-            if dato_cod_cliente in self.posibles_cod_cliente and dato_categoria in self.posibles_categorias:
-                self.almacen_articulos.del_datos(dato_cod_articulo)
-                self.almacen_articulos.add_datos(dato_cod_articulo, dato_cod_cliente, dato_nombre, dato_descripcion, dato_categoria)
+            if dato_cod_departamento in self.posibles_cod_departamento and dato_oficio in self.posibles_oficios:
+                self.almacen_empleados.del_datos(dato_dni)
+                self.almacen_empleados.add_datos(dato_cod_empleado, dato_cod_departamento, dato_dni, 
+            dato_fecha_alta, dato_telefono, dato_salario, dato_oficio)
                 messagebox.showinfo(message="EL EMPLEADO SE MODIFICÓ CORRECTAMENTE")
                 self.on_close()
             else:

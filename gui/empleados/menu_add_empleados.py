@@ -149,10 +149,10 @@ class AddEmpleados(tk.Toplevel):
 DNI: {dato_dni}\nNOMBRE: {dato_nombre}\nAPELLIDOS: {dato_apellidos}\nFECHA DE NACIMIENTO: {dato_fecha_nac}\nFECHA DE ALTA: {dato_fecha_alta}\n\
 SALARIO: {dato_salario}\nDOMICILIO: {dato_domicilio}\nTELÉFONO: {dato_telefono}\nOFICIO: {dato_oficio}")
             if datos:
-                if (self.almacen_empleados.add_datos(dato_dni, dato_nombre, dato_apellidos, dato_fecha_nac,
-                                                     dato_domicilio, dato_cod_empleado, dato_cod_departamento,
-                                                     dato_fecha_alta, dato_salario,dato_telefono, dato_oficio)):
+                if self.almacen_empleados.add_datos(dato_cod_empleado, dato_cod_departamento, dato_dni, dato_fecha_alta, dato_salario, dato_telefono, dato_oficio):
                     cod_repetido = messagebox.showinfo(message="EL EMPLEADO YA ESTÁ REGISTRADO EN EL SISTEMA")
+                if self.almacen_empleados.add_datos_2(dato_dni, dato_nombre, dato_apellidos, dato_fecha_nac, dato_domicilio):
+                    cod_repetido
         else:
             datos_erroneos = messagebox.showerror(message="DATOS INCORRRECTOS")
 

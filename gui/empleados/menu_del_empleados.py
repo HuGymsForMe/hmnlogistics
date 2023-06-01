@@ -43,7 +43,9 @@ class DelEmpleados(tk.Toplevel):
     def tratar_del_empleado(self):
         dato_dni = self.dni_seleccionado.get()
         reaviso = messagebox.askyesno(message="¿DESEA ELIMINAR EL EMPLEADO?")
-        if (self.almacen_empleados.del_datos(dato_dni) and reaviso):
+        if self.almacen_empleados.del_datos(dato_dni) and reaviso:
+            pass
+        if self.almacen_empleados.del_datos_2(dato_dni) and reaviso:
             empleado_cancel = messagebox.showinfo(message="EMPLEADO ELMINADO CORRECTAMENTE")
             self.on_close()
         elif dato_dni not in self.posibles_dni:

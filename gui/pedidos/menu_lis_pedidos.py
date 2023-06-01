@@ -43,7 +43,6 @@ class LisPedidos(tk.Toplevel):
         self.input_filtro = ttk.Entry(self)
         self.boton_microfono = ttk.Button(self, image=self.foto_micro, command=self.recoger_audio)
         self.input_filtro.bind('<KeyRelease>', self.realizar_busqueda)
-
         self.boton_mod_pedidos = ttk.Button(self, text="MODIFICAR PEDIDO", command=self.abrir_ventana_mod_pedidos)
 
         #TABLA
@@ -145,9 +144,6 @@ class LisPedidos(tk.Toplevel):
             self.precio_var.set(values[self.almacen_pedidos.CamposFicheroCsv.PRECIO])
         except IndexError:
             pass
-
-    def ocultar_menu(self):
-        self.withdraw()
         
     def abrir_ventana_mod_pedidos(self):
         dato_cod_pedido, dato_cod_distribuidor, dato_cod_sucursal, dato_fecha_pedido, dato_cantidad_articulos, dato_peso, dato_precio = self.recoger_datos()
@@ -156,6 +152,6 @@ class LisPedidos(tk.Toplevel):
         and dato_peso == '' and dato_precio == ''):
             adevertencia = messagebox.showwarning(message="DEBES SELECCIONAR UN ARTÍCULO")
         else:
-            self.ocultar_menu()
+            self.withdraw()
             self.ventana_mod_pedidos.mostrar_menu()
             self.ventana_mod_pedidos.mainloop()

@@ -1,8 +1,6 @@
 import tkinter as tk
 from gui.menuhmn import MenuHmn
 
-import os
-
 class Programa:
     def __init__(self):
         self.almacen = {}

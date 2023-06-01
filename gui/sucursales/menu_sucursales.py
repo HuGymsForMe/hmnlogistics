@@ -7,11 +7,13 @@ from gui.sucursales.menu_del_sucursales import DelSucursales
 from gui.sucursales.menu_lis_sucursales import LisSucursales
 
 class MenuSucursales(tk.Toplevel):
-    def __init__(self, master, app, almacen_sucursales):
+    def __init__(self, master, app, almacen_sucursales, almacen_departamentos):
         super().__init__(master, app)
         self._app = app
         self.almacen_sucursales = almacen_sucursales
+        self.almacen_departamentos = almacen_departamentos
         self.ventana_add_sucursales = AddSucursales(self.master, self.almacen_sucursales, self)
+        self.ventana_del_sucursales = DelSucursales(self.master, self.almacen_sucursales, self.almacen_departamentos, self)
         self.ventana_lis_sucursales = LisSucursales(self.master, self.almacen_sucursales, self)
         self.withdraw()
         self.protocol("WM_DELETE_WINDOW", self.on_close)
@@ -48,16 +50,10 @@ class MenuSucursales(tk.Toplevel):
     
     def abrir_ventana_del_sucursales(self):
         self.ocultar_menu()
-        ventana_del_sucursales = DelSucursales(self.master, self._app, self)
-        ventana_del_sucursales.mainloop()
+        self.ventana_del_sucursales.mostrar_menu()
+        self.ventana_del_sucursales.mainloop()
 
     def abrir_ventana_lis_sucursales(self):
         self.ocultar_menu()
         self.ventana_lis_sucursales.mostrar_menu()
         self.ventana_lis_sucursales.mainloop()
-
-    def abrir_ventana_mod_sucursales(self):
-        self.ocultar_menu()
-        self.ventana_mod_sucursales.mostrar_menu()
-        self.ventana_mod_sucursales.mainloop()
-        

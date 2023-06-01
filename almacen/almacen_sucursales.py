@@ -61,6 +61,22 @@ class AlmacenSucursales(Almacen):
                     self._cod_sucursal_combobox.append(primer_campo)
                 return self._cod_sucursal_combobox
 
+    def del_datos(self, dato_borrar_sucursal):
+        try:
+            with open(os.path.join(self.RUTA_FICHEROS, 'sucursales.csv'), 'r', encoding="UTF-8") as fichero_sucursales:
+                lineas = fichero_sucursales.readlines()
+                contador = 0
+                for linea in lineas:
+                    campos = str(linea).split(';')
+                    campo_dato_borrar_sucursal = str(campos[self.CamposFicheroCsv.COD_SUCURSAL].strip())
+                    if dato_borrar_sucursal == campo_dato_borrar_sucursal:
+                        self._sucursales.pop(contador)
+                        return True
+                    contador += 1
+                return False
+        except IndexError:
+            pass
+
     def sobreescribir_datos(self):
         with open(os.path.join(self.RUTA_FICHEROS, 'sucursales.csv'), 'w', encoding="UTF-8") as nuevo_csv_sucursales:
             for linea in self._sucursales:

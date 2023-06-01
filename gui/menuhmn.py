@@ -36,10 +36,10 @@ class MenuHmn:
 
         self.ventana_articulo = MenuArticulos(self.master, self._app, self.almacen_articulos, self.almacen_clientes)
         self.ventana_cliente = MenuClientes(self.master, self._app, self.almacen_clientes, self.almacen_sucursales, self.almacen_articulos)
-        self.ventana_sucursal = MenuSucursales(self.master, self._app, self.almacen_sucursales)
+        self.ventana_sucursal = MenuSucursales(self.master, self._app, self.almacen_sucursales, self.almacen_departamentos)
         self.ventana_distribuidor = MenuDistribuidor(self.master, self._app, self.almacen_distribuidores, self.almacen_pedidos)
         self.ventana_pedidos = MenuPedido(self.master, self._app, self.almacen_pedidos, self.almacen_distribuidores, self.almacen_sucursales)
-        self.ventana_departamentos = MenuDepartamentos(self.master, self._app, self.almacen_departamentos, self.almacen_sucursales)
+        self.ventana_departamentos = MenuDepartamentos(self.master, self._app, self.almacen_departamentos, self.almacen_sucursales, self.almacen_empleados)
         self.ventana_empleados = MenuEmpleados(self.master, self._app, self.almacen_empleados, self.almacen_departamentos)
         
         self.master.protocol("WM_DELETE_WINDOW", self.on_close)

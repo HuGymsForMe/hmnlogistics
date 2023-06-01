@@ -23,8 +23,8 @@ class AlmacenEmpleados(Almacen):
         
         @staticmethod
         def opciones():
-            return range(AlmacenPedidos.CamposFicheroCsv.COD_EMPLEADO,
-                        AlmacenPedidos.CamposFicheroCsv.OFICIO+1)
+            return range(Almacenempleadoss.CamposFicheroCsv.COD_EMPLEADO,
+                        Almacenempleadoss.CamposFicheroCsv.OFICIO+1)
 
     @property
     def empleados(self):
@@ -67,23 +67,25 @@ class AlmacenEmpleados(Almacen):
             pass
             
 
-    def add_datos(self, dato_dni, dato_nombre, dato_apellidos, dato_fecha_nac, dato_domicilio, 
-                  dato_cod_empleado, dato_cod_departamento, dato_fecha_alta, dato_salario,
+    def add_datos(self, dato_cod_empleado, dato_cod_departamento, dato_dni, dato_fecha_alta, dato_salario,
                   dato_telefono, dato_oficio):
-        for datos_empleados in self._datos_empleados:
-            if dato_dni == datos_empleados._dni:
-                return True
         for empleado in self._empleados:
             if dato_cod_empleado == empleado._cod_empleado:
                 return True
         else:
-            nuevo_datos_empleado = DatosEmpleado(dni=dato_dni, nombre=dato_nombre, apellidos=dato_apellidos,
-            fecha_nac=dato_fecha_nac, domicilio=dato_domicilio)
             nuevo_empleado = Empleado(cod_empleado=dato_cod_empleado, cod_departamento=dato_cod_departamento, dni=dato_dni,
             fecha_alta=dato_fecha_alta, salario=dato_salario, telefono=dato_telefono, oficio=dato_oficio)
-            self._datos_empleados.append(nuevo_datos_empleado)
             self._empleados.append(nuevo_empleado)
             return False
+
+    def add_datos_2(self, dato_dni, dato_nombre, dato_apellidos, dato_fecha_nac, dato_domicilio):
+        for datos_empleados in self._datos_empleados:
+            if dato_dni == datos_empleados._dni:
+                return True
+        else:
+            nuevo_datos_empleado = DatosEmpleado(dni=dato_dni, nombre=dato_nombre, apellidos=dato_apellidos,
+            fecha_nac=dato_fecha_nac, domicilio=dato_domicilio)
+            self._datos_empleados.append(nuevo_datos_empleado)
     
     def generar_combobox(self):
         with open(os.path.join(self.RUTA_FICHEROS, 'datos_empleados.csv'), 'r', encoding="UTF-8") as fichero_empleados:
@@ -105,7 +107,11 @@ class AlmacenEmpleados(Almacen):
                     if dato_dni == campo_dato_dni:
                         self._empleados.pop(contador)
                     contador += 1
-
+        except IndexError:
+            pass
+        
+    def del_datos_2(self, dato_dni):
+        try:
             with open(os.path.join(self.RUTA_FICHEROS, 'datos_empleados.csv'), 'r', encoding="UTF-8") as fichero_datos_empleados:
                 lineas = fichero_datos_empleados.readlines()
                 contador = 0
@@ -119,6 +125,21 @@ class AlmacenEmpleados(Almacen):
                 return False
         except IndexError:
             pass
+
+    def del_empleados_por_del_departamento(self, dato_borrar_departamento):
+        try:
+            contador = 0
+            for empleado in self._empleados:
+                if dato_borrar_departamento == empleado._cod_departamento:
+                    empleado._cod_departamento = '-------'
+                contador += 1
+            if contador == (len(self._empleados)-1):
+                return False
+            else:
+                return True
+        except IndexError:
+            pass
+        
     
     def sobreescribir_datos(self):
         with open(os.path.join(self.RUTA_FICHEROS, 'empleados.csv'), 'w', encoding="UTF-8") as nuevo_csv_empleados:
