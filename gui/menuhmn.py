@@ -21,10 +21,14 @@ from almacen.almacen_pedidos import AlmacenPedidos
 from almacen.almacen_departamentos import AlmacenDepartamentos
 from almacen.almacen_empleados import AlmacenEmpleados
 
+from cnx.inserts import Inserts
+
 class MenuHmn:
     def __init__(self, master, app):
         self.master = master
         self._app = app
+
+        self.bbdd = Inserts()
 
         self.almacen_articulos = AlmacenArticulos(self)
         self.almacen_clientes = AlmacenClientes(self)
@@ -44,46 +48,49 @@ class MenuHmn:
         
         self.master.protocol("WM_DELETE_WINDOW", self.on_close)
 
-        self.IMAGEN_FAVICON= Image.open(os.path.abspath('../hmnlogistics/img/carretilla.ico'))
-        self.resized_favicon = self.IMAGEN_FAVICON.resize((32, 15))
+        self.IMAGEN_FAVICON= Image.open(os.path.abspath('../hmnlogistics/img/logoescritorio.ico'))
+        self.resized_favicon = self.IMAGEN_FAVICON.resize((40, 40))
         self.favicon_tk = ImageTk.PhotoImage(self.resized_favicon)
         self.master.iconphoto(True, self.favicon_tk)
 
-        self.master.minsize(800, 600)
-        self.master.geometry("800x600+550+100")
-        self.master.maxsize(800, 600)
+        self.master.minsize(705, 350)
+        self.master.geometry("705x383+650+125")
+        self.master.maxsize(705, 400)
         self.master.deiconify()
         self.master.title("HMN LOGISTICS")
 
-        self.IMAGEN_LOGO = Image.open(os.path.abspath('../hmnlogistics/img/hmnlogistics.jpeg'))
-        self.resized_logo_hmn = self.IMAGEN_LOGO.resize((310, 150))
+        self.IMAGEN_LOGO = Image.open(os.path.abspath('../hmnlogistics/img/logo.png'))
+        self.resized_logo_hmn = self.IMAGEN_LOGO.resize((150, 150))
         self.logo_hmn = ImageTk.PhotoImage(self.resized_logo_hmn)
         self.logo_hmn_menu = ttk.Label(self.master, image=self.logo_hmn)
 
-        self.title_hmn = tk.Label(self.master, text="BIENVENIDO", font=("Helvetica", 14))
-        self.subtitulo_hmn = ttk.Label(self.master, text="¿QUÉ DESEA GESTIONAR?", font=("Helvetica", 12))
-        self.boton_articulos = ttk.Button(self.master, text="ARTÍCULOS", command=self.acceder_menu_articulos)
-        self.boton_clientes = ttk.Button(self.master, text="CLIENTES", command=self.acceder_menu_clientes)
-        self.boton_sucursales = ttk.Button(self.master, text="SUCURSALES", command=self.acceder_menu_sucursales)
-        self.boton_pedidos = ttk.Button(self.master, text="PEDIDOS", command=self.acceder_menu_pedidos)
-        self.boton_distribuidores = ttk.Button(self.master, text="DISTRIBUIDORES", command=self.acceder_menu_distribuidores)
-        self.boton_departamentos = ttk.Button(self.master, text="DEPARTAMENTOS", command=self.acceder_menu_departamentos)
-        self.boton_empleados = ttk.Button(self.master, text="EMPLEADOS", command=self.acceder_menu_empleados)
-        self.guardar_datos = ttk.Button(self.master, text="GUARDAR", command=self.clickar_boton_guardar)
-        self.guardar_salir = ttk.Button(self.master, text="GUARDAR Y SALIR", command=self.clickar_boton_guardar_salir)
+        self.style = ttk.Style()
+        self.style.configure('Config.TButton', background="#AED6F1", foreground="#1C2833", width=30, font=("Geneva", 12))
+        self.style.configure('TButton', background="#AED6F1", foreground="#1C2833", width=30, font=("Geneva", 11))
+
+        self.subtitulo_hmn = ttk.Label(self.master, text="¿QUÉ DESEA GESTIONAR?", font=("Helvetica", 12, 'italic', 'bold'))
+        self.boton_articulos = ttk.Button(self.master, text="ARTÍCULOS", command=self.acceder_menu_articulos, style="Config.TButton")
+        self.boton_clientes = ttk.Button(self.master, text="CLIENTES", command=self.acceder_menu_clientes, style="Config.TButton")
+        self.boton_sucursales = ttk.Button(self.master, text="SUCURSALES", command=self.acceder_menu_sucursales, style="Config.TButton")
+        self.boton_pedidos = ttk.Button(self.master, text="PEDIDOS", command=self.acceder_menu_pedidos, style="Config.TButton")
+        self.boton_distribuidores = ttk.Button(self.master, text="DISTRIBUIDORES", command=self.acceder_menu_distribuidores, style="Config.TButton")
+        self.boton_departamentos = ttk.Button(self.master, text="DEPARTAMENTOS", command=self.acceder_menu_departamentos, style="Config.TButton")
+        self.boton_empleados = ttk.Button(self.master, text="EMPLEADOS", command=self.acceder_menu_empleados, style="Config.TButton")
+        self.guardar_datos = ttk.Button(self.master, text="GUARDAR", command=self.clickar_boton_guardar, style="Config.TButton")
+        self.guardar_salir = ttk.Button(self.master, text="GUARDAR Y SALIR", command=self.clickar_boton_guardar_salir, style="Config.TButton")
 
     def main(self):
-        self.logo_hmn_menu.pack(side=LEFT, anchor="w", expand=False, padx=40)
-        self.subtitulo_hmn.pack(side=TOP, fill=BOTH, expand=True, padx=20, pady=5)
-        self.boton_articulos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.boton_clientes.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.boton_sucursales.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.boton_pedidos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.boton_distribuidores.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.boton_departamentos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.boton_empleados.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.guardar_datos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.guardar_salir.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
+        self.subtitulo_hmn.grid(row=0, column=0, columnspan=2, padx=240, pady=5, sticky="nsew")
+        self.logo_hmn_menu.grid(row=1, column=0, columnspan=2, padx=270, pady=3, sticky="nsew")
+        self.boton_articulos.grid(row=2, column=0, padx=5, pady=5, sticky="nsew")
+        self.boton_clientes.grid(row=2, column=1, padx=5, pady=5, sticky="nsew")
+        self.boton_sucursales.grid(row=3, column=0, padx=5, pady=5, sticky="nsew")
+        self.boton_pedidos.grid(row=3, column=1, padx=5, pady=5, sticky="nsew")
+        self.boton_distribuidores.grid(row=4, column=0, padx=5, pady=5, sticky="nsew")
+        self.boton_departamentos.grid(row=4, column=1, padx=5, pady=5, sticky="nsew")
+        self.boton_empleados.grid(row=5, column=0, padx=5, pady=5, sticky="nsew")
+        self.guardar_datos.grid(row=5, column=1, padx=5, pady=5, sticky="nsew")
+        self.guardar_salir.grid(row=6, column=0, columnspan=2, padx=5, pady=5, sticky="nsew")
 
     def ocultar_menu(self):
         self.master.withdraw()
@@ -123,11 +130,13 @@ class MenuHmn:
         alerta = messagebox.askyesno(message="DESEAN GUARDAR LOS CAMBIOS")
         if alerta:
             self.recoger_datos()
+            self.update_bbdd()
 
     def clickar_boton_guardar_salir(self):
         alerta = messagebox.askyesno(message="DESEA GUARDAR LOS CAMBIOS Y SALIR")
         if alerta:
             self.recoger_datos()
+            self.update_bbdd()
             self.master.destroy()
 
     def recoger_datos(self):
@@ -138,3 +147,14 @@ class MenuHmn:
         self.ventana_pedidos.almacen_pedidos.sobreescribir_datos()
         self.ventana_departamentos.almacen_departamentos.sobreescribir_datos()
         self.ventana_empleados.almacen_empleados.sobreescribir_datos()
+
+    def update_bbdd(self):
+        self.bbdd.realizar_deletes()
+        self.bbdd.cargar_bbdd_distribuidores()
+        self.bbdd.cargar_bbdd_sucursales()
+        self.bbdd.cargar_bbdd_clientes()
+        self.bbdd.cargar_bbdd_articulos()
+        self.bbdd.cargar_bbdd_pedidos()
+        self.bbdd.cargar_bbdd_departamentos()
+        self.bbdd.cargar_bbdd_datos_empleados()
+        self.bbdd.cargar_bbdd_empleados()

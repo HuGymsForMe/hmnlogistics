@@ -13,15 +13,18 @@ class LisDatosEmpleados(tk.Toplevel):
         self.menu_empleados = menu_empleados
         self.IMAGEN_MICRO = os.path.abspath('../hmnlogistics/img/microfono.png') 
 
-        self.minsize(800, 375)
-        self.geometry("800x375+650+150")
-        self.maxsize(800, 375)
+        self.minsize(690, 400)
+        self.geometry("695x400+650+150")
+        self.maxsize(695, 400)
 
         self.withdraw()
         self.title("MIS EMPLEADOS")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
         self.foto_micro = tk.PhotoImage(file=self.IMAGEN_MICRO)
+
+        self.style = ttk.Style()
+        self.style.configure('Config.TLabel', width=40)
 
         self.dni_var = tk.StringVar()
         self.nombre_var = tk.StringVar()
@@ -32,10 +35,11 @@ class LisDatosEmpleados(tk.Toplevel):
         self.ventana_mod_empleados = ModDatosEmpleados(self.master, self.almacen_empleados, self.dni_var, self.nombre_var, 
         self.apellidos_var, self.fecha_nac_var, self.domicilio_var, self)
 
-        self.title_lis_datos_empleados = ttk.Label(self, text="MIS EMPLEADOS", font=("Helvetica", 12)) 
-        self.tree_datos_empleados = ttk.Treeview(self)    
-        self.input_filtro = ttk.Entry(self)
-        self.boton_microfono = ttk.Button(self, image=self.foto_micro, command=self.recoger_audio)
+        self.title_lis_datos_empleados = ttk.Label(self, text="MIS EMPLEADOS", font=("Helvetica", 12), style='Config.TLabel') 
+        self.tree_datos_empleados = ttk.Treeview(self, style='Config.TLabel')
+        self.print_filtro = ttk.Label(self, text="REALIZAR BUSQUEDA:", font=("Helvetica", 9), style='Config.TLabel')    
+        self.input_filtro = ttk.Entry(self, style='Config.TLabel')
+        self.boton_microfono = ttk.Button(self, image=self.foto_micro, command=self.recoger_audio, style='Config.TLabel')
         self.input_filtro.bind('<KeyRelease>', self.realizar_busqueda)
 
         self.boton_mod_empleados = ttk.Button(self, text="MODIFICAR EMPLEADO", command=self.abrir_ventana_mod_empleados)
@@ -60,13 +64,16 @@ class LisDatosEmpleados(tk.Toplevel):
         self.tree_datos_empleados.bind('<<TreeviewSelect>>', self.on_select)
 
     def mostrar_menu(self):
-        self.title_lis_datos_empleados.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.input_filtro.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.boton_microfono.pack()
-        self.tree_datos_empleados.pack(fill="both", expand=True)
-        self.boton_mod_empleados.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
+        self.title_lis_datos_empleados.grid(row=0, column=0, columnspan=10, padx=5, pady=5, sticky="nsew")
+        self.print_filtro.grid(row=1, column=0, columnspan=10, padx=5, pady=5, sticky="nsew")
+        self.input_filtro.grid(row=2, column=0, columnspan=8, padx=5, pady=5, sticky="nsew")
+        self.boton_microfono.grid(row=2, column=8, padx=5, pady=5, sticky="nsew")
+        self.tree_datos_empleados.grid(row=3, column=0, rowspan=11, padx=5, pady=10, sticky="nsew")
+        self.boton_mod_empleados.grid(row=23, column=0, columnspan=20, padx=5, pady=5, sticky="nsew")
         self.crear_listado()
         self.deiconify()
+        self.input_filtro.focus_set()
+
 
     def recoger_datos(self):
         dato_dni = self.dni_var.get()

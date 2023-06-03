@@ -1,0 +1,80 @@
+@startuml distribuidores
+
+package pedidos <<Folder>> #F9E79F {
+    MenuDistribuidores <|-- AddDistribuidores
+    MenuDistribuidores <|-- DelDistribuidores
+    MenuDistribuidores <|-- LisDistribuidores
+
+    together {
+  class AddDistribuidores
+  class DelDistribuidores
+  class LisDistribuidores
+}
+    class MenuDistribuidores #F6DDCC{
+        + master
+        - _app
+        + almacen_distribuidores
+        + almacen_pedidos
+        + ventana_add_distribuidores
+        + ventana_del_distribuidores
+        + ventana_lis_distribuidores
+        + title_del_clientes
+        + boton_add_distribuidores
+        + boton_del_distribuidores
+        + boton_lis_distribuidores
+        + mostrar_menu(self)
+        + on_close(self)
+        + abrir_ventana_add_distribuidores(self)
+        + abrir_ventana_del_distribuidores(self)
+        + abrir_ventana_lis_distribuidores(self)
+}
+    class AddDistribuidores #F6DDCC{
+        + almacen_distribuidores
+        + menu_distribuidores
+        + PLACEHOLDER_NOMBRE : str
+        + input_nombre_seleccionado
+        + title_add_distribuidores
+        + print_nombre
+        + input_nombre
+        + boton_add_sucursal
+        + recoger_datos_distribuidores(self)
+        + comprobar_distribuidores(self)
+        + clear_placeholder_input_nombre(self, event)
+        + set_placeholder_input_nombre(self, event)
+        + limpiar_campos(self)
+}
+    class DelDistribuidores #F6DDCC{
+        + almacen_distribuidores
+        + almacen_pedidos
+        + menu_distribuidores
+        + PLACEHOLDER_COD_DISTRIBUDOR : str
+        + cod_distribuidor_seleccionado
+        + title_del_distribuidores
+        + print_cod_distribuidor
+        + eleccion_cod_distribuidor
+        + boton_del_distribuidor
+        + actualizar_posibles_cod_pedido(self)
+        + tratar_del_distribuidor(self)
+        + clear_placeholder_eleccion_cod_distribuidor(self, event)
+        + set_placeholder_eleccion_cod_distribuidor(self, event)
+        + limpiar_campos(self)
+}
+    class LisDistribuidores #F6DDCC{
+        + almacen_distribuidores
+        + menu_distribuidores
+        + IMAGEN_MICRO
+        + cod_distribuidor_var
+        + nombre_var
+        + foto_micro
+        + style
+        + title_lis_distribuidores
+        + tree_distribuidores
+        + print_filtro
+        + input_filtro
+        + boton_microfono
+        + recoger_audio(self)
+        + crear_listado(self)
+        + realizar_busqueda(self)
+}
+}
+@enduml

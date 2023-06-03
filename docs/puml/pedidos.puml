@@ -1,6 +1,5 @@
 @startuml pedidos
 
-
 package pedidos <<Folder>> #F9E79F {
     MenuPedidos <|-- AddPedidos
     MenuPedidos <|-- DelPedidos
@@ -64,7 +63,6 @@ package pedidos <<Folder>> #F9E79F {
         + print_precio
         + input_precio
         + boton_add_pedido
-        + mostrar_menu(self)
         + actualizar_posibles_distribuidores_sucursales(self)
         + recoger_datos_pedidos(self)
         + comprobar_pedidos(self)
@@ -78,7 +76,6 @@ package pedidos <<Folder>> #F9E79F {
         + set_placeholder_input_peso(self, event)
         + clear_placeholder_input_precio(self, event)
         + set_placeholder_input_precio(self, event)
-        + on_close(self)
         + limpiar_campos(self)     
 }
     class DelPedidos #F6DDCC{
@@ -90,20 +87,20 @@ package pedidos <<Folder>> #F9E79F {
         + print_cod_pedido
         + eleccion_cod_pedido
         + boton_del_pedido
-        + mostrar_menu(self)
         + actualizar_posibles_cod_pedido(self)
         + tratar_del_pedido(self)
         + clear_placeholder_eleccion_cod_pedido(self, event)
         + set_placeholder_eleccion_cod_pedido(self, event)
-        + on_close(self)
         + limpiar_campos(self)
 }
     class LisPedidos #F6DDCC{
-        + master
         + almacen_pedidos
         + almacen_sucursales
         + almacen_distribuidores
         + menu_pedidos
+        + IMAGEN_MICRO
+        + foto_micro
+        + style
         + cod_pedido_var
         + cod_distribuidor_var
         + cod_sucursal_var
@@ -116,14 +113,12 @@ package pedidos <<Folder>> #F9E79F {
         + tree_pedidos
         + input_filtro
         + print_filtro
+        + boton_microfono
         + boton_mod_pedidos
-        + mostrar_menu(self)
         + crear_listado(self)
         + realizar_busqueda(self)
-        + on_close(self)
         + recoger_datos(self)
         + on_select(self)
-        + ocultar_menu(self)
         + abrir_ventana_mod_pedidos(self)
 }
     class ModPedidos #F6DDCC{
@@ -156,10 +151,8 @@ package pedidos <<Folder>> #F9E79F {
         + print_precio
         + input_precio
         + boton_mod_pedidos
-        + mostrar_menu(self)
         + actualizar_posibles_combobox(self)
         + realizar_modificaciones(self)
-        + on_close(self)
 }
 }
 

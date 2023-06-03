@@ -11,9 +11,9 @@ package articulos <<Folder>> #F9E79F {
         - _app
         + almacen_articulos
         + almacen_clientes
-        + ventana_add_articulos: AddArticulos
-        + ventana_del_articulos: DelArticulos
-        + ventana_lis_articulos: LisArticulos
+        + ventana_add_articulos : AddArticulos
+        + ventana_del_articulos : DelArticulos
+        + ventana_lis_articulos : LisArticulos
         + title_articulos
         + boton_add_articulos
         + boton_del_articulos
@@ -26,7 +26,6 @@ package articulos <<Folder>> #F9E79F {
         + abrir_ventana_lis_articulos(self)   
 }
     class AddArticulos #F6DDCC{
-        + master : Tk
         + almacen_articulos
         + almacen_clientes
         + menu_articulos
@@ -49,7 +48,6 @@ package articulos <<Folder>> #F9E79F {
         + posibles_categorias
         + eleccion_categorias
         + boton_add_articulos
-        + mostrar_menu(self)
         + actualizar_posibles_cod_cliente(self)
         + recoger_datos_articulos(self)
         + comprobar_articulos(self)
@@ -61,12 +59,10 @@ package articulos <<Folder>> #F9E79F {
         + set_placeholder_input_descripcion(self, event)
         + clear_placeholder_input_categoria(self, event)
         + set_placeholder_input_categoria(self, event)
-        + on_close(self)
         + limpiar_campos(self)
 
 }
     class DelArticulos #F6DDCC{
-        + master: Tk
         + almacen_articulos
         + menu_articulos
         + PLACEHOLDER_COD_ARTICULO: str
@@ -74,19 +70,19 @@ package articulos <<Folder>> #F9E79F {
         + print_cod_articulo
         + eleccion_cod_articulo
         + boton_del_articulos
-        + mostrar_menu(self)
         + actualizar_posibles_cod_articulo(self)
         + tratar_del_articulo(self)
         + clear_placeholder_eleccion_cod_articulo(self, event)
         + set_placeholder_eleccion_cod_articulo(self, event)
-        + on_close(self)
         + limpiar_campos(self)
 }
     class LisArticulos #F6DDCC{
-        + master: Tk
         + almacen_articulos
         + almacen_clientes
         + menu_articulos
+        + IMAGEN_MICRO
+        + foto_micro
+        + style
         + cod_articulo_var
         + cod_cliente_var
         + nombre_var
@@ -97,19 +93,18 @@ package articulos <<Folder>> #F9E79F {
         + tree_articulos
         + print_filtro
         + input_filtro
+        + boton_microfono
         + boton_mod_articulos
         + tree_articulos
-        + mostrar_menu(self)
         + crear_listado(self)
         + realizar_busqueda(self)
-        + on_close(self)
         + recoger_datos(self)
+        + recoger_audio(self)
         + on_select(self)
         + ocultar_menu(self)
         + abrir_ventana_mod_articulos(self)
 }
     class ModArticulos #F6DDCC{
-        + master: Tk
         + almacen_articulos
         + almacen_clientes
         + cod_articulo_var

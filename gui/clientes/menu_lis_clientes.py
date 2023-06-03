@@ -14,9 +14,9 @@ class LisClientes(tk.Toplevel):
         self.menu_clientes = menu_clientes
         self.IMAGEN_MICRO = os.path.abspath('../hmnlogistics/img/microfono.png') 
 
-        self.minsize(800, 375)
-        self.geometry("800x375+400+150")
-        self.maxsize(900, 375)
+        self.minsize(606, 360)
+        self.geometry("606x360+400+150")
+        self.maxsize(606, 360)
 
         self.cod_cliente_var = tk.StringVar()
         self.cod_sucursal_var = tk.StringVar()
@@ -31,12 +31,16 @@ class LisClientes(tk.Toplevel):
 
         self.foto_micro = tk.PhotoImage(file=self.IMAGEN_MICRO)
 
-        self.title_lis_clientes = ttk.Label(self, text="MIS CLIENTES", font=("Helvetica", 12)) 
-        self.tree_clientes = ttk.Treeview(self)    
-        self.input_filtro = ttk.Entry(self)
-        self.boton_microfono = ttk.Button(self, image=self.foto_micro, command=self.recoger_audio)
+        self.style = ttk.Style()
+        self.style.configure('Config.TLabel', width=60)
+
+        self.title_lis_clientes = ttk.Label(self, text="MIS CLIENTES", font=("Helvetica", 12), style='Config.TLabel') 
+        self.tree_clientes = ttk.Treeview(self, style='Config.TLabel') 
+        self.print_filtro = ttk.Label(self, text="REALIZAR BUSQUEDA:", font=("Helvetica", 9), style='Config.TLabel')    
+        self.input_filtro = ttk.Entry(self, style='Config.TLabel')
+        self.boton_microfono = ttk.Button(self, image=self.foto_micro, command=self.recoger_audio, style='Config.TLabel')
         self.input_filtro.bind('<KeyRelease>', self.realizar_busqueda)
-        self.boton_mod_articulos = ttk.Button(self, text="MODIFICAR CLIENTE", command=self.abrir_ventana_mod_clientes)
+        self.boton_mod_clientes = ttk.Button(self, text="MODIFICAR CLIENTE", command=self.abrir_ventana_mod_clientes)
 
         #TABLA
         self.tree_clientes["columns"] = ("COD_CLIENTE", "COD_SUCURSAL", "NOMBRE")  
@@ -54,13 +58,15 @@ class LisClientes(tk.Toplevel):
         self.tree_clientes.bind('<<TreeviewSelect>>', self.on_select)
 
     def mostrar_menu(self):
-        self.title_lis_clientes.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.input_filtro.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.boton_microfono.pack()
-        self.tree_clientes.pack(fill="both", expand=True)
-        self.boton_mod_articulos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
+        self.title_lis_clientes.grid(row=0, column=0, columnspan=10, padx=5, pady=5, sticky="nsew")
+        self.print_filtro.grid(row=1, column=0, columnspan=20, padx=5, pady=5, sticky="nsew")
+        self.input_filtro.grid(row=2, column=0, columnspan=18, padx=5, pady=5, sticky="nsew")
+        self.boton_microfono.grid(row=2, column=18, padx=5, pady=5, sticky="nsew")
+        self.tree_clientes.grid(row=3, column=0, rowspan=21, padx=5, pady=10, sticky="nsew")
+        self.boton_mod_clientes.grid(row=23, column=0, columnspan=20, padx=5, pady=10, sticky="nsew")
         self.crear_listado()
         self.deiconify()
+        self.input_filtro.focus_set()
 
     def crear_listado(self):
         self.tree_clientes.delete(*self.tree_clientes.get_children())

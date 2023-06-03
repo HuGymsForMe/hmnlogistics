@@ -15,15 +15,18 @@ class LisPedidos(tk.Toplevel):
         self.menu_pedidos = menu_pedidos
         self.IMAGEN_MICRO = os.path.abspath('../hmnlogistics/img/microfono.png') 
     
-        self.minsize(900, 400)
-        self.geometry("900x400+400+150")
-        self.maxsize(1300, 400)
+        self.minsize(785, 405)
+        self.geometry("785x405+400+150")
+        self.maxsize(785, 405)
 
         self.withdraw()
         self.title("MIS PEDIDOS")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
         self.foto_micro = tk.PhotoImage(file=self.IMAGEN_MICRO)
+
+        self.style = ttk.Style()
+        self.style.configure('Config.TLabel', width=40)
 
         self.cod_pedido_var = tk.StringVar()
         self.cod_distribuidor_var = tk.StringVar()
@@ -37,11 +40,11 @@ class LisPedidos(tk.Toplevel):
         self.cod_pedido_var, self.cod_distribuidor_var, self.cod_sucursal_var, self.fecha_pedido_var, self.cantidad_articulos_var,
         self.peso_var, self.precio_var, self)
 
-        self.title_lis_pedidos = ttk.Label(self, text="MIS PEDIDOS", font=("Helvetica", 12)) 
-        self.tree_pedidos = ttk.Treeview(self)
-        self.print_filtro = ttk.Label(self, text="REALIZAR BUSQUEDA:", font=("Helvetica", 9))    
-        self.input_filtro = ttk.Entry(self)
-        self.boton_microfono = ttk.Button(self, image=self.foto_micro, command=self.recoger_audio)
+        self.title_lis_pedidos = ttk.Label(self, text="MIS PEDIDOS", font=("Helvetica", 12), style='Config.TLabel') 
+        self.tree_pedidos = ttk.Treeview(self, style='Config.TLabel')
+        self.print_filtro = ttk.Label(self, text="REALIZAR BUSQUEDA:", font=("Helvetica", 9), style='Config.TLabel')    
+        self.input_filtro = ttk.Entry(self, style='Config.TLabel')
+        self.boton_microfono = ttk.Button(self, image=self.foto_micro, command=self.recoger_audio, style='Config.TLabel')
         self.input_filtro.bind('<KeyRelease>', self.realizar_busqueda)
         self.boton_mod_pedidos = ttk.Button(self, text="MODIFICAR PEDIDO", command=self.abrir_ventana_mod_pedidos)
 
@@ -51,12 +54,12 @@ class LisPedidos(tk.Toplevel):
         
         self.tree_pedidos.column("#0", width=100, stretch=tk.NO)  # Columna de índice
         self.tree_pedidos.column("COD_PEDIDO", anchor=tk.W, width=50)
-        self.tree_pedidos.column("COD_DISTRIBUIDOR", anchor=tk.W, width=50)
+        self.tree_pedidos.column("COD_DISTRIBUIDOR", anchor=tk.W, width=70)
         self.tree_pedidos.column("COD_SUCURSAL", anchor=tk.W, width=50)
         self.tree_pedidos.column("FECHA DEL PEDIDO", anchor=tk.W, width=60)
         self.tree_pedidos.column("CANTIDAD DE ARTÍCULOS", anchor=tk.W, width=100)
-        self.tree_pedidos.column("PESO", anchor=tk.W, width=40)
-        self.tree_pedidos.column("PRECIO", anchor=tk.W, width=40)
+        self.tree_pedidos.column("PESO", anchor=tk.W, width=30)
+        self.tree_pedidos.column("PRECIO", anchor=tk.W, width=30)
         
         self.tree_pedidos.heading("#0", text="NUM_PEDIDO", anchor=tk.W)
         self.tree_pedidos.heading("COD_PEDIDO", text="COD_PEDIDO", anchor=tk.W)
@@ -70,14 +73,15 @@ class LisPedidos(tk.Toplevel):
         self.tree_pedidos.bind('<<TreeviewSelect>>', self.on_select)
 
     def mostrar_menu(self):
-        self.title_lis_pedidos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.print_filtro.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.input_filtro.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.boton_microfono.pack()
-        self.tree_pedidos.pack(fill="both", expand=True)
-        self.boton_mod_pedidos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
+        self.title_lis_pedidos.grid(row=0, column=0, columnspan=10, padx=5, pady=5, sticky="nsew")
+        self.print_filtro.grid(row=1, column=0, columnspan=10, padx=5, pady=5, sticky="nsew")
+        self.input_filtro.grid(row=2, column=0, columnspan=8, padx=5, pady=5, sticky="nsew")
+        self.boton_microfono.grid(row=2, column=8, padx=5, pady=5, sticky="nsew")
+        self.tree_pedidos.grid(row=3, column=0, rowspan=11, padx=5, pady=10, sticky="nsew")
+        self.boton_mod_pedidos.grid(row=23, column=0, columnspan=20, padx=5, pady=10, sticky="nsew")
         self.crear_listado()
         self.deiconify()
+        self.input_filtro.focus_set()
     
     def recoger_audio(self):
         tus_palabras = sr.Recognizer()

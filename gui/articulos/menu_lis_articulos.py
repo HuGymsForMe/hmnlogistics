@@ -14,15 +14,18 @@ class LisArticulos(tk.Toplevel):
         self.menu_articulos = menu_articulos
         self.IMAGEN_MICRO = os.path.abspath('../hmnlogistics/img/microfono.png') 
 
-        self.minsize(900, 400)
-        self.geometry("900x400+400+150")
-        self.maxsize(1300, 400)
+        self.minsize(755, 358)
+        self.geometry("755x358+400+150")
+        self.maxsize(755, 358)
 
         self.withdraw()
         self.title("MIS ARTÍCULOS")
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
         self.foto_micro = tk.PhotoImage(file=self.IMAGEN_MICRO)
+
+        self.style = ttk.Style()
+        self.style.configure('Config.TLabel', width=60)
 
         self.cod_articulo_var = tk.StringVar()
         self.cod_cliente_var = tk.StringVar()
@@ -33,11 +36,11 @@ class LisArticulos(tk.Toplevel):
         self.ventana_mod_articulos = ModArticulos(self.master, self.almacen_articulos, self.almacen_clientes,
         self.cod_articulo_var, self.cod_cliente_var, self.nombre_var, self.descripcion_var, self.categoria_var, self)
 
-        self.title_lis_sucursales = ttk.Label(self, text="MIS ARTÍCULOS", font=("Helvetica", 12)) 
-        self.tree_articulos = ttk.Treeview(self)
-        self.print_filtro = ttk.Label(self, text="REALIZAR BUSQUEDA:", font=("Helvetica", 9))    
-        self.input_filtro = ttk.Entry(self)
-        self.boton_microfono = ttk.Button(self, image=self.foto_micro, command=self.recoger_audio)
+        self.title_lis_sucursales = ttk.Label(self, text="MIS ARTÍCULOS", font=("Helvetica", 12), style='Config.TLabel') 
+        self.tree_articulos = ttk.Treeview(self, style='Config.TLabel')
+        self.print_filtro = ttk.Label(self, text="REALIZAR BUSQUEDA:", font=("Helvetica", 9), style='Config.TLabel')    
+        self.input_filtro = ttk.Entry(self, style='Config.TLabel')
+        self.boton_microfono = ttk.Button(self, image=self.foto_micro, command=self.recoger_audio, style='Config.TLabel')
         self.input_filtro.bind('<KeyRelease>', self.realizar_busqueda)
 
         self.boton_mod_articulos = ttk.Button(self, text="MODIFICAR ARTÍCULO", command=self.abrir_ventana_mod_articulos)
@@ -48,8 +51,8 @@ class LisArticulos(tk.Toplevel):
         self.tree_articulos.column("#0", width=100, stretch=tk.NO)  # Columna de índice
         self.tree_articulos.column("COD_ARTICULO", anchor=tk.W, width=50)
         self.tree_articulos.column("COD_CLIENTE", anchor=tk.W, width=60)
-        self.tree_articulos.column("NOMBRE", anchor=tk.W, width=50)
-        self.tree_articulos.column("DESCRIPCION", anchor=tk.W, width=100)
+        self.tree_articulos.column("NOMBRE", anchor=tk.W, width=100)
+        self.tree_articulos.column("DESCRIPCION", anchor=tk.W, width=120)
         self.tree_articulos.column("CATEGORIA", anchor=tk.W, width=30)
         
         self.tree_articulos.heading("#0", text="NUM_SUCURSAL", anchor=tk.W)
@@ -62,14 +65,15 @@ class LisArticulos(tk.Toplevel):
         self.tree_articulos.bind('<<TreeviewSelect>>', self.on_select)
 
     def mostrar_menu(self):
-        self.title_lis_sucursales.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.print_filtro.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.input_filtro.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        self.boton_microfono.pack()
-        self.tree_articulos.pack(fill="both", expand=True)
-        self.boton_mod_articulos.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
+        self.title_lis_sucursales.grid(row=0, column=0, columnspan=10, padx=5, pady=5, sticky="nsew")
+        self.print_filtro.grid(row=1, column=0, columnspan=20, padx=5, pady=5, sticky="nsew")
+        self.input_filtro.grid(row=2, column=0, columnspan=18, padx=5, pady=5, sticky="nsew")
+        self.boton_microfono.grid(row=2, column=18, padx=5, pady=5, sticky="nsew")
+        self.tree_articulos.grid(row=3, column=0, rowspan=21, padx=5, pady=10, sticky="nsew")
+        self.boton_mod_articulos.grid(row=23, column=0, columnspan=20, padx=5, pady=10, sticky="nsew")
         self.crear_listado()
         self.deiconify()
+        self.input_filtro.focus_set()
 
     def crear_listado(self):
         self.tree_articulos.delete(*self.tree_articulos.get_children())
