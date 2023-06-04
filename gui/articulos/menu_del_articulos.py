@@ -46,6 +46,8 @@ class DelArticulos(tk.Toplevel):
         if (self.almacen_articulos.del_datos(dato_borrar_articulo) and reaviso):
             articulo_cancel = messagebox.showinfo(message="ARTÍCULO ELMINADO CORRECTAMENTE")
             self.on_close()
+        elif not reaviso:
+            pass
         else:
             articulo_not_found = messagebox.showerror(message="ARTÍCULO NO ENCONTRADO EN EL SISTEMA")
 

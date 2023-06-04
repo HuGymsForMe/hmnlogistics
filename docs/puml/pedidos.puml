@@ -24,6 +24,7 @@ package pedidos <<Folder>> #F9E79F {
         + boton_add_pedidos
         + boton_del_pedidos
         + boton_lis_pedidos
+        + __init__(self, master, ...)
         + mostrar_menu(self)
         + ocultar_menu(self)
         + on_close(self)
@@ -32,10 +33,6 @@ package pedidos <<Folder>> #F9E79F {
         + abrir_ventana_lis_pedidos(self)
 }
     class AddPedidos #F6DDCC{
-        + master
-        + almacen_pedidos
-        + almacen_sucursales
-        + almacen_distribuidores
         + menu_pedidos
         + no_mostrar_calendario : Boolean
         + validador : Validator
@@ -63,6 +60,7 @@ package pedidos <<Folder>> #F9E79F {
         + print_precio
         + input_precio
         + boton_add_pedido
+        + __init__(self, master, ...)
         + actualizar_posibles_distribuidores_sucursales(self)
         + recoger_datos_pedidos(self)
         + comprobar_pedidos(self)
@@ -79,7 +77,6 @@ package pedidos <<Folder>> #F9E79F {
         + limpiar_campos(self)     
 }
     class DelPedidos #F6DDCC{
-        + almacen_pedidos
         + menu_pedidos
         + PLACEHOLDER_COD_PEDIDO : str
         + cod_pedido_seleccionado
@@ -87,6 +84,7 @@ package pedidos <<Folder>> #F9E79F {
         + print_cod_pedido
         + eleccion_cod_pedido
         + boton_del_pedido
+        + __init__(self, master, ...)
         + actualizar_posibles_cod_pedido(self)
         + tratar_del_pedido(self)
         + clear_placeholder_eleccion_cod_pedido(self, event)
@@ -94,9 +92,6 @@ package pedidos <<Folder>> #F9E79F {
         + limpiar_campos(self)
 }
     class LisPedidos #F6DDCC{
-        + almacen_pedidos
-        + almacen_sucursales
-        + almacen_distribuidores
         + menu_pedidos
         + IMAGEN_MICRO
         + foto_micro
@@ -115,24 +110,15 @@ package pedidos <<Folder>> #F9E79F {
         + print_filtro
         + boton_microfono
         + boton_mod_pedidos
+        + __init__(self, master, ...)
         + crear_listado(self)
-        + realizar_busqueda(self)
+        + realizar_busqueda(self, event)
         + recoger_datos(self)
-        + on_select(self)
+        + recoger_audio(self)
+        + on_select(self, event)
         + abrir_ventana_mod_pedidos(self)
 }
     class ModPedidos #F6DDCC{
-        + master
-        + almacen_pedidos
-        + almacen_sucursales
-        + almacen_distribuidores
-        + cod_pedido_var
-        + cod_distribuidor_var
-        + cod_sucursal_var
-        + fecha_pedido_var
-        + cantidad_articulos_var
-        + peso_var
-        + precio_var
         + menu_lis_pedidos
         + no_mostrar_calendario : Boolean
         + validador : Validator
@@ -151,6 +137,7 @@ package pedidos <<Folder>> #F9E79F {
         + print_precio
         + input_precio
         + boton_mod_pedidos
+        + __init__(self, master, ...)
         + actualizar_posibles_combobox(self)
         + realizar_modificaciones(self)
 }

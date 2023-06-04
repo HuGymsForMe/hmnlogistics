@@ -48,8 +48,10 @@ class DelSucursales(tk.Toplevel):
             self.almacen_departamentos.del_departamentos_por_del_sucursal(dato_borrar_cod_sucursal)
             sucursal_cancel = messagebox.showinfo(message="SUCURSAL ELMINADO CORRECTAMENTE")
             self.on_close()
+        elif not reaviso:
+            pass
         elif dato_borrar_cod_sucursal not in self.posibles_cod_sucursal:
-            sucursal_not_found = messagebox.showerror(message="SUCURSAL NO ENCONTRADO EN EL SISTEMA")
+            sucursal_not_found = messagebox.showerror(message="SUCURSAL NO ENCONTRADA EN EL SISTEMA")
 
     #PLACEHOLDERS
     def clear_placeholder_eleccion_cod_sucursal(self, event):

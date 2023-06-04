@@ -48,6 +48,8 @@ class DelDistribuidores(tk.Toplevel):
             self.almacen_pedidos.del_pedidos_por_del_distribuidor(dato_borrar_distribuidor)
             distribuidor_cancel = messagebox.showinfo(message="DISTRIBUIDOR ELMINADO CORRECTAMENTE")
             self.on_close()
+        elif not reaviso:
+            pass
         elif dato_borrar_distribuidor not in self.posibles_cod_distribuidor:
             distribuidor_not_found = messagebox.showerror(message="DISTRIBUIDOR NO ENCONTRADO EN EL SISTEMA")
 

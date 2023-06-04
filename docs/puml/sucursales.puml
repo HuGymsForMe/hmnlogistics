@@ -1,0 +1,117 @@
+@startuml sucursales
+
+package sucursales <<Folder>> #F9E79F {
+    MenuSucursal <|-- AddSucursal
+    MenuSucursal <|-- DelSucursal
+    MenuSucursal <|-- LisSucursal
+    LisSucursal <|-- ModSucursal
+
+    together {
+  class AddSucursal
+  class DelSucursal
+  class LisSucursal
+}
+    class MenuSucursal #F6DDCC{
+        - _app
+        + master
+        + almacen_sucursales
+        + almacen_departamentos
+        + ventana_add_sucursales
+        + ventana_del_sucursales
+        + ventana_lis_sucursales
+        + title_sucursales
+        + boton_add_sucursales
+        + boton_del_sucursales
+        + boton_lis_sucursales
+        + title_sucursales
+        + boton_add_sucursales
+        + boton_del_sucursales
+        + boton_lis_sucursales
+        + __init__(self, master, ...)
+        + mostrar_menu(self)
+        + ocultar_menu(self)
+        + on_close(self)
+        + abrir_ventana_add_sucursales(self)
+        + abrir_ventana_del_sucursales(self)
+        + abrir_ventana_lis_sucursales(self)
+}
+    
+    class AddSucursal #F6DDCC{
+        + menu_sucursales
+        + PLACEHOLDER_PROVINCIA : str
+        + PLACEHOLDER_DIRECCION : str
+        + provincia_seleccionada
+        + input_direccion_seleccionado
+        + title_add_sucursal
+        + print_provincia
+        + posibles_provincias
+        + eleccion_provincia
+        + print_direccion
+        + input_direccion
+        + boton_add_sucursal
+        + __init__(self, master, ...)
+        + recoger_datos_sucursales(self)
+        + comprobar_sucursales(self)
+        + clear_placeholder_eleccion_provincia(self, event)
+        + set_placeholder_eleccion_provincia(self, event)
+        + clear_placeholder_input_direccion(self,event)
+        + set_placeholder_input_direccion(self, event)
+        + limpiar_campos(self)
+}
+
+    class DelSucursal #F6DDCC{
+        + menu_sucursales
+        + PLACEHOLDER_COD_SUCURSAL
+        + title_del_sucursales
+        + print_cod_sucursal
+        + eleccion_cod_sucursal
+        + boton_del_sucursales
+        + __init__(self, master, ...)
+        + actualizar_posibles_cod_sucursal(self)
+        + tratar_del_sucursal(self)
+        + clear_placeholder_eleccion_cod_sucursal(self, event)
+        + set_placeholder_eleccion_cod_sucursal(self, event)
+        + limpiar_campos(self)
+}
+
+    class LisSucursal #F6DDCC{
+        + menu_sucursales
+        + IMAGEN_MICRO
+        + foto_micro
+        + style
+        + cod_sucursal_var
+        + provincia_var
+        + direccion_var
+        + ventana_mod_sucursales
+        + title_lis_sucursales
+        + tree_sucursales
+        + print_filtro
+        + input_filtro
+        + boton_microfono
+        + tree_sucursales
+        + boton_mod_sucursales
+        + __init__(self, master, ...)
+        + recoger_datos(self)
+        + recoger_audio(self)
+        + crear_listado(self)
+        + realizar_busqueda(self, event)
+        + on_select(self, event)
+        + abrir_ventana_mod_sucursales(self)
+}
+
+    class ModSucursal #F6DDCC{
+        + menu_lis_sucursales
+        + print_cod_sucursal
+        + input_cod_sucursal
+        + posibles_provincias
+        + eleccion_provincia
+        + print_direccion
+        + input_direccion
+        + boton_mod_sucursales
+        + __init__(self, master, ...)
+        + realizar_modificaciones(self)
+}
+}
+  
+
+@enduml

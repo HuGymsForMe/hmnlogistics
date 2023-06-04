@@ -96,7 +96,7 @@ class LisDatosEmpleados(tk.Toplevel):
         except sr.UnknownValueError:
             messagebox.showerror(message="NO SE PUDO RECONOCER TU VOZ")
         except sr.RequestError:
-            messagebox.showerror(message="NO SE PUDO RECONOCER TU VOZ")
+            messagebox.showerror(message="SE HA PRODUCIDO UN ERROR")
         finally:
             self.boton_microfono.configure(state="normal")
 

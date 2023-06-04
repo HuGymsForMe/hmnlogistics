@@ -1,11 +1,5 @@
 @startuml hmnlogistics
-
-package hmnlogistics <<Folder>> #F9E79F {
-    MenuHmn <|-- MenuPedidos
-    MenuHmn <|-- MenuEmpleados
-    MenuHmn <|-- MenuDistribuidores
-    MenuHmn <|-- MenuSucursales
-    MenuHmn <|-- MenuDepartamentos
+package gui <<Folder>> #F9E79F {
     class MenuHmn #F6DDCC{
     + master : Tk
     + app
@@ -57,49 +51,80 @@ package hmnlogistics <<Folder>> #F9E79F {
 }
 package articulos <<Folder>> #F9E79F {
     MenuHmn <|-- MenuArticulos
-    class MenuArticulos #F6DDCC{
-    + master
-    - _app
-    + almacen_articulos
-    + almacen_clientes
-    + ventana_add_articulos: AddArticulos
-    + ventana_del_articulos: DelArticulos
-    + ventana_lis_articulos: LisArticulos
-    + title_articulos
-    + boton_add_articulos
-    + boton_del_articulos
-    + boton_lis_articulos
-    + mostrar_menu(self)
-    + ocultar_menu(self)
-    + on_close(self)
-    + abrir_ventana_add_articulos(self)
-    + abrir_ventana_del_articulos(self)
-    + abrir_ventana_lis_articulos(self)
-    }
+    class MenuArticulos #F6DDCC{}
 }
 package clientes <<Folder>> #F9E79F {
     MenuHmn <|-- MenuClientes
-    class MenuClientes #F6DDCC{
-    + master
-    - _app
-    + almacen_clientes
-    + almacen_sucursales
-    + almacen_articulos
-    + ventana_add_clientes : AddClientes
-    + ventana_del_clientes : DelClientes
-    + ventana_lis_clientes : LisClientes
-    + title_clientes
-    + boton_add_clientes
-    + boton_del_clientes
-    + boton_lis_clientes
-    + mostrar_menu(self)
-    + ocultar_menu(self)
-    + on_close(self)
-    + abrir_ventana_add_clientes(self)
-    + abrir_ventana_del_clientes(self)
-    + abrir_ventana_lis_clientes(self)
+    class MenuClientes #F6DDCC{}
+}
+package departamentos <<Folder>> #F9E79F {
+    MenuHmn <|-- MenuDepartamentos
+    class MenuDepartamentos #F6DDCC{}
+}
+package sucursales <<Folder>> #F9E79F {
+    MenuHmn <|-- MenuSucursales
+    class MenuSucursales #F6DDCC{}
+}
+package distribuidores <<Folder>> #F9E79F {
+    MenuHmn <|-- MenuDistribuidores
+    class MenuDistribuidores #F6DDCC{}
+}
+package pedidos <<Folder>> #F9E79F {
+    MenuHmn <|-- MenuPedidos
+    class MenuPedidos #F6DDCC{}
+}
+package empleados <<Folder>> #F9E79F {
+    MenuHmn <|-- MenuEmpleados
+    class MenuEmpleados #F6DDCC{}
 }
 }
-}
+package cnx <<Folder>> #F9E79F {
+    MenuHmn --> Inserts
+    class Inserts #F6DDCC{
+        + cnx
+        + DELETE_PREVIO_DEPARTAMENTOS
+        + DELETE_PREVIO_PEDIDOS
+        + DELETE_PREVIO_DISTRIBUIDORES
+        + DELETE_PREVIO_SUCURSALES
+        + DELETE_PREVIO_CLIENTES
+        + DELETE_PREVIO_ARTICULOS
+        + DELETE_PREVIO_DATOS_EMPLEADOS
+        + DELETE_PREVIO_EMPLEADOS
+        + CAMPO_0
+        + CAMPO_1
+        + CAMPO_2
+        + CAMPO_3
+        + CAMPO_4
+        + CAMPO_5
+        + CAMPO_6
+        + ConstanteCampos.opciones()
+        + realizar_deletes(self)
+        + cargar_bbdd_distribuidores(self)
+        + cargar_bbdd_sucursales(self)
+        + cargar_bbdd_clientes(self)
+        + cargar_bbdd_articulos(self)
+        + cargar_bbdd_pedidos(self)
+        + cargar_bbdd_departamentos(self)
+        + cargar_bbdd_datos_empleados(self)
+        + cargar_bbdd_empleados(self)
 
+        
+}
+}
+package almacen <<Folder>> #F9E79F {
+    MenuHmn --> AlmacenArticulos
+    MenuHmn --> AlmacenClientes
+    MenuHmn --> AlmacenDepartamentos
+    MenuHmn --> AlmacenDistribuidores
+    MenuHmn --> AlmacenEmpleados
+    MenuHmn --> AlmacenPedidos
+    MenuHmn --> AlmacenSucursales
+    class AlmacenArticulos #F6DDCC{}
+    class AlmacenClientes #F6DDCC{}
+    class AlmacenDepartamentos #F6DDCC{}
+    class AlmacenDistribuidores #F6DDCC{}
+    class AlmacenEmpleados #F6DDCC{}
+    class AlmacenPedidos #F6DDCC{}
+    class AlmacenSucursales #F6DDCC{}
+}
 @enduml

@@ -1,0 +1,99 @@
+@startuml casos de uso
+
+left to right direction
+
+actor Usuario as User #73C6B6
+rectangle "HMNLogistics" #LightBlue{
+  usecase "Gestionar Articulos" as UC1
+  usecase "Gestionar Empleados" as UC2
+  usecase "Gestionar Distribuidores" as UC3
+  usecase "Gestionar Departamentos" as UC4
+  usecase "Gestionar Sucursales" as UC5
+  usecase "Gestionar Pedidos" as UC6
+  usecase "Gestionar Clientes" as UC7
+
+  usecase "Añadir Articulos" as UC11
+  usecase "Borrar Articulos" as UC12
+  usecase "Listar Articulos" as UC13
+
+  usecase "Añadir Empleados" as UC21
+  usecase "Borrar Empleados" as UC22
+  usecase "Listar Empleados" as UC23
+
+  usecase "Añadir Distribuidores" as UC31
+  usecase "Borrar Distribuidores" as UC32
+  usecase "Listar Distribuidores" as UC33
+
+  usecase "Añadir Departamentos" as UC41
+  usecase "Borrar Departamentos" as UC42
+  usecase "Listar Departamentos" as UC43
+
+  usecase "Añadir Sucursales" as UC51
+  usecase "Borrar Sucursales" as UC52
+  usecase "Listar Sucursales" as UC53
+
+  usecase "Añadir Pedidos" as UC61
+  usecase "Borrar Pedidos" as UC62
+  usecase "Listar Pedidos" as UC63
+
+  usecase "Añadir Clientes" as UC71
+  usecase "Borrar Clientes" as UC72
+  usecase "Listar Clientes" as UC73
+
+  usecase "Actualizar Información" as UC100
+}
+
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+User --> UC7
+
+UC1 --> UC11
+UC1 --> UC12
+UC1 --> UC13
+
+UC2 --> UC21
+UC2 --> UC22
+UC2 --> UC23
+
+UC3 --> UC31
+UC3 --> UC32
+UC3 --> UC33
+
+UC4 --> UC41
+UC4 --> UC42
+UC4 --> UC43
+
+UC5 --> UC51
+UC5 --> UC52
+UC5 --> UC53
+
+UC6 --> UC61
+UC6 --> UC62
+UC6 --> UC63
+
+UC7 --> UC71
+UC7 --> UC72
+UC7 --> UC73
+
+UC11 --> UC100
+UC12 --> UC100
+UC21 --> UC100
+UC22 --> UC100
+UC31 --> UC100
+UC32 --> UC100
+UC41 --> UC100
+UC42 --> UC100
+UC51 --> UC100
+UC52 --> UC100
+UC61 --> UC100
+UC62 --> UC100
+UC71 --> UC100
+UC72 --> UC100
+
+actor SGBD as BBDD #73C6B6
+BBDD --> UC100
+@enduml

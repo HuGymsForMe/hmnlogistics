@@ -23,6 +23,10 @@ class AlmacenPedidos(Almacen):
             return range(AlmacenPedidos.CamposFicheroCsv.COD_PEDIDO,
                         AlmacenPedidos.CamposFicheroCsv.PRECIO+1)
 
+    @property
+    def pedidos(self):
+        return self._pedidos
+
     def cargar_datos(self):
         try:
             with open(os.path.join(self.RUTA_FICHEROS, 'pedidos.csv'), 'r', 
@@ -83,7 +87,7 @@ class AlmacenPedidos(Almacen):
             contador = 0
             for pedido in self._pedidos:
                 if dato_borrar_pedido == pedido._cod_distribuidor:
-                    pedido._cod_distribuidor = '----'
+                    pedido._cod_distribuidor = 'D000'
                 contador += 1
             if contador == (len(self._pedidos)-1):
                 return False

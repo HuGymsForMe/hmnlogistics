@@ -22,7 +22,7 @@ class MenuDepartamentos(tk.Toplevel):
         self.minsize(300, 200)
         self.geometry("300x200+700+100")
         self.maxsize(300, 200)
-        self.title("MENÚ ARTICULOS")
+        self.title("MENÚ DEPARTAMENTOS")
         self.title_departamentos = ttk.Label(self, text="MENÚ DEPARTAMENTOS", font=("Helvetica", 14))
         self.boton_add_departamentos = ttk.Button(self, text="AÑADIR DEPARTAMENTO", command=self.abrir_ventana_add_departamentos)
         self.boton_del_departamentos = ttk.Button(self, text="BORRAR DEPARTAMENTO", command=self.abrir_ventana_del_departamentos)

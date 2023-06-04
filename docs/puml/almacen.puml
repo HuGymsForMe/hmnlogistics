@@ -1,0 +1,217 @@
+@startuml almacen
+package almacenes <<Folder>> #F9E79F {
+    Almacen <|-- AlmacenArticulos
+    Almacen <|-- AlmacenClientes
+    Almacen <|-- AlmacenDepartamentos
+    Almacen <|-- AlmacenDistribuidores
+    Almacen <|-- AlmacenEmpleados
+    Almacen <|-- AlmacenPedidos
+    Almacen <|-- AlmacenSucursales
+
+    together {
+  class AlmacenArticulos
+  class AlmacenClientes
+  class AlmacenDepartamentos
+  class AlmacenDistribuidores
+  class AlmacenEmpleados
+  class AlmacenPedidos
+  class AlmacenSucursales
+  
+}
+
+    abstract class Almacen #F6DDCC{
+        + cargar_datos(self)
+        + add_datos(self)
+        + del_datos(self)
+        + sobreescribir_datos(self)
+}
+
+    class AlmacenArticulos #F6DDCC{
+        - _self_cod_cliente_combobox : list
+        - clientes : list
+        - _app
+        + RUTA_FICHEROS
+        + COD_ARTICULO
+        + COD_CLIENTE
+        + NOMBRE
+        + DESCRIPCION
+        + CATEGORIA
+        + CamposFicheroCsv.opciones()
+        + articulos(self)
+        + del_articulos_por_del_cliente(self, dato_borrar_cliente)
+}
+
+    class AlmacenClientes #F6DDCC{
+        - _self_cod_articulo_combobox : list
+        - _articulos : list
+        - _app
+        + RUTA_FICHEROS
+        + COD_CLIENTE
+        + COD_SUCURSAL
+        + NOMBRE 
+        + CamposFicheroCsv.opciones()
+        + clientes(self) 
+}
+    class AlmacenDepartamentos #F6DDCC{
+        - _self_cod_departamento_combobox : list
+        - _departamentos : list
+        - _app
+        + RUTA_FICHEROS
+        + COD_DEPARTAMENTO
+        + COD_SUCURSAL
+        + NOMBRE 
+        + CamposFicheroCsv.opciones()
+        + departamentos(self) 
+        + del_departamentos_por_del_sucursal(self, dato_borrar_sucursal)
+}
+
+    class AlmacenDistribuidores #F6DDCC{
+        - _self_cod_distribuidor_combobox : list
+        - _distribuidores : list
+        - _app
+        + RUTA_FICHEROS
+        + COD_DISTRIBUIDOR 
+        + NOMBRE
+        + CamposFicheroCsv.opciones()
+        + distribuidores(self) 
+}
+
+    class AlmacenEmpleados #F6DDCC{
+        - _empleados : list
+        - _self_datos_empleados : list
+        - _dni_combobox : list
+        - _distribuidores : list
+        - _app
+        + RUTA_FICHEROS
+        + CAMPO_0
+        + CAMPO_1
+        + CAMPO_2
+        + CAMPO_3
+        + CAMPO_4
+        + CAMPO_5
+        + CAMPO_6
+        + CamposFicheroCsv.opciones()
+        + empleados(self)
+        + datos_empleados(self)
+        + add_datos_2(self, ...)
+        + del_datos_2(self, dato_dni)
+        + del_empleados_por_del_departamento(self, dato_borrar_departamento)
+}
+
+    class AlmacenPedidos #F6DDCC{
+        - _cod_pedido_combobox : list
+        - _pedidos : list 
+        - _app
+        + RUTA_FICHEROS
+        + COD_PEDIDO 
+        + COD_DISTRIBUIDOR
+        + COD_SUCURSAL
+        + FECHA_PEDIDO 
+        + CANTIDAD_ARTICULOS 
+        + PESO 
+        + PRECIO 
+        + CamposFicheroCsv.opciones()
+        + pedidos(self)
+        + del_pedidos_por_del_distribuidor(self, dato_borrar_pedido)
+}
+
+    class AlmacenSucursales #F6DDCC{
+        - _cod_sucursal_combobox : list
+        - _sucursales : list
+        - _app
+        + RUTA_FICHEROS
+        + COD_SUCURSAL
+        + PROVINCIA 
+        + DIRECCION
+        + CamposFicheroCsv.opciones()
+        + sucursales(self) 
+}
+
+}
+
+package clases <<Folder>> #F9E79F {
+    AlmacenArticulos --> Articulo
+    AlmacenClientes --> Cliente
+    AlmacenDepartamentos --> Departamento
+    AlmacenDistribuidores --> Distribuidor  
+    AlmacenEmpleados --> Empleado
+    AlmacenEmpleados --> DatosEmpleado
+    AlmacenPedidos --> Pedido
+    AlmacenSucursales --> Sucursal
+
+    class Articulo #F6DDCC{
+        - _cod_articulo
+        - _cod_cliente
+        - _nombre
+        - _descripcion
+        - _categoria
+        + __init__(self, ...)
+        + __str__(self)
+    }
+    class Cliente #F6DDCC{
+        - _cod_cliente
+        - _cod_sucursal
+        - _nombre
+        + __init__(self, ...)
+        + __str__(self)
+
+    }
+    class DatosEmpleado #F6DDCC{
+        - _dni
+        - _nombre
+        - _apellidos
+        - _fecha_nac
+        - _domicilio
+        + __init__(self, ...)
+        + __str__(self)
+
+    }
+    class Departamento #F6DDCC{
+        - _cod_departamento
+        - _cod_sucursal
+        - _nombre
+        + __init__(self, ...)
+        + __str__(self)
+
+    }
+    class Distribuidor #F6DDCC{
+        - _cod_distribuidor
+        - _nombre
+        + __init__(self, ...)
+        + __str__(self)
+
+    }
+    class Empleado #F6DDCC{
+        - _cod_empleado
+        - _cod_departamento
+        - _dni
+        - _fecha_alta
+        - _salario
+        - _telefono
+        - _oficio
+        + __init__(self, ...)
+        + __str__(self)
+
+    }
+    class Pedido #F6DDCC{
+        - _cod_pedido
+        - _cod_distribuidor
+        - _cod_sucursal
+        - _fecha_pedido
+        - _cantidad_articulos
+        - _peso
+        - _precio
+        + __init__(self, ...)
+        + __str__(self)
+
+    }
+    class Sucursal #F6DDCC{
+        - _cod_sucursal
+        - _provincia
+        - _direccion
+        + __init__(self, ...)
+        + __str__(self)
+
+    }
+}
+@enduml

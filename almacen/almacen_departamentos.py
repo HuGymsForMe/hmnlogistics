@@ -78,7 +78,7 @@ class AlmacenDepartamentos(Almacen):
             contador = 0
             for departamento in self._departamentos:
                 if dato_borrar_sucursal == departamento._cod_sucursal:
-                    departamento._cod_sucursal = '----'
+                    departamento._cod_sucursal = 'S000'
                 contador += 1
             if contador == (len(self._departamentos)-1):
                 return False

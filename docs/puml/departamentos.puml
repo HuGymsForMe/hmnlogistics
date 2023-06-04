@@ -1,0 +1,112 @@
+@startuml departamentos
+
+package departamentos <<Folder>> #F9E79F {
+    MenuDepartamentos <|-- AddDepartamentos
+    MenuDepartamentos <|-- DelDepartamentos
+    MenuDepartamentos <|-- LisDepartamentos
+    LisDepartamentos <|-- ModDepartamentos
+
+    together {
+  class AddDepartamentos
+  class DelDepartamentos
+  class LisDepartamentos
+}
+
+    class MenuDepartamentos #F6DDCC{
+        - _app
+        + almacen_departamentos
+        + almacen_sucursal
+        + almacen_empleados
+        + ventana_add_empleados
+        + ventana_del_departamentos
+        + ventana_lis_departamentos
+        + title_departamentos
+        + boton_add_departamentos
+        + boton_del_departamentos
+        + boton_lis_departamentos
+        + __init__(self, master, ...)
+        + ocultar_menu(self)
+        + abrir_ventana_add_departamentos(self)
+        + abrir_ventana_del_departamentos(self)
+        + abrir_ventana_lis_departamentos(self)
+        + on_close(self)
+
+}
+
+    class AddDepartamentos #F6DDCC{
+        + menu_departamentos
+        + cod_sucursal_seleccionado
+        + nombre_seleccionado
+        + title_add_empleados
+        + print_cod_sucursal
+        + eleccion_cod_sucursal
+        + print_nombre
+        + input_nombre
+        + boton_add_departamentos
+        + __init__(self, master, ...)
+        + recoger_datos_departamentos(self)
+        + comprobar_departamentos(self)
+        + actualizar_posibles_sucursales(self)
+        + clear_placeholder_eleccion_cod_sucursal(self, event)
+        + set_placeholder_eleccion_cod_sucursal(self, event)
+        + clear_placeholder_input_nombre(self, event)
+        + clear_placeholder_input_nombre(self, event)
+        + limpiar_campos(self)
+}
+
+    class DelDepartamentos #F6DDCC{
+        + menu_departamentos
+        + PLACEHOLDER_COD_DEPARTAMENTO : str
+        + cod_departamento_seleccionado
+        + title_del_departamentos
+        + print_cod_departamento
+        + eleccion_cod_departamento
+        + boton_del_departamento
+        + __init__(self, master, ...)
+        + actualizar_posibles_cod_departamento(self)
+        + tratar_del_departamento(self)
+        + clear_placeholder_eleccion_cod_departamento(self, event)
+        + set_placeholder_eleccion_cod_departamento(self, event)
+        + limpiar_campos(self)
+}
+
+    class LisDepartamentos #F6DDCC{
+        + menu_departamentos
+        + IMAGEN_MICRO
+        + cod_departamento_var
+        + cod_sucursal_var
+        + nombre_var
+        + ventana_mod_departamentos
+        + foto_micro
+        + title_lis_departamentos
+        + tree_departamentos
+        + print_filtro
+        + input_filtro
+        + boton_microfono
+        + boton_mod_departamentos
+        + __init__(self, master, ...)
+        + crear_listado(self)
+        + realizar_busqueda(self, event)
+        + recoger_datos(self)
+        + on_select(self, event)
+        + abrir_ventana_mod_departamentos(self)
+}
+
+    class ModDepartamentos #F6DDCC{
+        + menu_lis_departamentos
+        + print_cod_departamento
+        + input_cod_departamento
+        + print_cod_sucursal
+        + eleccion_cod_sucursal
+        + print_nombre
+        + input_nombre
+        + boton_mod_departamentos
+        + __init__(self, master, ...)
+        + actualizar_posibles_cod_sucursal(self)
+        + realizar_modificaciones(self)
+}
+
+}
+
+
+@enduml

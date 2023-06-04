@@ -25,7 +25,6 @@ class MenuSucursales(tk.Toplevel):
         self.boton_add_sucursales = ttk.Button(self, text="AÑADIR SUCURSAL", command=self.abrir_ventana_add_sucursales)
         self.boton_del_sucursales = ttk.Button(self, text="BORRAR SUCURSAL", command=self.abrir_ventana_del_sucursales)
         self.boton_lis_sucursales = ttk.Button(self, text="MIS SUCURSALES", command=self.abrir_ventana_lis_sucursales)
-        #self.boton_mod_sucursales = ttk.Button(self, text="MIS SUCURSALES", command=self.abrir_ventana_mod_sucursales) #FUTURA IMPLEMENTACIÓN
 
     def mostrar_menu(self):
         self.deiconify()
@@ -33,7 +32,6 @@ class MenuSucursales(tk.Toplevel):
         self.boton_add_sucursales.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.boton_del_sucursales.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.boton_lis_sucursales.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
-        #self.boton_mod_sucursales.pack(side=TOP, fill=BOTH, expand=True, padx=10, pady=5)
         self.mainloop()
 
     def ocultar_menu(self):

@@ -131,7 +131,7 @@ class AlmacenEmpleados(Almacen):
             contador = 0
             for empleado in self._empleados:
                 if dato_borrar_departamento == empleado._cod_departamento:
-                    empleado._cod_departamento = '-------'
+                    empleado._cod_departamento = 'DEPT000'
                 contador += 1
             if contador == (len(self._empleados)-1):
                 return False

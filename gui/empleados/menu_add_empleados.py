@@ -144,7 +144,8 @@ class AddEmpleados(tk.Toplevel):
         if (dato_cod_departamento in self.posibles_departamentos
          and dato_oficio in self.posibles_oficios
          and self.validador.validador_dni(dato_dni) 
-         and self.validador.validador_telefono(dato_telefono)):
+         and self.validador.validador_telefono(dato_telefono)
+         and self.validador.validador_es_numero(dato_salario)):
             datos = messagebox.askyesno(message=f"DATOS:\nCÓDIGO DE EMPLEADO: {dato_cod_empleado}\nCÓDIGO DE DEPARTAMENTO: {dato_cod_departamento}\n\
 DNI: {dato_dni}\nNOMBRE: {dato_nombre}\nAPELLIDOS: {dato_apellidos}\nFECHA DE NACIMIENTO: {dato_fecha_nac}\nFECHA DE ALTA: {dato_fecha_alta}\n\
 SALARIO: {dato_salario}\nDOMICILIO: {dato_domicilio}\nTELÉFONO: {dato_telefono}\nOFICIO: {dato_oficio}")

@@ -1,0 +1,114 @@
+@startuml clientes
+
+package clientes <<Folder>> #F9E79F {
+    MenuClientes <|-- AddClientes
+    MenuClientes <|-- DelClientes
+    MenuClientes <|-- LisClientes
+    LisClientes <|-- ModClientes
+
+    together {
+  class AddClientes
+  class DelClientes
+  class LisClientes
+}
+
+    class MenuClientes #F6DDCC{
+        - _app
+        + master    
+        + almacen_clientes
+        + almacen_sucursales
+        + almacen_articulos
+        + ventana_add_clientes
+        + ventana_del_clientes
+        + ventana_mod_clientes
+        + title_del_clientes
+        + boton_add_clientes
+        + boton_del_clientes
+        + boton_lis_clientes
+        + __init__(self, master, ...)
+        + mostrar_menu(self)
+        + ocultar_menu(self)
+        + on_close(self)
+        + abrir_ventana_add_clientes(self)
+        + abrir_ventana_del_clientes(self)
+        + abrir_ventana_lis_clientes(self)
+}
+
+    class AddClientes #F6DDCC{
+        + menu_clientes
+        + sucursal_seleccionada
+        + input_nombre_seleccionado
+        + title_add_clientes
+        + print_nombre
+        + input_nombre
+        + print_cod_sucursal
+        + eleccion_cod_sucursal
+        + boton_add_sucursal
+        + __init__(self, master, ...)
+        + actualizar_posibles_sucursales(self)
+        + recoger_datos_clientes(self)
+        + comprobar_clientes(self)
+        + clear_placeholder_input_nombre(self, event)
+        + set_placeholder_input_nombre(self, event)
+        + clear_placeholder_eleccion_cod_sucursal(self, event)
+        + set_placeholder_eleccion_cod_sucursal(self, event)
+        + limpiar_campos(self)
+}
+
+    class DelClientes #F6DDCC{
+        + menu_clientes
+        + title_del_clientes
+        + print_cod_cliente
+        + eleccion_cod_cliente
+        + boton_del_clientes
+        + title_del_clientes
+        + print_cod_cliente
+        + eleccion_cod_cliente
+        + boton_del_cliente
+        + __init__(self, master, ...)
+        + actualizar_posibles_cod_cliente(self)
+        + tratar_del_cliente(self)
+        + clear_placeholder_eleccion_cod_cliente(self, event)
+        + set_placeholder_eleccion_cod_cliente(self, event)
+        + limpiar_campos(self)
+}
+
+    class LisClientes #F6DDCC{
+        + menu_clientes
+        + IMAGEN_MICRO
+        + cod_cliente_var
+        + cod_sucursal_var
+        + nombre_var
+        + ventana_mod_clientes
+        + foto_micro
+        + style
+        + title_lis_clientes
+        + tree_clientes
+        + print_filtro
+        + input_filtro
+        + boton_microfono
+        + boton_mod_clientes
+        + __init__(self, master, ...)
+        + crear_listado(self)
+        + realizar_busqueda(self, event)
+        + recoger_datos(self)
+        + recoger_audio(self)
+        + on_select(self, event)
+        + abrir_ventana_mod_clientes(self)
+}
+
+    class ModClientes #F6DDCC{
+        + menu_lis_clientes
+        + print_cod_cliente
+        + input_cod_cliente
+        + print_cod_sucursal
+        + eleccion_cod_sucursal
+        + print_nombre
+        + input_nombre
+        + boton_mod_clientes
+        + actualizar_posibles_cod_sucursal(self)
+        + realizar_modificaciones(self)
+}
+}
+
+@enduml

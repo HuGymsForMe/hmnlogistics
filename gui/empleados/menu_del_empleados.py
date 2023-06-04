@@ -48,6 +48,8 @@ class DelEmpleados(tk.Toplevel):
         if self.almacen_empleados.del_datos_2(dato_dni) and reaviso:
             empleado_cancel = messagebox.showinfo(message="EMPLEADO ELMINADO CORRECTAMENTE")
             self.on_close()
+        elif not reaviso:
+            pass
         elif dato_dni not in self.posibles_dni:
             empleado_not_found = messagebox.showerror(message="EMPLEADO NO ENCONTRADO EN EL SISTEMA")
 

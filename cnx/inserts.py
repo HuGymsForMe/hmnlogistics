@@ -5,15 +5,6 @@ from cnx.conexion import conexion
 from datetime import datetime
 
 class Inserts:
-    class ConstantesCampos:
-        CAMPO_0 = 0
-        CAMPO_1 = 1
-        CAMPO_2 = 2
-        CAMPO_3 = 3
-        CAMPO_4 = 4
-        CAMPO_5 = 5
-        CAMPO_6 = 6
-        
     def __init__(self):
         self.cnx = conexion()
         self.RUTA_FICHEROS = os.path.abspath('../hmnlogistics/files')
@@ -25,7 +16,15 @@ class Inserts:
         self.DELETE_PREVIO_ARTICULOS = f"DELETE FROM hmn_articulos;"
         self.DELETE_PREVIO_DATOS_EMPLEADOS = f"DELETE FROM hmn_datos_empleados;"
         self.DELETE_PREVIO_EMPLEADOS = f"DELETE FROM hmn_empleados;"
-
+    class ConstantesCampos:
+        CAMPO_0 = 0
+        CAMPO_1 = 1
+        CAMPO_2 = 2
+        CAMPO_3 = 3
+        CAMPO_4 = 4
+        CAMPO_5 = 5
+        CAMPO_6 = 6
+        
         @staticmethod
         def opciones():
             return range(ConstantesCampos.TELEFONO,

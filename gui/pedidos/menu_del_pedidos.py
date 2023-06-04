@@ -45,6 +45,8 @@ class DelPedidos(tk.Toplevel):
         reaviso = messagebox.askyesno(message="¿DESEA ELIMINAR EL PEDIDO?")
         if (self.almacen_pedidos.del_datos(dato_borrar_pedido) and reaviso):
             articulo_cancel = messagebox.showinfo(message="PEDIDO ELMINADO CORRECTAMENTE")
+        elif not reaviso:
+            pass
         elif dato_borrar_pedido not in self.posibles_cod_pedido:
             articulo_not_found = messagebox.showerror(message="PEDIDO NO ENCONTRADO EN EL SISTEMA")
 

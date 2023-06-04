@@ -22,7 +22,7 @@ class DelClientes(tk.Toplevel):
         self.cod_cliente_seleccionado = tk.StringVar()
 
         self.title_del_clientes = ttk.Label(self, text="BORRAR CLIENTE", font=("Helvetica", 12))
-        self.print_cod_cliente= ttk.Label(self, text="CÓDIGO DE CLIENTE:", font=("Helvetica", 9))
+        self.print_cod_cliente = ttk.Label(self, text="CÓDIGO DE CLIENTE:", font=("Helvetica", 9))
         self.eleccion_cod_cliente = ttk.Combobox(self, values=[], textvariable=self.cod_cliente_seleccionado, foreground="gray")
         self.eleccion_cod_cliente.insert(0, self.PLACEHOLDER_COD_CLIENTE)
         self.eleccion_cod_cliente.bind('<FocusIn>', self.clear_placeholder_eleccion_cod_cliente)
@@ -48,6 +48,8 @@ class DelClientes(tk.Toplevel):
             self.almacen_articulos.del_articulos_por_del_cliente(dato_borrar_cliente)
             cliente_cancel = messagebox.showinfo(message="CLIENTE ELMINADO CORRECTAMENTE") #AVISAR AL USUARIO QUE SI BORRA EL CLIENTE, BORRA SUS ARTÍCULOS
             self.on_close()
+        elif not reaviso:
+            pass
         else:
             cliente_not_found = messagebox.showerror(message="CLIENTE NO ENCONTRADO EN EL SISTEMA")
 

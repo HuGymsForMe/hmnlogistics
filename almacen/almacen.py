@@ -1,18 +1,22 @@
 from abc import ABC, abstractmethod
 
 class Almacen(ABC):
-    #@abstractmethod
+    @abstractmethod
     def cargar_datos(self):
         pass
 
-    #@abstractmethod
+    @abstractmethod
     def add_datos(self):
         pass
+
+    @abstractmethod
+    def generar_combobox(self):
+        pass
     
-    #@abstractmethod
+    @abstractmethod
     def del_datos(self):
         pass
 
-    #@abstractmethod
+    @abstractmethod
     def sobreescribir_datos(self):
         pass

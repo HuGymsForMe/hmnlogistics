@@ -48,6 +48,8 @@ class DelDepartamentos(tk.Toplevel):
             self.almacen_empleados.del_empleados_por_del_departamento(dato_borrar_departamento)
             departamento_cancel = messagebox.showinfo(message="DEPARTAMENTO ELMINADO CORRECTAMENTE")
             self.on_close()
+        elif not reaviso:
+            pass
         elif dato_borrar_departamento not in self.posibles_cod_departamento:
             departamento_not_found = messagebox.showerror(message="DEPARTAMENTO NO ENCONTRADO EN EL SISTEMA")
 

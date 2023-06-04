@@ -1,0 +1,239 @@
+@startuml empleados
+
+package empleados <<Folder>> #F9E79F {
+    MenuEmpleados <|-- AddEmpleados
+    MenuEmpleados <|-- DelEmpleados
+    MenuEmpleados <|-- LisEmpleados
+    MenuEmpleados <|-- LisDatosEmpleados
+    LisEmpleados <|-- ModEmpleados
+    LisDatosEmpleados <|-- ModDatosEmpleados
+
+    together {
+  class AddEmpleados
+  class DelEmpleados
+  class LisEmpleados
+  class LisDatosEmpleados
+}
+together {
+  class ModEmpleados
+  class ModDatosEmpleados
+}
+
+    class MenuEmpleados #F6DDCC{
+        + master
+        - _app
+        + almacen_empleados
+        + almacen_departamentos
+        + ventana_add_empleados
+        + ventana_del_empleados
+        + ventana_lis_empleados
+        + ventana_lis_datos_empleados
+        + title_empleados
+        + boton_add_empleados
+        + boton_del_empleados
+        + boton_lis_empleados
+        + boton_lis_datos_empleados
+        + __init__(self, master, ...)
+        + mostrar_menu(self)
+        + ocultar_menu(self)
+        + abrir_ventana_add_empleados(self)
+        + abrir_ventana_del_empleados(self)
+        + abrir_ventana_lis_empleados(self)
+        + abrir_ventana_lis_datos_empleados(self)
+}
+
+    class AddEmpleados #F6DDCC{
+        + almacen_empleados
+        + almacen_departamentos
+        + menu_empleados
+        + validator
+        + PLACEHOLDER_COD_DEPARTAMENTO : str
+        + PLACEHOLDER_DNI : str
+        + PLACEHOLDER_NOMBRE : str
+        + PLACEHOLDER_APELLIDOS : str
+        + PLACEHOLDER_FECHA_NAC : str
+        + PLACEHOLDER_SALARIO : str
+        + PLACEHOLDER_DOMICILIO : str
+        + PLACEHOLDER_TELEFONO : str
+        + PLACEHOLDER_OFICIO : str
+        + cod_empleado_seleccionado
+        + cod_departamento_seleccionado
+        + dni_seleccionado
+        + nombre_seleccionado
+        + apellidos_seleccionados
+        + fecha_nac_seleccionada
+        + fecha_alta_seleccionado
+        + salario_seleccionado
+        + domicilio_seleccionado
+        + telefono_seleccionado
+        + oficio_seleccionado
+        + title_add_empleados
+        + print_cod_departamento
+        + eleccion_cod_departamento
+        + print_dni
+        + input_dni
+        + print_nombre
+        + input_nombre
+        + print_apellidos
+        + input_apellidos
+        + print_fecha_nac
+        + input_fecha_nac
+        + print_salario
+        + input_salario
+        + print_domicilio
+        + input_domicilio
+        + print_telefono
+        + input_telefono
+        + print_oficio
+        + posibles_oficios
+        + eleccion_oficio
+        + boton_add_empleados
+        + __init__(self, master, ...)
+        + actualizar_posibles_departamentos(self)
+        + recoger_datos_empleados(self)
+        + comprobar_empleados(self)
+        + clear_placeholder_eleccion_cod_departamento(self, event)
+        + set_placeholder_eleccion_cod_departamento(self, event)
+        + clear_placeholder_input_dni(self, event)
+        + set_placeholder_input_dni(self, event)
+        + clear_placeholder_input_nombre(self, event)
+        + set_placeholder_input_nombre(self, event)
+        + clear_placeholder_input_apellidos(self, event)
+        + set_placeholder_input_apellidos(self, event)
+        + clear_placeholder_input_fecha_nac(self, event)
+        + set_placeholder_input_fecha_nac(self, event)
+        + clear_placeholder_input_salario(self, event)
+        + set_placeholder_input_salario(self, event)
+        + clear_placeholder_input_domicilio(self, event)
+        + set_placeholder_input_domicilio(self, event)
+        + clear_placeholder_input_telefono(self, event)
+        + set_placeholder_input_telfono(self, event)
+        + clear_placeholder_eleccion_oficio(self, event)
+        + set_placeholder_eleccion_oficio(self, event)
+
+}
+
+    class DelEmpleados #F6DDCC{
+        + menu_empleados
+        + PLACEHOLDER_DNI : str
+        + dni_seleccionado
+        + title_del_departamentos
+        + print_dni
+        + eleccion_dni
+        + boton_del_departamento
+        + __init__(self, master, ...)
+        + actualizar_posibles_dni(self)
+        + tratar_del_empleado(self)
+        + clear_placeholder_eleccion_dni(self, event)
+        + set_placeholder_eleccion_dni(self, event)
+        + limpiar_campos(self)
+}
+
+    class LisEmpleados #F6DDCC{
+        + menu_empleados
+        + IMAGEN_MICRO
+        + foto_micro
+        + style
+        + cod_empleado_var
+        + cod_departamento_var
+        + dni_var
+        + fecha_alta_var
+        + telefono_var
+        + salario_var
+        + oficio_var
+        + ventana_mod_empleados
+        + title_lis_empleados
+        + tree_empleados
+        + print_filtro
+        + input_filtro
+        + boton_microfono
+        + input_filtro
+        + boton_mod_empleados
+        + __init__(self, master, ...) 
+        + recoger_datos(self)
+        + recoger_audio(self)
+        + on_select(self, event)
+        + crear_listado(self)
+        + realizar_busqueda(self, event)
+        + abrir_ventana_mod_empleados(self)
+}
+
+    class LisDatosEmpleados #F6DDCC{
+        + menu_empleados
+        + IMAGEN_MICRO
+        + foto_micro
+        + style
+        + dni_var
+        + nombre_var
+        + apellidos_var
+        + fecha_nac_var
+        + domicilio_var
+        + ventana_mod_empleados
+        + tree_datos_empleados
+        + print_filtro
+        + input_filtro
+        + boton_microfono
+        + boton_mod_empleados
+        + __init__(self, master, ...)
+        + recoger_datos(self)
+        + recoger_audio(self)
+        + on_select(self, event)
+        + crear_listado(self)
+        + realizar_busqueda(self, event)
+        + abrir_ventana_mod_empleados(self)
+}
+
+    class ModDatosEmpleados #F6DDCC{
+        + menu_lis_datos_empleados
+        + print_dni
+        + input_dni
+        + print_nombre
+        + input_nombre
+        + print_apellidos
+        + input_apellidos
+        + print_fecha_nac 
+        + input_fecha_nac
+        + print_domicilio
+        + input_domicilio
+        + boton_mod_empleado
+        + __init__(self, master, ...)
+        + realizar_modificaciones(self)
+}
+
+    class ModEmpleados #F6DDCC{
+        + menu_lis_empleados
+        + print_cod_empleado
+        + input_cod_empleado
+        + print_cod_departamento
+        + eleccion_cod_departamento
+        + print_dni
+        + input_dni
+        + print_telefono
+        + input_telefono
+        + print_salario
+        + input_salario
+        + print_oficio
+        + posibles_oficios
+        + eleccion_oficio
+        + boton_mod_empleado
+        + __init__(self, master, ...)
+        + actualizar_posibles_cod_departamento(self)
+        + realizar_modificaciones(self)
+}
+}
+
+package clases <<Folder>> #F9E79F{
+    AddEmpleados --> Validator : A tener en cuenta
+    note on link : Solo reflejo los atributos y métodos\nnecesarios para este directorio.
+
+    
+    class Validator #F6DDCC{ 
+        + formato_dni
+        + formato_telefono
+        + validador_dni(self, dato_dni)
+        + validador_telefono(self, dato_telefono: str)
+}
+}
+
+
+@enduml
